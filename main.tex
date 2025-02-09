@@ -1,0 +1,182 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[journal,twoside,web]{ieeecolor}
+\usepackage{orcidlink}
+\usepackage{lcsys}
+\usepackage{amsmath,amssymb,amsfonts} % assumes amsmath package installed
+
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{remark}{Remark}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{problem}{Problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{mathtools}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% For the references above equality and others relationships in equations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{relctr} %% <- counter for relations
+\everydisplay\expandafter{\the\everydisplay\setcounter{relctr}{0}} %% <- reset every eq
+\renewcommand*\therelctr{\alph{relctr}} %% <- label format
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\labelrel[2]{%
+  \begingroup
+    \refstepcounter{relctr}%
+    \stackrel{\textnormal{(\alph{relctr})}}{\mathstrut{#1}}%
+    \originallabel{#2}%
+  \endgroup
+}
+\AtBeginDocument{\let\originallabel\label} %% <- store original definition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Wireless Control With Channel State Detection And Message Dropout Compensation}
+% \title{Linear Quadratic Regulation With Wireless Control Message Dropout Compensation}
+% \title{Robust Linear Quadratic Regulation Over Polytopic Time-Inhomogeneous Markovian Channels Under Generalized Packet Dropout Compensation}
+
+% \title{Robust LQR Over Polytopic Time-Inhomogeneous Markov Channels Under Generalized Packet Dropout Compensation}
+
+\author{Yuriy \textbf{Zacchia Lun}\,\textsuperscript{\orcidlink{0000-0002-9408-8773}},\,\IEEEmembership{Member, IEEE}, Fortunato \textbf{Santucci}\,\textsuperscript{\orcidlink{0000-0002-0229-6277}},\,\IEEEmembership{Senior Member, IEEE},\\ and Alessandro \textbf{D'Innocenzo}\,\textsuperscript{\orcidlink{0000-0002-5239-0894}},\,\IEEEmembership{Member, IEEE}
+\thanks{The authors are with the 
+Department of Information Engineering, Computer Science and Mathematics (DISIM), University of L'Aquila, L'Aquila 67100, Italy. (e-mail addresses:
+        {yuriy.zacchialun@univaq.it},\\ {fortunato.santucci@univaq.it}, and {alessandro.dinnocenzo@univaq.it})}%
+}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\markboth{\journalname, VOL. XX, NO. XX, XXXX}
+{Zacchia Lun \MakeLowercase{\textit{et al.}}: Wireless Control With Channel State Detection And Message Dropout Compensation}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+This letter addresses.
+\end{abstract}
+\begin{keywords}
+Control over communications, Markov processes.
+\end{keywords}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{sec:intro}
+\IEEEPARstart{W}{ireless} networked control systems 
+
+The \textit{contribution} of this letter is twofold:
+\begin{itemize}
+\item It introduces.
+\item It solves.
+\end{itemize}
+This letter is \emph{organized} as follows. . 
+
+\textit{Notation:} $\mathbb{R}$, $\mathbb{Z}^{+}$, and $\mathbb{Z}^{0+}$ indicate the sets of reals and positive and nonnegative integers. $\mathbb{R}^{n}$ indicates the $n$-dimensional Euclidean space. The symmetric positive definite and positive semi-definite matrices $M$ are denoted by $M\succ 0$ and $M\succeq 0$. Then, $M^{\top}$ indicates the transpose of a matrix $M$. Finally, $\mathbb{P}$ represents the probability of an event, and $\mathbb{E}$ denotes the expected value of a random variable.
+\section{System Model and Problem Definition}\label{sec:model}
+Consider a discrete-time linear system
+\begin{equation}\label{eq:state}
+        x_{k+1} = A x_{k} + B u_{k}^{} + w_{k},
+\end{equation}
+where $\forall k \!\in\! \mathbb{Z}^{0+}$, $x_k\!\in\!\mathbb{R}^{n_x}$ and $u_k^{}\!\in\!\mathbb{R}^{n_u}$ are the system state and control input to actuators, $A$ and $B$ are state and input matrices of appropriate size, and $w_k\!\in\!\mathbb{R}^{n_x}$ is a white Gaussian process noise having zero mean and covariance matrix $\Sigma_w$.
+
+$\{\delta_k\}$ is a binary stochastic process that models the packet loss between the controller and the actuators, and $u_k^c\!\in\!\mathbb{R}^{n_u}$ is the updated desired control input sent by the remote controller. Upon correct delivery, $u_k^{}\!=\!u_k^c$; otherwise, if the desired control input is corrupted or lost, the actuators apply a scaled version of an outdated control input, $u_k^{}\!=\!\phi u_{k-1}^{}$, with $\phi \in [0,1]$.
+This generalized approach to control-packet dropout compensation covers both the zero-input ($\phi\!=\!0$) and hold-input ($\phi\!=\!1$) PDCs as notable cases. 
+\subsection{Polytopic Markovian channel model}\label{subsec:ptifsmc}
+We model the dynamics of the control-packet loss process $\{\delta_k\}$ in the wireless propagation environment as an FSMC. 
+
+This channel has a fixed finite set $\mathcal{S}$ of states $\{s_i\}_{i=1}^{N}$, each characterized by predefined signal-to-interference-plus-noise ratio (SINR) thresholds, which do not vary in time, so the state number remains constant, and each channel state has a specific packet dropout probability. 
+A discrete-time Markov chain $\{\theta_k\}$ determines the active channel state, whose packet dropout probability and transition probabilities (TPs) depend on the SINR dynamics. So, we formally define the FSMC as follows.
+For all $k\in \mathbb{Z}^{0+}$,
+\begin{equation}\label{eq:p-ij}
+    \mathbb{P}(\theta_{k} = s_j \mid \theta_{k-1} = s_i) = p_{ij} \geq 0,~ \sum_{j=1}^N p_{ij} = 1,
+\end{equation}
+\begin{align}\label{eq:p-delta}
+\begin{aligned}
+    \mathbb{P}(\delta_k = 1 \mid \theta_{k} = s_j) &= \hat{\delta}_{j}(k),\\
+    \mathbb{P}(\delta_k = 0 \mid \theta_{k} = s_j) &= 1 - \hat{\delta}_{j}(k).    
+\end{aligned}
+\end{align}
+For notational convenience, group %the
+channel state TPs in the transition probability matrix (TPM) $P_{c}^{} \triangleq \left[p_{ij}\right]_{i,j=1}^{N}$
+% \begin{equation}\label{eq:Pc}
+%     P_{c}^{}(k) \triangleq \left[p_{ij}(k)\right]_{i,j=1}^{N}
+% \end{equation}
+and the  success (or, conversely, failure) probabilities of delivering a packet at time $k$ in the following matrices:
+\begin{equation}\label{eq:Ps}
+    P_{s}^{} \triangleq \left[p_{ij}\hat{\delta}_{j}\right]_{i,j=1}^{N},~P_{f} = P_{c} - P_{s}.
+\end{equation}
+We also indicate the channel state probability at time $k$ as
+\begin{equation}\label{eq:pik}
+     \mathbb{P}(\theta_{k} = s_i) = \pi_{i}(k).
+\end{equation}
+Inspired by Costa et al., we use the detector with an emission probability matrix (EPM) $P_{e}^{} \triangleq \left[\alpha_{i\mu}\right]_{i,\mu=1}^{N,M}$, where
+\begin{equation}\label{eq:alpha}
+   \mathbb{P}(\hat{\theta}_{k} = \hat{s}_{\mu} \mid \theta_{k} = s_i) = \alpha_{i\mu} \geq 0,~ \sum_{i=1}^N \alpha_{i\mu}= 1.
+\end{equation}
+We then define the following diagonal matrices.
+\begin{equation}\label{eq:epm}
+     P_{\pi}^{}(k) = \bigoplus_{i=1}^{N} \pi_{i}(k),~P_{\alpha}^{}(\mu) = \bigoplus_{i=1}^{N} \alpha_{i\mu}
+\end{equation}
+\subsection{System states in packet delivery time instances}
+Count the consecutive control message dropouts observed by a controller at time step $k$ in a stochastic variable $\mathit{\Delta}_{k}$.
+\begin{equation}\label{eq:z-k}
+    \mathit{\Delta}_{k}=(1-\delta_{k-1})(\mathit{\Delta}_{k-1}+1).
+\end{equation}
+\begin{equation}\label{eq:zl}
+    \mathit{\Delta}_{k}=\ell\Leftrightarrow \delta_{k-1-\ell}=1 \land 
+	\delta_{k-t}=0 ~ \forall t\in\mathbb{Z}^{+} : t\leq \ell.
+\end{equation}
+Notably, if $\ell\!=\!0$, then $\left\{t\right\}_{t=1}^{0} \!=\! \emptyset$, meaning that \eqref{eq:zl} becomes $\mathit{\Delta}_{k}\!=\!0\Leftrightarrow \delta_{k-1}\!=\!1$.
+Denote by $\mathcal{T}$ a set of time instances in which actuators successfully receive the controller's messages: %. Formally, 
+\begin{subequations}\label{eq:tau} 
+\begin{equation}\label{eq:calT}
+    \mathcal{T} \triangleq \left\{ k : \delta_k = 1 \right\}_{k\in\mathbb{Z}^{0+}} = \{ \tau_{(m)}\}_{m\in\mathbb{Z}^{0+}}.
+\end{equation}
+From \eqref{eq:z-k}, \eqref{eq:zl}, and \eqref{eq:calT}, for all $m\in\mathbb{Z}^{0+}$,
+\begin{equation}\label{eq:deltatau}
+    \tau_{(m)} \in \mathcal{T}  \Rightarrow \delta_{\tau_{(m)}} = 1 \Rightarrow \mathit{\Delta}_{\tau_{(m)}+1} = 0,
+\end{equation}
+\begin{equation}\label{eq:tau+}
+    \tau_{(m+1)} = \tau_{(m)} + 1 + \mathit{\Delta}_{\tau_{(m+1)}}.
+\end{equation}
+\end{subequations}
+
+For the notational convenience, for any $k,n\in\mathbb{Z}^{0+}$, let
+\begin{equation}\label{eq:calPsi}
+W_{\!(k,n)} \!\triangleq\! \sum\nolimits_{j=0}^{n}A^{n-j} w_{k+j}^{}.
+\end{equation}
+
+\subsection{System model for LQR}
+To provide the stochastic characterization of the above system dynamics, we group the current duration of a packet error burst and the last known wireless channel state in one augmented discrete state:
+$\eta_{k}^{} \!\triangleq\! (\mathit{\Delta}_{k},\theta_{k-1})$. Then, from \eqref{eq:tau},
+\begin{subequations}\label{eq:etatau}
+\begin{equation}
+    \eta_{\tau_{(m)}}^{} = (\mathit{\Delta}_{\tau_{(m)}},\theta_{\tau_{(m)}-1}),
+\end{equation}
+\begin{equation}
+    \eta_{\tau_{(m+1)}}^{} = (\mathit{\Delta}_{\tau_{(m+1)}},\theta_{\tau_{(m)}+\mathit{\Delta}_{\tau_{(m+1)}}}),
+\end{equation}
+\end{subequations}
+where $\mathit{\Delta}_{\tau_{(m+1)}}$ indicates the time interval the transmitted control input may remain active. From the controller's perspective, $\eta_{\tau_{(m)}}^{}$ is known, while $\eta_{\tau_{(m+1)}}^{}$ is a random variable.
+\begin{lemma}\label{lemma:z}
+For any pair of discrete states \eqref{eq:etatau}, it holds.\\
+$e_i$ and $e_j$ denote the $i$th and $j$th column vectors of the standard basis of $\mathbb{R}^{N}$ (all their components are zero except the $i$th for $e_i$ and $j$th for $e_j$, and the nonzero element equals one), and $\mathbf{1}$ indicates the column vector of length $N$ with all components equal one.
+\end{lemma}
+\begin{remark}\label{rem:1}
+TPs are independent of $\ell$, the value of $\mathit{\Delta}_{\tau_{(m)}}$.
+\end{remark}
+
+% \section*{ACKNOWLEDGMENT}
+% Put sponsor acknowledgments in the unnumbered footnote on the first page.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \bibliographystyle{IEEEtran}
+% \bibliography{biblio}
+
+\end{document}
