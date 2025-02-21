@@ -712,20 +712,49 @@ For notational convenience,
 \end{equation}
 so that $\xi_{T-1}=L$, and $\xi_{k} = 0$ for all $k<T-L$.
 \begin{equation}\label{eq:fh-x-t}
-    \mathcal{X}_{(T,s_i)} = Q,    
+    \mathcal{X}_{(T,\hat{s}_{\mu})} = Q,    
 \end{equation}
 \begin{equation}\label{eq:fh-g-t}
-    g_{(T,s_i)} = 0. 
+    g_{(T,\hat{s}_{\mu})} = 0. 
 \end{equation}
 \begin{align}\label{eq:fh-a}
-    \mathcal{A}_{(\tau_{(m)},\hat{s}_{\mu})} = Q + \sum_{h=0}^{L-\xi_k}q_{\mu h}^{\tau_{(m)}}\sum_{r=1}^{h} A^{r \top} Q A^{r} \,+ \sum_{h=0}^{L-\xi_k} \sum_{\nu=1}^{M} \zeta_{(\mu,n,\nu)}^{\tau_{(m)}}  (A^{h+1})^{\top} \mathcal{X}_{(\tau_{(m)}+1+h,\hat{s}_{\nu})} A^{h+1},
+    \mathcal{A}_{(\tau_{(m)},\hat{s}_{\mu})} = Q + 
+    \sum_{h=0}^{L-\xi_k} \sum_{\nu=1}^{M} \zeta_{(\mu,h,\nu)}^{\tau_{(m)}} \left(
+    (A^{h+1})^{\top} \mathcal{X}_{(\tau_{(m)}+1+h,\hat{s}_{\nu})} A^{h+1} + 
+    \sum_{r=1}^{h} A^{r \top} Q A^{r}\right),
+\end{align}
+\begin{align}\label{eq:fh-b}
+    \mathcal{B}_{(\tau_{(m)},\hat{s}_{\mu})} = F^{\!\top} \! R F + 
+    \sum_{h=0}^{L-\xi_k} \sum_{\nu=1}^{M} \zeta_{(\mu,h,\nu)}^{\tau_{(m)}} \left(
+    \mathit{\Psi}_{(h)}^{\top}  \mathcal{X}_{(\tau_{(m)}+1+h,\hat{s}_{\nu})}  \mathit{\Psi}_{(h)}^{} + 
+    \sum_{r=1}^{h} \left(\mathit{\Psi}_{(r-1)}^{\top} Q \mathit{\Psi}_{(r-1)}^{} + H^{r \!\top} \! F^{\!\top} \! R F H^{r} \right)
+    \right),
+\end{align}
+\begin{align}\label{eq:fh-c}
+    \mathcal{C}_{(\tau_{(m)},\hat{s}_{\mu})} = 
+    \sum_{h=0}^{L-\xi_k} \sum_{\nu=1}^{M} \zeta_{(\mu,h,\nu)}^{\tau_{(m)}} \left(
+    \mathit{\Psi}_{(h)}^{\top}  \mathcal{X}_{(\tau_{(m)}+1+h,\hat{s}_{\nu})} A^{h+1} + 
+    \sum_{r=1}^{h} \mathit{\Psi}_{(r-1)}^{\top} Q A^{r}
+    \right),
 \end{align}
 \begin{align}\label{eq:fh-gk}
-    g_{(\tau_{(m)},\hat{s}_{\mu})} = \sum_{h=0}^{L-\xi_k} \sum_{\nu=1}^{M} \zeta_{(\mu,h,\nu)}^{\tau_{(m)}} \bigg( g_{(\tau_{(m)}+1+h,\hat{s}_{\nu})} +  
+    g_{(\tau_{(m)},\hat{s}_{\mu})} = \sum_{h=0}^{L-\xi_k} \sum_{\nu=1}^{M} \zeta_{(\mu,h,\nu)}^{\tau_{(m)}} \left( g_{(\tau_{(m)}+1+h,\hat{s}_{\nu})} +  
     \sum_{t=0}^{h} \mathop{\mathrm{tr}}(A^{t \top} \mathcal{X}_{(\tau_{(m)}+1+h,\hat{s}_{\nu})} A^{t} \Sigma_W ) + 
     \sum_{r=1}^{h} \sum_{\iota=0}^{r-1} 
     \mathop{\mathrm{tr}}( A^{\iota \top} Q A^{\iota} \Sigma_W )    
-    \bigg).
+    \right).
+\end{align}
+\end{figure*}
+\begin{figure*}[ht]
+\raggedright
+\begin{align}\label{eq:cost-tau1}
+\begin{aligned}
+ & J_{T}^{a}(x_{\tau_{(m)}},\hat{\theta}_{\tau_{(m)}-1}=\hat{s}_{\mu}) = 
+    x_{\tau_{(m)}}^{\top}\mathcal{A}_{(\tau_{(m)},\hat{s}_{\mu})}x_{\tau_{(m)}}^{} \!+ g_{(\tau_{(m)},\hat{s}_{\mu})} \,+ \\
+    & \min_{K_{(\tau_{(m)},\hat{s}_{\mu})}} \left(\! x_{\tau_{(m)}}^{\top} \left( 
+    \mathcal{C}_{(\tau_{(m)},\hat{s}_{\mu})}^{\top} K_{(\tau_{(m)},\hat{s}_{\mu})} + K_{(\tau_{(m)},\hat{s}_{\mu})}^{\top} \mathcal{B}_{(\tau_{(m)},\hat{s}_{\mu})} K_{(\tau_{(m)},\hat{s}_{\mu})}^{} + 
+    K_{(\tau_{(m)},\hat{s}_{\mu})}^{\top}\mathcal{C}_{(\tau_{(m)},\hat{s}_{\mu})}^{} \right) x_{\tau_{(m)}} \right)
+\end{aligned}
 \end{align}
 \end{figure*}
 
