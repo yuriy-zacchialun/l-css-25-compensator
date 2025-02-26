@@ -135,10 +135,10 @@ W_{\!(k,n)} \!\triangleq\! \sum\nolimits_{j=0}^{n}A^{n-j} w_{k+j}^{}.
 To provide the stochastic characterization of the system dynamics, we group the current duration of a packet error burst and the last detected wireless channel state in one augmented discrete state:
 $\eta_{k}^{} \!\triangleq\! (\mathit{\Delta}_{k},\hat{\theta}_{k-1})$. Then, from \eqref{eq:tau},
 \begin{subequations}\label{eq:etatau}
-\begin{equation}
+\begin{equation}\label{eq:etataum}
     \eta_{\tau_{(m)}}^{} = (\mathit{\Delta}_{\tau_{(m)}},\hat{\theta}_{\tau_{(m)}-1}),
 \end{equation}
-\begin{equation}
+\begin{equation}\label{eq:etataump}
     \eta_{\tau_{(m+1)}}^{} = (\mathit{\Delta}_{\tau_{(m+1)}},\hat{\theta}_{\tau_{(m)}+\mathit{\Delta}_{\tau_{(m+1)}}}),
 \end{equation}
 \end{subequations}
@@ -177,11 +177,11 @@ Let $e_i$ and $e_j$ denote the $i$th and $j$th column vectors of the standard ba
 \end{align}
 where commas indicate the intersections of events, and a colon specifies a constraint (such that);
 \begin{itemize}
-\item the equality~\eqref{proof0:1} is due to (13a), i.e., $\forall m \in \mathbb{Z}^{\geq}$, it holds that $\tau_{m}\in\mathcal{T}$, with $\mathcal{T}\triangleq \left\{ k : \delta_k = 1 \right\}_{k\in \mathbb{Z}^{\geq}}$;
-\item \eqref{proof0:2} relies on (17), i.e., $ \eta_{\tau_{(m+1)}}^{} = (\mathit{\Delta}_{\tau_{(m+1)}},\hat{\theta}_{\tau_{(m)}+\mathit{\Delta}_{\tau_{(m+1)}}})$ and $ \eta_{\tau_{(m)}}^{} = (\mathit{\Delta}_{\tau_{(m)}},\hat{\theta}_{\tau_{(m)}-1})$;
-\item \eqref{proof0:3} substitutes $\mathit{\Delta}_{\tau_{(m+1)}}$ with $n$ in $\hat{\theta}_{\tau_{(m)}+\mathit{\Delta}_{\tau_{(m+1)}}}$ and applies (13b);
-\item \eqref{proof0:4} uses (13c) and applies (12) for $k=\tau_{(m+1)}$;
-\item \eqref{proof0:5} applies (12) for $k=\tau_{(m)}$;
+\item the equality~\eqref{proof0:1} is due to \eqref{eq:calT}, i.e., $\forall m \in \mathbb{Z}^{0+}$, it holds that $\tau_{m}\in\mathcal{T}$, with $\mathcal{T}\triangleq \left\{ k : \delta_k = 1 \right\}_{k\in \mathbb{Z}^{0+}}$;
+\item \eqref{proof0:2} relies on \eqref{eq:etatau}, i.e., $ \eta_{\tau_{(m+1)}}^{} = (\mathit{\Delta}_{\tau_{(m+1)}},\hat{\theta}_{\tau_{(m)}+\mathit{\Delta}_{\tau_{(m+1)}}})$ and $ \eta_{\tau_{(m)}}^{} = (\mathit{\Delta}_{\tau_{(m)}},\hat{\theta}_{\tau_{(m)}-1})$;
+\item \eqref{proof0:3} substitutes $\mathit{\Delta}_{\tau_{(m+1)}}$ with $n$ in $\hat{\theta}_{\tau_{(m)}+\mathit{\Delta}_{\tau_{(m+1)}}}$ and applies \eqref{eq:deltatau};
+\item \eqref{proof0:4} uses \eqref{eq:tau+} and applies \eqref{eq:zl} for $k=\tau_{(m+1)}$;
+\item \eqref{proof0:5} applies \eqref{eq:zl} for $k=\tau_{(m)}$;
 \item \eqref{proof0:6} uses the chain rule of the probability and states that for three events $A$, $B$ and $C$ it holds that 
 	\begin{equation}\label{eq:chain-rule-special}
 		\mathbb{P}(A \cap B \mid B \cap C ) = \mathbb{P}(A \mid B \cap B \cap C ) \, 
@@ -756,6 +756,75 @@ so that $\xi_{T-1}=L$, and $\xi_{k} = 0$ for all $k<T-L$.
     K_{(\tau_{(m)},\hat{s}_{\mu})}^{\top}\mathcal{C}_{(\tau_{(m)},\hat{s}_{\mu})}^{} \right) x_{\tau_{(m)}} \right)
 \end{aligned}
 \end{align}
+\end{figure*}
+
+\begin{figure*}[ht]
+\raggedright
+\begin{subequations}\label{eq:varphi}
+    \begin{equation}\label{eq:varphi-current}
+        \hat{\varphi}_{\tau_{(m+1)}} \triangleq (\hat{\theta}_{\tau_{(m+1)}},\Delta_{\tau_{(m+1)}},\hat{\theta}_{\tau_{(m+1)}-\Delta_{\tau_{(m+1)}}-2}) \labelrel={eq:varphi-current-alternative}
+        (\hat{\theta}_{\tau_{(m+1)}},\Delta_{\tau_{(m+1)}},\hat{\theta}_{\tau_{(m)}-1}),
+    \end{equation}
+    \begin{equation}\label{eq:varphi-next}
+         \hat{\varphi}_{\tau_{(m+2)}} \triangleq (\hat{\theta}_{\tau_{(m+2)}},\Delta_{\tau_{(m+2)}},\hat{\theta}_{\tau_{(m+2)}-\Delta_{\tau_{(m+2)}}-2}) =
+        (\hat{\theta}_{\tau_{(m+2)}},\Delta_{\tau_{(m+2)}},\hat{\theta}_{\tau_{(m+1)}-1}),
+    \end{equation}
+\end{subequations}
+where equality \eqref{eq:varphi-current-alternative} is due to \eqref{eq:tau}.
+\begin{align}\label{eq:proofx}
+\begin{aligned}
+&\mathbb{P}(\hat{\varphi}_{\tau_{(m+2)}}^{} = 
+(\hat{s}_{\nu_{1}},n,\hat{s}_{\nu_{0}}) \mid \hat{\varphi}_{\tau_{(m+1)}}^{} = (\hat{s}_{\mu_{1}},\ell,\hat{s}_{\mu_{0}}) = \\
+&\labelrel={proofx:1}
+\mathbb{P}(\hat{\varphi}_{\tau_{(m+2)}}^{} = 
+(\hat{s}_{\nu_{1}},n,\hat{s}_{\nu_{0}}), \tau_{(m+2)} \in \mathcal{T} \mid \hat{\varphi}_{\tau_{(m+1)}}^{} = (\hat{s}_{\mu_{1}},\ell,\hat{s}_{\mu_{0}}), \tau_{(m+1)} \in \mathcal{T}) = \\
+&\labelrel={proofx:2}
+\mathbb{P}(\mathit{\Delta}_{\tau_{(m+2)}}=n,\hat{\theta}_{\tau_{(m+1)}+\mathit{\Delta}_{\tau_{(m+2)}}+1} = \hat{s}_{\nu_1}, \hat{\theta}_{\tau_{(m+1)}-1} = \hat{s}_{\nu_{0}}, \tau_{(m+2)} \in \mathcal{T} \mid \\
+& \qquad~ \mathit{\Delta}_{\tau_{(m+1)}}=\ell,\hat{\theta}_{\tau_{(m)}+\mathit{\Delta}_{\tau_{(m+1)}}+1} = \hat{s}_{\mu_1},\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu_0},\tau_{(m+1)} \in \mathcal{T}) = \\
+&\labelrel={proofx:3}
+\mathbb{P}(\mathit{\Delta}_{\tau_{(m+2)}}=n,\hat{\theta}_{\tau_{(m+1)}+n+1} = \hat{s}_{\nu_1}, \hat{\theta}_{\tau_{(m+1)}-1} = \hat{s}_{\nu_{0}}, \delta_{\tau_{(m+1)}+n+1}=1 \mid \\
+& \qquad~ \mathit{\Delta}_{\tau_{(m+1)}}=\ell,\hat{\theta}_{\tau_{(m)}+\ell+1} = \hat{s}_{\mu_1},\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu_0},\delta_{\tau_{(m)}+\ell+1}=1) = \\
+&\labelrel={proofx:4}
+\mathbb{P}(\mathit{\Delta}_{\tau_{(m+2)}}=n,\hat{\theta}_{\tau_{(m)}+\ell+n+2} = \hat{s}_{\nu_1}, \hat{\theta}_{\tau_{(m)}+\ell} = \hat{s}_{\nu_{0}}, \delta_{\tau_{(m)}+\ell+n+2}=1,\delta_{\tau_{(m)}+\ell+1}=1 \mid \\
+& \qquad~ \mathit{\Delta}_{\tau_{(m+1)}}=\ell,\hat{\theta}_{\tau_{(m)}+\ell+1} = \hat{s}_{\mu_1},\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu_0},\delta_{\tau_{(m)}+\ell+1}=1,\delta_{\tau_{(m)}}=1) = \\
+&\labelrel={proofx:5}
+\mathbb{P}(\mathit{\Delta}_{\tau_{(m+2)}}=n,\hat{\theta}_{\tau_{(m)}+\ell+n+2} = \hat{s}_{\nu_1}, \hat{\theta}_{\tau_{(m)}+\ell} = \hat{s}_{\nu_{0}}, \delta_{\tau_{(m)}+\ell+n+2}=1 \mid \\
+& \qquad~ \mathit{\Delta}_{\tau_{(m+1)}}=\ell,\hat{\theta}_{\tau_{(m)}+\ell+1} = \hat{s}_{\mu_1},\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu_0},\delta_{\tau_{(m)}+\ell+1}=1,\delta_{\tau_{(m)}}=1) = \\
+&\labelrel={proofx:6}
+\mathbb{P}(\hat{\theta}_{\tau_{(m)}+\ell} = \hat{s}_{\nu_{0}}, \delta_{\tau_{(m)}+\ell+1+t_{1}}=0 ~ \forall t_{1}\in\mathbb{Z}^{+} : t_{1}\leq n ,\hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)}+\ell+n+2}=1, \hat{\theta}_{\tau_{(m)}+\ell+n+2} = \hat{s}_{\nu_1}  \mid\\
+& \qquad~ \mathit{\Delta}_{\tau_{(m+1)}}=\ell,\hat{\theta}_{\tau_{(m)}+\ell+1} = \hat{s}_{\mu_1},\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu_0},\delta_{\tau_{(m)}+\ell+1}=1,\delta_{\tau_{(m)}}=1) = \\
+%%%
+&\labelrel={proofx:7}
+\mathbb{P}(\hat{\theta}_{\tau_{(m)}+\ell} = \hat{s}_{\nu_{0}}, \delta_{\tau_{(m)}+\ell+1+t_{1}}=0 ~ \forall t_{1}\in\mathbb{Z}^{+} : t_{1}\leq n,\hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)}+\ell+n+2}=1,\hat{\theta}_{\tau_{(m)}+\ell+n+2} = \hat{s}_{\nu_1}  \mid \\
+& \qquad~ \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu_0}, \delta_{\tau_{(m)}}=1, \delta_{\tau_{(m)}+t_{2}}=0 ~ \forall t_{2}\in\mathbb{Z}^{+} : t_{2}\leq \ell, \delta_{\tau_{(m)}+\ell+1}=1, \hat{\theta}_{\tau_{(m)}+\ell+1} = \hat{s}_{\mu_1}) = \\
+%%%
+= \\
+%%%
+&\labelrel={proofx:8}
+\mathbb{P}(\delta_{\tau_{(m)}+t_{1}}=0 ~ \forall t_{1}\in\mathbb{Z}^{>} : t_{1}\leq n,\hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)+1+n}}=1 \mid \\
+& \qquad~~ \delta_{\tau_{(m)}-\ell-1}=1, \delta_{\tau_{(m)}-t_{2}}=0 ~ \forall t_{2}\in\mathbb{Z}^{>} : t_{2}\leq \ell, \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}, \delta_{\tau_{(m)}}=1) = \\
+&\labelrel={proofx:9}
+\mathbb{P}(\delta_{\tau_{(m)}+t_{1}}=0 ~ \forall t_{1}\in\mathbb{Z}^{>} : t_{1}\leq n,\hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)+1+n}}=1 \mid \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}, \delta_{\tau_{(m)}}=1) = \\
+&\labelrel={proofx:10}
+\frac{\mathbb{P}(\delta_{\tau_{(m)+1+n}}=1, \hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)}+t_{1}}=0 ~ \forall t_{1}\in\mathbb{Z}^{>} : t_{1}\leq n, \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}, \delta_{\tau_{(m)}}=1)}{\mathbb{P}(\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}, \delta_{\tau_{(m)}}=1)}.
+\end{aligned}
+\end{align}
+where commas indicate the intersections of events, and a colon specifies a constraint (such that);
+\begin{itemize}
+\item the equality~\eqref{proofx:1} is due to \eqref{eq:calT}, i.e., $\forall m \in \mathbb{Z}^{0+}$, it holds that $\tau_{(m)}\in\mathcal{T}$, with $\mathcal{T}\triangleq \left\{ k : \delta_k = 1 \right\}_{k\in \mathbb{Z}^{0+}}$;
+\item \eqref{proofx:2} relies on \eqref{eq:varphi};
+\item \eqref{proofx:3} substitutes $\mathit{\Delta}_{\tau_{(m+2)}}$ with $n$ in $\hat{\theta}_{\tau_{(m+1)}+\mathit{\Delta}_{\tau_{(m+2)}}+1}$, $\mathit{\Delta}_{\tau_{(m+1)}}$ with $\ell$ in 
+$\hat{\theta}_{\tau_{(m)}+\mathit{\Delta}_{\tau_{(m+1)}}+1}$, and applies \eqref{eq:deltatau};
+\item \eqref{proofx:4} relies on \eqref{eq:calT}, \eqref{eq:deltatau}, and \eqref{eq:tau+} for $\tau_{(m+1)}$ and $\tau_{(m)}$;
+\item \eqref{proofx:5} uses \eqref{eq:chain-rule-special} for $\delta_{\tau_{(m)}+\ell+1}=1$;
+\item \eqref{proofx:6} applies \eqref{eq:zl} for $k=\tau_{(m+2)}$;
+\item \eqref{proofx:7} applies \eqref{eq:zl} for $k=\tau_{(m+1)}$;
+\item \eqref{proofx:8} relies on \eqref{eq:chain-rule-special};
+\item \eqref{proofx:9} is an immediate consequence of the independence of both $\delta_{k}$ and $\hat{\theta}_{k}$ from $\delta_{k-t_{3}}$, for all $t_{3}\geq 1$;
+\item \eqref{proofx:10} uses the conditional probability definition and the commutative property of the set intersection.%;
+% \item \eqref{proofx:9} relies on the chain rule of probability;
+% \item \eqref{proof0:10} cancels the common factor $\mathbb{P}(\theta_{\tau_{(m)}-1} = s_i)$, applies the law of total probability, the independence of both $\delta_{k}$ and $\theta_{k}$ from $\delta_{k-t_{3}}$, the Markov property, the commutative property of the multiplication and the addition of real numbers, and the definitions of $P_{\!s}(k)$ and $P_{\!f}(k)$ in (5).
+\end{itemize}
 \end{figure*}
 
 % \section*{ACKNOWLEDGMENT}
