@@ -372,326 +372,12 @@ Notice that under the perfect channel state estimation $M=N$ and $P_e = I_{N}$ s
 \end{align}
 since $\hat{e}_{\mu}^{\top} P_{e}^{\top} = e_{i}^{\top} I_{N} = e_{i}^{\top}$, $e_{i}^{\top} P_{\pi}(\tau{(m)}-1)=e_{i}^{\top}\pi_{i}(\tau_{(m)}-1)=\pi_{i}(\tau_{(m)}-1)e_{i}^{\top}$, and $P_{\alpha}(\nu=j)=e_{j}e_{j}^{\top}$.
 \end{figure*}
-\begin{figure*}[ht]
-\raggedright
-For notational convenience, 
-\begin{equation}
-    q_{\mu n}^{\tau_{(m)}} \triangleq \sum_{\nu=1}^{M} \zeta_{(\mu,n,\nu)}^{\tau_{(m)}}.
-\end{equation}
-\end{figure*}
-
 % \begin{figure*}[ht]
 % \raggedright
-% Notice that 
-% \begin{equation*}
-% \begin{bmatrix}
-%     p_{11}(1-\hat{\delta}_{1}) & p_{12}(1-\hat{\delta}_{2}) & p_{13}(1-\hat{\delta}_{3}) \\
-%     p_{21}(1-\hat{\delta}_{1}) & p_{22}(1-\hat{\delta}_{2}) & p_{23}(1-\hat{\delta}_{3}) \\
-%     p_{31}(1-\hat{\delta}_{1}) & p_{32}(1-\hat{\delta}_{2}) & p_{33}(1-\hat{\delta}_{3}) 
-% \end{bmatrix}
-% \begin{bmatrix}
-%     \alpha_{11} & 0 & 0 \\
-%     0 & \alpha_{21} & 0 \\
-%     0 & 0 & \alpha_{31} \\
-% \end{bmatrix}=
-% \begin{bmatrix}
-%     p_{11}(1-\hat{\delta}_{1})\alpha_{11} & p_{12}(1-\hat{\delta}_{2})\alpha_{21} & p_{13}(1-\hat{\delta}_{3})\alpha_{31} \\
-%     p_{21}(1-\hat{\delta}_{1})\alpha_{11} & p_{22}(1-\hat{\delta}_{2})\alpha_{21} & p_{23}(1-\hat{\delta}_{3})\alpha_{31} \\
-%     p_{31}(1-\hat{\delta}_{1})\alpha_{11} & p_{32}(1-\hat{\delta}_{2})\alpha_{21} & p_{33}(1-\hat{\delta}_{3})\alpha_{31} 
-% \end{bmatrix}
-% \end{equation*}
-% \begin{equation*}
-% \begin{bmatrix}
-%     p_{11}\hat{\delta}_{1}  & p_{12}\hat{\delta}_{2}  & p_{13}\hat{\delta}_{3}  \\
-%     p_{21}\hat{\delta}_{1}  & p_{22}\hat{\delta}_{2}  & p_{23}\hat{\delta}_{3}  \\
-%     p_{31}\hat{\delta}_{1}  & p_{32}\hat{\delta}_{2}  & p_{33}\hat{\delta}_{3}  
-% \end{bmatrix}
-% \begin{bmatrix}
-%     1 \\ 1 \\ 1
-% \end{bmatrix} = 
-% \begin{bmatrix}
-%     p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3} \\
-%     p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3} \\
-%     p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3} 
-% \end{bmatrix}
-% \end{equation*}
-% \begin{equation*}
-%     \begin{bmatrix}
-%     \alpha_{11} & 0 & 0 \\
-%     0 & \alpha_{21} & 0 \\
-%     0 & 0 & \alpha_{31} \\
-% \end{bmatrix}
-% \begin{bmatrix}
-%     p_{11}\hat{\delta}_{1}  & p_{12}\hat{\delta}_{2}  & p_{13}\hat{\delta}_{3}  \\
-%     p_{21}\hat{\delta}_{1}  & p_{22}\hat{\delta}_{2}  & p_{23}\hat{\delta}_{3}  \\
-%     p_{31}\hat{\delta}_{1}  & p_{32}\hat{\delta}_{2}  & p_{33}\hat{\delta}_{3}  
-% \end{bmatrix}=
-% \begin{bmatrix}
-%     \alpha_{11}p_{11}\hat{\delta}_{1}  & \alpha_{11}p_{12}\hat{\delta}_{2}  & \alpha_{11}p_{13}\hat{\delta}_{3}  \\
-%     \alpha_{21}p_{21}\hat{\delta}_{1}  & \alpha_{21}p_{22}\hat{\delta}_{2}  & \alpha_{21}p_{23}\hat{\delta}_{3}  \\
-%     \alpha_{31}p_{31}\hat{\delta}_{1}  & \alpha_{31}p_{32}\hat{\delta}_{2}  & \alpha_{31}p_{33}\hat{\delta}_{3}  
-% \end{bmatrix}
-% \end{equation*}
-% \begin{equation*}
-% \begin{bmatrix}
-%     1 & 1 & 1
-% \end{bmatrix} 
-% \begin{bmatrix}
-%     a_{11}  & a_{12}  & a_{13}  \\
-%     a_{21}  & a_{22}  & a_{23}  \\
-%     a_{31}  & a_{32}  & a_{33}  
-% \end{bmatrix} = 
-% \begin{bmatrix}
-%     a_{11}  + a_{21}  + a_{31}  \\
-%     a_{12}  + a_{22}  + a_{31}  \\
-%     a_{13}  + a_{23}  + a_{33}  
-% \end{bmatrix}
-% \end{equation*}
-% \begin{align*}
-% &\begin{bmatrix}
-%     p_{11}(1-\hat{\delta}_{1}) & p_{12}(1-\hat{\delta}_{2}) & p_{13}(1-\hat{\delta}_{3}) \\
-%     p_{21}(1-\hat{\delta}_{1}) & p_{22}(1-\hat{\delta}_{2}) & p_{23}(1-\hat{\delta}_{3}) \\
-%     p_{31}(1-\hat{\delta}_{1}) & p_{32}(1-\hat{\delta}_{2}) & p_{33}(1-\hat{\delta}_{3}) 
-% \end{bmatrix}
-% \begin{bmatrix}
-%     p_{11}\hat{\delta}_{1}  & p_{12}\hat{\delta}_{2}  & p_{13}\hat{\delta}_{3}  \\
-%     p_{21}\hat{\delta}_{1}  & p_{22}\hat{\delta}_{2}  & p_{23}\hat{\delta}_{3}  \\
-%     p_{31}\hat{\delta}_{1}  & p_{32}\hat{\delta}_{2}  & p_{33}\hat{\delta}_{3}  
-% \end{bmatrix}
-% \begin{bmatrix}
-%     1 \\ 1 \\ 1
-% \end{bmatrix}=\\
-% &\begin{bmatrix}
-%     p_{11}(1-\hat{\delta}_{1}) & p_{12}(1-\hat{\delta}_{2}) & p_{13}(1-\hat{\delta}_{3}) \\
-%     p_{21}(1-\hat{\delta}_{1}) & p_{22}(1-\hat{\delta}_{2}) & p_{23}(1-\hat{\delta}_{3}) \\
-%     p_{31}(1-\hat{\delta}_{1}) & p_{32}(1-\hat{\delta}_{2}) & p_{33}(1-\hat{\delta}_{3}) 
-% \end{bmatrix}
-% \begin{bmatrix}
-%     p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3} \\
-%     p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3} \\
-%     p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3} 
-% \end{bmatrix}=\\
-% &\begin{bmatrix}
-%     p_{11}(1-\hat{\delta}_{1})(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}
-%     p_{12}(1-\hat{\delta}_{2})(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
-%     p_{13}(1-\hat{\delta}_{3})(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
-%     p_{21}(1-\hat{\delta}_{1})(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}    
-%     p_{22}(1-\hat{\delta}_{2})(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
-%     p_{23}(1-\hat{\delta}_{3})(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
-%     p_{31}(1-\hat{\delta}_{1})(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}
-%     p_{32}(1-\hat{\delta}_{2})(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
-%     p_{33}(1-\hat{\delta}_{3})(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
-% \end{bmatrix}
-% \end{align*}
-% \begin{align*}
-% &\begin{bmatrix}
-%     p_{11}(1-\hat{\delta}_{1}) & p_{12}(1-\hat{\delta}_{2}) & p_{13}(1-\hat{\delta}_{3}) \\
-%     p_{21}(1-\hat{\delta}_{1}) & p_{22}(1-\hat{\delta}_{2}) & p_{23}(1-\hat{\delta}_{3}) \\
-%     p_{31}(1-\hat{\delta}_{1}) & p_{32}(1-\hat{\delta}_{2}) & p_{33}(1-\hat{\delta}_{3}) 
-% \end{bmatrix}
-% \begin{bmatrix}
-%     \alpha_{11} & 0 & 0 \\
-%     0 & \alpha_{21} & 0 \\
-%     0 & 0 & \alpha_{31} \\
-% \end{bmatrix}
-% \begin{bmatrix}
-%     p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3} \\
-%     p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3} \\
-%     p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3} 
-% \end{bmatrix}=\\
-% &\begin{bmatrix}
-%     p_{11}(1-\hat{\delta}_{1})\alpha_{11}(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}
-%     p_{12}(1-\hat{\delta}_{2})\alpha_{21}(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
-%     p_{13}(1-\hat{\delta}_{3})\alpha_{31}(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
-%     p_{21}(1-\hat{\delta}_{1})\alpha_{11}(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}    
-%     p_{22}(1-\hat{\delta}_{2})\alpha_{21}(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
-%     p_{23}(1-\hat{\delta}_{3})\alpha_{31}(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
-%     p_{31}(1-\hat{\delta}_{1})\alpha_{11}(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}
-%     p_{32}(1-\hat{\delta}_{2})\alpha_{21}(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
-%     p_{33}(1-\hat{\delta}_{3})\alpha_{31}(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
-% \end{bmatrix}
-% \end{align*}
-% \vspace{3mm}
-% \begin{equation*}
-% \begin{bmatrix}
-%     \alpha_{11}  & \alpha_{12}   \\
-%     \alpha_{21}  & \alpha_{22}   \\
-%     \alpha_{31}  & \alpha_{32}   
-% \end{bmatrix}
-% \begin{bmatrix}
-%     1 \\ 0
-% \end{bmatrix} = 
-% \begin{bmatrix}
-%     \alpha_{11}  \\
-%     \alpha_{21}  \\
-%     \alpha_{31}  
-% \end{bmatrix}
-% \end{equation*}
-% \end{figure*}
-
-% \begin{figure*}[ht]
-% \raggedright
-% Another helpful expression follows.
-% \begin{align}\label{eq:proof4}
-% \begin{aligned}
-% &\mathbb{P}(\eta_{\tau_{(m+1)}}^{} = (n,\hat{s}_{\nu}) \mid \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}) = \\
-% & \labelrel={proof4:1} \mathbb{P}(\delta_{\tau_{(m)}+1+n}=1, \hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)}+t_{1}}=0 ~ \forall t_{1}\in\mathbb{Z}^{+} : t_{1}\leq n \mid \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}) = \\
-% &\labelrel={proof4:2} \frac{\mathbb{P}(\delta_{\tau_{(m)}+1+n}=1, \hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)}+t_{1}}=0 ~ \forall t_{1}\in\mathbb{Z}^{+} : t_{1}\leq n, \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu})}{\mathbb{P}(\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu})}, \\
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \end{aligned}
-% \end{align}
-% where 
-% \begin{itemize}
-%     \item \eqref{proof4:1} uses \eqref{eq:proof0}: \eqref{proof0:1}--\eqref{proof0:5};
-%     \item \eqref{proof4:2} uses the conditional probability definition.%;
-% \end{itemize}
-% The nominator of \eqref{eq:proof4} can be transformed as follows.
-% \begin{align}\label{eq:proof5}
-% \begin{aligned}
-% & \mathbb{P}(\delta_{\tau_{(m)}+1+n}=1, \hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)}+t_{1}}=0 ~ \forall t_{1}\in\mathbb{Z}^{+} : t_{1}\leq n, \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}) = \\
-% &\labelrel={proof5:1}\sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{i_1=1}^{N}\cdots\sum_{i_n=1}^{N}\sum_{i_{n+1}=1}^{N} \,\mathbb{P}(\delta_{\tau_{(m)}+1+n}=1, \theta_{\tau_{(m)}+1+n}=s_{i_{n+1}}, \hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)}+n}=0, \theta_{\tau_{(m)}+n}=s_{i_{n}},\dots, \\
-% & \qquad\qquad\quad\! 
-% \delta_{\tau_{(m)}+1}=0,\theta_{\tau_{(m)}+1}=s_{i_{1}},\theta_{\tau_{(m)}}=s_j,\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i) = \\
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% &\labelrel={proof5:2} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{i_1=1}^{N}\cdots\sum_{i_n=1}^{N}\sum_{i_{n+1}=1}^{N} \,\mathbb{P}(\delta_{\tau_{(m)}+1+n}=1 \mid \theta_{\tau_{(m)}+1+n}=s_{i_{n+1}}, \hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)}+n}=0, \theta_{\tau_{(m)}+n}=s_{i_{n}},\dots, \\
-% & \qquad\qquad\quad\! \delta_{\tau_{(m)}+1}=0,\theta_{\tau_{(m)}+1}=s_{i_{1}},\theta_{\tau_{(m)}}=s_j,\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i) \cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\theta_{\tau_{(m)}+1+n}=s_{i_{n+1}} \mid \hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)}+n}=0, \theta_{\tau_{(m)}+n}=s_{i_{n}},\dots,\delta_{\tau_{(m)}+1}=0,\theta_{\tau_{(m)}+1}=s_{i_{1}}, \\
-% & \qquad\qquad\quad\! \theta_{\tau_{(m)}}=s_j,\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu} \mid \delta_{\tau_{(m)}+n}=0, \theta_{\tau_{(m)}+n}=s_{i_{n}},\dots,\delta_{\tau_{(m)}+1}=0,\theta_{\tau_{(m)}+1}=s_{i_{1}},\theta_{\tau_{(m)}}=s_j, \\
-% & \qquad\qquad\quad\! \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\delta_{\tau_{(m)}+n}=0 \mid \theta_{\tau_{(m)}+n}=s_{i_{n}},\dots,\delta_{\tau_{(m)}+1}=0,\theta_{\tau_{(m)}+1}=s_{i_{1}},\theta_{\tau_{(m)}}=s_j, \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\!
-% \mathbb{P}(\theta_{\tau_{(m)}+n}=s_{i_{n}}\mid\dots,\delta_{\tau_{(m)}+1}=0,\theta_{\tau_{(m)}+1}=s_{i_{1}},\theta_{\tau_{(m)}}=s_j, \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdots \\
-% & \qquad\quad~~~\!
-% \mathbb{P}(\delta_{\tau_{(m)}+1}=0 \mid \theta_{\tau_{(m)}+1}=s_{i_{1}},\theta_{\tau_{(m)}}=s_j, \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\!
-% \mathbb{P}(\theta_{\tau_{(m)}+1}=s_{i_{1}} \mid \theta_{\tau_{(m)}}=s_j, \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\!
-% \mathbb{P}(\theta_{\tau_{(m)}}=s_j \mid \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdot 
-% \mathbb{P}(\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}\mid\theta_{\tau_{(m)}-1}=s_i) \cdot 
-% \mathbb{P}(\theta_{\tau_{(m)}-1}=s_i)\\
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% &\labelrel={proof5:3} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{i_1=1}^{N}\cdots\sum_{i_n=1}^{N}\sum_{i_{n+1}=1}^{N} \,\mathbb{P}(\delta_{\tau_{(m)}+1+n}=1 \mid \theta_{\tau_{(m)}+1+n}=s_{i_{n+1}}) \cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\theta_{\tau_{(m)}+1+n}=s_{i_{n+1}} \mid \hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu}, \delta_{\tau_{(m)}+n}=0, \theta_{\tau_{(m)}+n}=s_{i_{n}},\dots,\delta_{\tau_{(m)}+1}=0,\theta_{\tau_{(m)}+1}=s_{i_{1}}, \\
-% & \qquad\qquad\quad\! \theta_{\tau_{(m)}}=s_j,\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu} \mid \delta_{\tau_{(m)}+n}=0, \theta_{\tau_{(m)}+n}=s_{i_{n}},\dots,\delta_{\tau_{(m)}+1}=0,\theta_{\tau_{(m)}+1}=s_{i_{1}},\theta_{\tau_{(m)}}=s_j, \\
-% & \qquad\qquad\quad\! \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\delta_{\tau_{(m)}+n}=0 \mid \theta_{\tau_{(m)}+n}=s_{i_{n}})\cdot \\
-% & \qquad\quad~~~\!\mathbb{P}(\theta_{\tau_{(m)}+n}=s_{i_{n}}\mid\dots,\delta_{\tau_{(m)}+1}=0,\theta_{\tau_{(m)}+1}=s_{i_{1}},\theta_{\tau_{(m)}}=s_j, \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdots \\
-% & \qquad\quad~~~\!
-% \mathbb{P}(\delta_{\tau_{(m)}+1}=0 \mid \theta_{\tau_{(m)}+1}=s_{i_{1}})\cdot \\
-% & \qquad\quad~~~\!
-% \mathbb{P}(\theta_{\tau_{(m)}+1}=s_{i_{1}} \mid \theta_{\tau_{(m)}}=s_j, \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\!
-% \mathbb{P}(\theta_{\tau_{(m)}}=s_j \mid \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdot 
-% \mathbb{P}(\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}\mid\theta_{\tau_{(m)}-1}=s_i) \cdot 
-% \mathbb{P}(\theta_{\tau_{(m)}-1}=s_i),
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \end{aligned}
-% \end{align}
-% where 
-% \begin{itemize}
-%     \item \eqref{proof5:1} is due to the law of total probability and commutative property of set intersection;
-%     \item \eqref{proof5:2} follows from the chain rule of probability;
-%     \item \eqref{proof5:3} is a consequence of the independence of $\delta_{k}$ from $\delta_{k-t_{1}}$, $\theta_{k-t_{1}}$, and $\hat{\theta}_{k}$ for all $t_{1}\geq 1$.
-% \end{itemize}
-% \end{figure*}
-% \begin{figure*}[ht]
-% \raggedright
-% Further derivation of the nominator of \eqref{eq:proof4} is as follows.
-% \begin{align}\label{eq:proof6}
-% \begin{aligned}
-% &\eqref{eq:proof5} 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \labelrel={proof6:1} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{i_1=1}^{N}\cdots\sum_{i_n=1}^{N}\sum_{i_{n+1}=1}^{N} \,\mathbb{P}(\delta_{\tau_{(m)}+1+n}=1 \mid \theta_{\tau_{(m)}+1+n}=s_{i_{n+1}}) \cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\theta_{\tau_{(m)}+1+n}=s_{i_{n+1}} \mid \theta_{\tau_{(m)}+n}=s_{i_{n}},\dots,\theta_{\tau_{(m)}+1}=s_{i_{1}}, \theta_{\tau_{(m)}}=s_j,\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu} \mid \delta_{\tau_{(m)}+n}=0, \theta_{\tau_{(m)}+n}=s_{i_{n}},\dots,\delta_{\tau_{(m)}+1}=0,\theta_{\tau_{(m)}+1}=s_{i_{1}},\theta_{\tau_{(m)}}=s_j, \\
-% & \qquad\qquad\quad\! \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\delta_{\tau_{(m)}+n}=0 \mid \theta_{\tau_{(m)}+n}=s_{i_{n}})\cdot 
-% \mathbb{P}(\theta_{\tau_{(m)}+n}=s_{i_{n}}\mid\dots,\theta_{\tau_{(m)}+1}=s_{i_{1}},\theta_{\tau_{(m)}}=s_j, \theta_{\tau_{(m)}-1}=s_i)\cdots \\
-% & \qquad\quad~~~\!
-% \mathbb{P}(\delta_{\tau_{(m)}+1}=0 \mid \theta_{\tau_{(m)}+1}=s_{i_{1}})\cdot 
-% \mathbb{P}(\theta_{\tau_{(m)}+1}=s_{i_{1}} \mid \theta_{\tau_{(m)}}=s_j,\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\!
-% \mathbb{P}(\theta_{\tau_{(m)}}=s_j \mid \theta_{\tau_{(m)}-1}=s_i)\cdot 
-% \mathbb{P}(\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}\mid\theta_{\tau_{(m)}-1}=s_i) \cdot 
-% \mathbb{P}(\theta_{\tau_{(m)}-1}=s_i) = \\
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% & \labelrel={proof6:2} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{i_1=1}^{N}\cdots\sum_{i_n=1}^{N}\sum_{i_{n+1}=1}^{N} \,\mathbb{P}(\delta_{\tau_{(m)}+1+n}=1 \mid \theta_{\tau_{(m)}+1+n}=s_{i_{n+1}}) \cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\theta_{\tau_{(m)}+1+n}=s_{i_{n+1}} \mid \theta_{\tau_{(m)}+n}=s_{i_{n}},\dots,\theta_{\tau_{(m)}+1}=s_{i_{1}}, \theta_{\tau_{(m)}}=s_j,\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\hat{\theta}_{\tau_{(m)}+n} = \hat{s}_{\nu} \mid \theta_{\tau_{(m)}+n}=s_{i_{n}})\cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\delta_{\tau_{(m)}+n}=0 \mid \theta_{\tau_{(m)}+n}=s_{i_{n}})\cdot 
-% \mathbb{P}(\theta_{\tau_{(m)}+n}=s_{i_{n}}\mid\dots,\theta_{\tau_{(m)}+1}=s_{i_{1}},\theta_{\tau_{(m)}}=s_j, \theta_{\tau_{(m)}-1}=s_i)\cdots \\
-% & \qquad\quad~~~\!
-% \mathbb{P}(\delta_{\tau_{(m)}+1}=0 \mid \theta_{\tau_{(m)}+1}=s_{i_{1}})\cdot 
-% \mathbb{P}(\theta_{\tau_{(m)}+1}=s_{i_{1}} \mid \theta_{\tau_{(m)}}=s_j,\theta_{\tau_{(m)}-1}=s_i)\cdot \\
-% & \qquad\quad~~~\!
-% \mathbb{P}(\theta_{\tau_{(m)}}=s_j \mid \theta_{\tau_{(m)}-1}=s_i)\cdot 
-% \mathbb{P}(\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}\mid\theta_{\tau_{(m)}-1}=s_i) \cdot 
-% \mathbb{P}(\theta_{\tau_{(m)}-1}=s_i) = \\
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% & \labelrel={proof6:3} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{i_1=1}^{N}\cdots\sum_{i_n=1}^{N}\sum_{i_{n+1}=1}^{N} \,\hat{\delta}_{i_{n+1}} \mathbb{P}(\theta_{\tau_{(m)}+1+n}=s_{i_{n+1}} \mid \theta_{\tau_{(m)}+n}=s_{i_{n}}) \, \alpha_{i_{n}\nu} \, (1-\hat{\delta}_{i_n}) \cdot \\
-% & \qquad\quad~~~\! \mathbb{P}(\theta_{\tau_{(m)}+n}=s_{i_{n}}\mid \theta_{\tau_{(m)}+n-1}=s_{i_{n-1}})\cdots (1-\hat{\delta}_{i_1})
-% \mathbb{P}(\theta_{\tau_{(m)}+1}=s_{i_{1}} \mid \theta_{\tau_{(m)}}=s_j)\,p_{ij}\alpha_{i\mu} \mathbb{P}(\theta_{\tau_{(m)}-1}=s_i) = \\
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% & \labelrel={proof6:4} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{i_1=1}^{N}\cdots\sum_{i_n=1}^{N}\sum_{i_{n+1}=1}^{N} \hat{\delta}_{i_{n+1}} p_{i_{n} i_{n+1}} \, \alpha_{i_{n}\nu} (1-\hat{\delta}_{i_n}) p_{i_{n-1} i_{n}} \cdots (1-\hat{\delta}_{i_1}) p_{j i_{1}} p_{ij} \alpha_{i\mu} \pi_{i}(\tau_{(m)}-1) = \\
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %%%
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% & \labelrel={proof6:5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{i_1=1}^{N}\cdots\sum_{i_n=1}^{N}\sum_{i_{n+1}=1}^{N} 
-% \alpha_{i\mu} \pi_{i}(\tau_{(m)}-1) p_{ij} p_{j i_{1}} (1-\hat{\delta}_{i_1}) \cdots
-% p_{i_{n-1} i_{n}} (1-\hat{\delta}_{i_n}) \alpha_{i_{n}\nu} p_{i_{n} i_{n+1}} \hat{\delta}_{i_{n+1}}  = \\
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% & \labelrel={proof6:6} \hat{e}_{\mu}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1) P_{c} P_{f}^{n} P_{\alpha}(\nu) P_{s} \mathbf{1}, \\
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \end{aligned}
-% \end{align}
-% where 
-% \begin{itemize}
-%     \item \eqref{proof6:1} relies on the independence of $\theta_{k}$ from $\hat{\theta}_{k-t_2}$ and $\delta_{k-t_2}$ for all $t_2\geq 0$;
-%     \item \eqref{proof6:2} applies the independence of $\hat{\theta}_{k}$ from $\theta_{k-t_3}$, $\hat{\theta}_{k-t_3}$, and $\delta_{k-t_4}$ for all $t_3\geq 1$ and $t_4\geq 0$;
-%     \item \eqref{proof6:3} uses the Markov property, \eqref{eq:p-delta}, and \eqref{eq:alpha};
-%     \item \eqref{proof6:4} is due to \eqref{eq:p-ij} and \eqref{eq:pik};
-%     \item \eqref{proof6:5} applies the commutative property of the scalar product;
-%     \item \eqref{proof6:6} applies \eqref{eq:Ps}, \eqref{eq:epm}, and the definition of the emission probability matrix.
-% \end{itemize}
-% \end{figure*}
-% \begin{figure*}[ht]
-% \raggedright
-% The nominator of \eqref{eq:proof4} has the following expression.
-% \begin{align}\label{eq:proof7}
-% \begin{aligned}
-% &\mathbb{P}(\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}) = \\
-% &\labelrel={proof7:1} \sum_{i=1}^{N} \,\mathbb{P}(\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu},\theta_{\tau_{(m)}-1}=s_i ) =\\
-% &\labelrel={proof7:2} \sum_{i=1}^{N}\,\mathbb{P}(\hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu} \mid \theta_{\tau_{(m)}-1}=s_i )\cdot\mathbb{P}(\theta_{\tau_{(m)}-1}=s_i ) = \\
-% &\labelrel={proof7:3} \sum_{i=1}^{N} \alpha_{i\mu}\pi_{i}(\tau_{(m)}-1)=\\
-% &\labelrel={proof7:4} \hat{e}_{\mu}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1)\mathbf{1}.
-% \end{aligned}
-% \end{align}
-% where the equalities hold for the following reasons:
-% \begin{itemize}
-%     \item \eqref{proof7:1} is due to the law of total probability;
-%     \item \eqref{proof7:2} follows from the chain rule of probability;
-%     \item \eqref{proof7:3} applies \eqref{eq:p-ij} and \eqref{eq:pik};
-%     \item \eqref{proof7:4} \eqref{eq:epm} and the definition of the emission probability matrix.
-% \end{itemize}
-% \end{figure*}
-% \begin{figure*}[ht]
-% \raggedright
-% From \eqref{eq:proof6} and \eqref{eq:proof7}, we obtain the following expression for \eqref{eq:proof4}.
-% \begin{equation}\label{eq:proof8}
-%     \mathbb{P}(\eta_{\tau_{(m+1)}}^{} = (n,\hat{s}_{\nu}) \mid \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu}) =
-%     \frac{\hat{e}_{\mu}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1) P_{c} P_{f}^{n} P_{\alpha}(\nu) P_{s} \mathbf{1}}{\hat{e}_{\mu}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1)\mathbf{1}} \triangleq \sigma_{(\mu,n,\nu)}^{\tau_{(m)}}.
+% For notational convenience, 
+% \begin{equation}
+%     q_{\mu n}^{\tau_{(m)}} \triangleq \sum_{\nu=1}^{M} \zeta_{(\mu,n,\nu)}^{\tau_{(m)}}.
 % \end{equation}
-% \end{figure*}
-% \begin{figure*}[ht]
-% \raggedright
-% Notice that under the perfect channel state estimation $M=N$ and $P_e = I_{N}$ so that \eqref{eq:proof8} becomes
-% \begin{align}
-% \mathbb{P}(\eta&_{\tau_{(m+1)}}^{} = (n,\hat{s}_{\nu}=s_j) \mid \hat{\theta}_{\tau_{(m)}-1} = \hat{s}_{\mu} = s_{i}) =
-%     \frac{\pi_{i}(\tau_{(m)}-1)e_{i}^{\top} P_{c} P_{f}^{n} e_{j}e_{j}^{\top} P_{s} \mathbf{1}}{\pi_{i}(\tau_{(m)}-1)e_{i}^{\top}\mathbf{1}} = e_{i}^{\top} P_{c} P_{f}^{n} e_{j}e_{j}^{\top} P_{s} \mathbf{1}.
-% \end{align}
-% since $\hat{e}_{\mu}^{\top} P_{e}^{\top} = e_{i}^{\top} I_{N} = e_{i}^{\top}$, $e_{i}^{\top} P_{\pi}(\tau{(m)}-1)=e_{i}^{\top}\pi_{i}(\tau_{(m)}-1)=\pi_{i}(\tau_{(m)}-1)e_{i}^{\top}$, $e_{i}^{\top}\mathbf{1}=1$, and $P_{\alpha}(\nu=j)=e_{j}e_{j}^{\top}$.
 % \end{figure*}
 
 \begin{figure*}[ht]
@@ -757,7 +443,6 @@ so that $\xi_{T-1}=L$, and $\xi_{k} = 0$ for all $k<T-L$.
 \end{aligned}
 \end{align}
 \end{figure*}
-
 \begin{figure*}[ht]
 \raggedright
 \begin{subequations}\label{eq:varphi}
@@ -872,7 +557,6 @@ where
     \item \eqref{proofy:3} is a consequence of the independence of $\delta_{k}$ from $\delta_{k-t_{1}}$, $\theta_{k-t_{1}}$, and $\hat{\theta}_{k}$ for all $t_{1}\geq 1$.
 \end{itemize}
 \end{figure*}
-
 \begin{figure*}[ht]
 \raggedright
 The denominator of \eqref{eq:proofx} can be simplified further in the following way.
@@ -936,7 +620,7 @@ The denominator of \eqref{eq:proofx} can be simplified further in the following 
 p_{i_{\ell-1}i_{\ell}} (1-\hat{\delta}_{i_{\ell}}) p_{i_{\ell}i_{\ell+1}} \hat{\delta}_{i_{\ell}+1} \alpha_{i_{\ell+1}\mu_{1}} = \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 &\labelrel={proofyy:6} 
-\hat{e}_{\mu_0}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1) P_{s} P_{f}^{\ell} P_{s} P_{\alpha}(\mu_1) \mathbf{1},
+\hat{e}_{\mu_0}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1) P_{s} P_{f}^{\ell} P_{s} P_{e}\hat{e}_{\mu_1},
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{aligned}
 \end{align}
@@ -972,7 +656,6 @@ The nominator of \eqref{eq:proofx} has the following expression.
 \end{align}
 where the equality \eqref{proofz0:1} is due to the law of total probability and commutative property of set intersection.
 \end{figure*}
-
 \begin{figure*}[ht]
 \raggedright
 \begin{align}\label{eq:proofz1}
@@ -1059,7 +742,6 @@ where the equality \eqref{proofz0:1} is due to the law of total probability and 
 \end{align}
 where \eqref{proofz1:1} follows from the chain rule of probability.
 \end{figure*}
-
 \begin{figure*}[ht]
 \raggedright
 \begin{align}\label{eq:proofz2}
@@ -1287,7 +969,7 @@ p_{j_{n-1}j_{n}} (1-\hat{\delta}_{j_{n}}) p_{j_{n}j_{n+1}} \hat{\delta}_{j_{n+1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 & \labelrel={proofz3:5}
 \hat{e}_{\mu_0}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1) P_{s} P_{f}^{\ell} P_{\alpha}(\nu_0) P_{s} 
-P_{\alpha}(\mu_1) P_{f}^{n} P_{s} P_{\alpha}(\nu_1) \mathbf{1},
+P_{\alpha}(\mu_1) P_{f}^{n} P_{s} P_{e}\hat{e}_{\nu_1},
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{aligned}
@@ -1301,6 +983,234 @@ where
     \item \eqref{proofz3:5} applies \eqref{eq:Ps}, \eqref{eq:epm}, and the definition of the emission probability matrix.    
 \end{itemize}
 \end{figure*}
+% \begin{figure*}[ht]
+% \raggedright
+% Notice that 
+% \begin{equation*}
+% \begin{bmatrix}
+%     p_{11}(1-\hat{\delta}_{1}) & p_{12}(1-\hat{\delta}_{2}) & p_{13}(1-\hat{\delta}_{3}) \\
+%     p_{21}(1-\hat{\delta}_{1}) & p_{22}(1-\hat{\delta}_{2}) & p_{23}(1-\hat{\delta}_{3}) \\
+%     p_{31}(1-\hat{\delta}_{1}) & p_{32}(1-\hat{\delta}_{2}) & p_{33}(1-\hat{\delta}_{3}) 
+% \end{bmatrix}
+% \begin{bmatrix}
+%     \alpha_{11} & 0 & 0 \\
+%     0 & \alpha_{21} & 0 \\
+%     0 & 0 & \alpha_{31} \\
+% \end{bmatrix}=
+% \begin{bmatrix}
+%     p_{11}(1-\hat{\delta}_{1})\alpha_{11} & p_{12}(1-\hat{\delta}_{2})\alpha_{21} & p_{13}(1-\hat{\delta}_{3})\alpha_{31} \\
+%     p_{21}(1-\hat{\delta}_{1})\alpha_{11} & p_{22}(1-\hat{\delta}_{2})\alpha_{21} & p_{23}(1-\hat{\delta}_{3})\alpha_{31} \\
+%     p_{31}(1-\hat{\delta}_{1})\alpha_{11} & p_{32}(1-\hat{\delta}_{2})\alpha_{21} & p_{33}(1-\hat{\delta}_{3})\alpha_{31} 
+% \end{bmatrix}
+% \end{equation*}
+% \begin{equation*}
+% \begin{bmatrix}
+%     p_{11}\hat{\delta}_{1}  & p_{12}\hat{\delta}_{2}  & p_{13}\hat{\delta}_{3}  \\
+%     p_{21}\hat{\delta}_{1}  & p_{22}\hat{\delta}_{2}  & p_{23}\hat{\delta}_{3}  \\
+%     p_{31}\hat{\delta}_{1}  & p_{32}\hat{\delta}_{2}  & p_{33}\hat{\delta}_{3}  
+% \end{bmatrix}
+% \begin{bmatrix}
+%     1 \\ 1 \\ 1
+% \end{bmatrix} = 
+% \begin{bmatrix}
+%     p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3} \\
+%     p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3} \\
+%     p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3} 
+% \end{bmatrix}
+% \end{equation*}
+% \begin{equation*}
+%     \begin{bmatrix}
+%     \alpha_{11} & 0 & 0 \\
+%     0 & \alpha_{21} & 0 \\
+%     0 & 0 & \alpha_{31} \\
+% \end{bmatrix}
+% \begin{bmatrix}
+%     p_{11}\hat{\delta}_{1}  & p_{12}\hat{\delta}_{2}  & p_{13}\hat{\delta}_{3}  \\
+%     p_{21}\hat{\delta}_{1}  & p_{22}\hat{\delta}_{2}  & p_{23}\hat{\delta}_{3}  \\
+%     p_{31}\hat{\delta}_{1}  & p_{32}\hat{\delta}_{2}  & p_{33}\hat{\delta}_{3}  
+% \end{bmatrix}=
+% \begin{bmatrix}
+%     \alpha_{11}p_{11}\hat{\delta}_{1}  & \alpha_{11}p_{12}\hat{\delta}_{2}  & \alpha_{11}p_{13}\hat{\delta}_{3}  \\
+%     \alpha_{21}p_{21}\hat{\delta}_{1}  & \alpha_{21}p_{22}\hat{\delta}_{2}  & \alpha_{21}p_{23}\hat{\delta}_{3}  \\
+%     \alpha_{31}p_{31}\hat{\delta}_{1}  & \alpha_{31}p_{32}\hat{\delta}_{2}  & \alpha_{31}p_{33}\hat{\delta}_{3}  
+% \end{bmatrix}
+% \end{equation*}
+% \begin{equation*}
+% \begin{bmatrix}
+%     1 & 1 & 1
+% \end{bmatrix} 
+% \begin{bmatrix}
+%     a_{11}  & a_{12}  & a_{13}  \\
+%     a_{21}  & a_{22}  & a_{23}  \\
+%     a_{31}  & a_{32}  & a_{33}  
+% \end{bmatrix} = 
+% \begin{bmatrix}
+%     a_{11}  + a_{21}  + a_{31}  \\
+%     a_{12}  + a_{22}  + a_{31}  \\
+%     a_{13}  + a_{23}  + a_{33}  
+% \end{bmatrix}
+% \end{equation*}
+% \begin{align*}
+% &\begin{bmatrix}
+%     p_{11}(1-\hat{\delta}_{1}) & p_{12}(1-\hat{\delta}_{2}) & p_{13}(1-\hat{\delta}_{3}) \\
+%     p_{21}(1-\hat{\delta}_{1}) & p_{22}(1-\hat{\delta}_{2}) & p_{23}(1-\hat{\delta}_{3}) \\
+%     p_{31}(1-\hat{\delta}_{1}) & p_{32}(1-\hat{\delta}_{2}) & p_{33}(1-\hat{\delta}_{3}) 
+% \end{bmatrix}
+% \begin{bmatrix}
+%     p_{11}\hat{\delta}_{1}  & p_{12}\hat{\delta}_{2}  & p_{13}\hat{\delta}_{3}  \\
+%     p_{21}\hat{\delta}_{1}  & p_{22}\hat{\delta}_{2}  & p_{23}\hat{\delta}_{3}  \\
+%     p_{31}\hat{\delta}_{1}  & p_{32}\hat{\delta}_{2}  & p_{33}\hat{\delta}_{3}  
+% \end{bmatrix}
+% \begin{bmatrix}
+%     1 \\ 1 \\ 1
+% \end{bmatrix}=\\
+% &\begin{bmatrix}
+%     p_{11}(1-\hat{\delta}_{1}) & p_{12}(1-\hat{\delta}_{2}) & p_{13}(1-\hat{\delta}_{3}) \\
+%     p_{21}(1-\hat{\delta}_{1}) & p_{22}(1-\hat{\delta}_{2}) & p_{23}(1-\hat{\delta}_{3}) \\
+%     p_{31}(1-\hat{\delta}_{1}) & p_{32}(1-\hat{\delta}_{2}) & p_{33}(1-\hat{\delta}_{3}) 
+% \end{bmatrix}
+% \begin{bmatrix}
+%     p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3} \\
+%     p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3} \\
+%     p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3} 
+% \end{bmatrix}=\\
+% &\begin{bmatrix}
+%     p_{11}(1-\hat{\delta}_{1})(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}
+%     p_{12}(1-\hat{\delta}_{2})(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
+%     p_{13}(1-\hat{\delta}_{3})(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
+%     p_{21}(1-\hat{\delta}_{1})(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}    
+%     p_{22}(1-\hat{\delta}_{2})(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
+%     p_{23}(1-\hat{\delta}_{3})(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
+%     p_{31}(1-\hat{\delta}_{1})(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}
+%     p_{32}(1-\hat{\delta}_{2})(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
+%     p_{33}(1-\hat{\delta}_{3})(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
+% \end{bmatrix}
+% \end{align*}
+% \begin{align*}
+% &\begin{bmatrix}
+%     p_{11}(1-\hat{\delta}_{1}) & p_{12}(1-\hat{\delta}_{2}) & p_{13}(1-\hat{\delta}_{3}) \\
+%     p_{21}(1-\hat{\delta}_{1}) & p_{22}(1-\hat{\delta}_{2}) & p_{23}(1-\hat{\delta}_{3}) \\
+%     p_{31}(1-\hat{\delta}_{1}) & p_{32}(1-\hat{\delta}_{2}) & p_{33}(1-\hat{\delta}_{3}) 
+% \end{bmatrix}
+% \begin{bmatrix}
+%     \alpha_{11} & 0 & 0 \\
+%     0 & \alpha_{21} & 0 \\
+%     0 & 0 & \alpha_{31} \\
+% \end{bmatrix}
+% \begin{bmatrix}
+%     p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3} \\
+%     p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3} \\
+%     p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3} 
+% \end{bmatrix}=\\
+% &\begin{bmatrix}
+%     p_{11}(1-\hat{\delta}_{1})\alpha_{11}(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}
+%     p_{12}(1-\hat{\delta}_{2})\alpha_{21}(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
+%     p_{13}(1-\hat{\delta}_{3})\alpha_{31}(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
+%     p_{21}(1-\hat{\delta}_{1})\alpha_{11}(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}    
+%     p_{22}(1-\hat{\delta}_{2})\alpha_{21}(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
+%     p_{23}(1-\hat{\delta}_{3})\alpha_{31}(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
+%     p_{31}(1-\hat{\delta}_{1})\alpha_{11}(p_{11}\hat{\delta}_{1}  + p_{12}\hat{\delta}_{2}  + p_{13}\hat{\delta}_{3}) \textcolor{violet}{+}
+%     p_{32}(1-\hat{\delta}_{2})\alpha_{21}(p_{21}\hat{\delta}_{1}  + p_{22}\hat{\delta}_{2}  + p_{23}\hat{\delta}_{3}) \textcolor{violet}{+}
+%     p_{33}(1-\hat{\delta}_{3})\alpha_{31}(p_{31}\hat{\delta}_{1}  + p_{32}\hat{\delta}_{2}  + p_{33}\hat{\delta}_{3}) \\
+% \end{bmatrix}
+% \end{align*}
+% \vspace{3mm}
+% \begin{equation*}
+% P_e \hat{e}_1 = 
+% \begin{bmatrix}
+%     \alpha_{11}  & \alpha_{12}   \\
+%     \alpha_{21}  & \alpha_{22}   \\
+%     \alpha_{31}  & \alpha_{32}   
+% \end{bmatrix}
+% \begin{bmatrix}
+%     1 \\ 0
+% \end{bmatrix} = 
+% \begin{bmatrix}
+%     \alpha_{11}  \\
+%     \alpha_{21}  \\
+%     \alpha_{31}  
+% \end{bmatrix}
+% \end{equation*}
+% \begin{equation*}
+% P_{s}P_{e}\hat{e}_1 = 
+% \begin{bmatrix}
+%     p_{11}\hat{\delta}_{1}  & p_{12}\hat{\delta}_{2}  & p_{13}\hat{\delta}_{3}  \\
+%     p_{21}\hat{\delta}_{1}  & p_{22}\hat{\delta}_{2}  & p_{23}\hat{\delta}_{3}  \\
+%     p_{31}\hat{\delta}_{1}  & p_{32}\hat{\delta}_{2}  & p_{33}\hat{\delta}_{3}  
+% \end{bmatrix}\!
+% \begin{bmatrix}
+%     \alpha_{11}  & \alpha_{12}   \\
+%     \alpha_{21}  & \alpha_{22}   \\
+%     \alpha_{31}  & \alpha_{32}   
+% \end{bmatrix}\!
+% \begin{bmatrix}
+%     1 \\ 0
+% \end{bmatrix} \!=\! 
+% \begin{bmatrix}
+%     p_{11}\hat{\delta}_{1}  & p_{12}\hat{\delta}_{2}  & p_{13}\hat{\delta}_{3}  \\
+%     p_{21}\hat{\delta}_{1}  & p_{22}\hat{\delta}_{2}  & p_{23}\hat{\delta}_{3}  \\
+%     p_{31}\hat{\delta}_{1}  & p_{32}\hat{\delta}_{2}  & p_{33}\hat{\delta}_{3}  
+% \end{bmatrix}\!
+% \begin{bmatrix}
+%     \alpha_{11}  \\
+%     \alpha_{21}  \\
+%     \alpha_{31}  
+% \end{bmatrix} = 
+% \begin{bmatrix}
+%     p_{11}\hat{\delta}_{1}\alpha_{11} + p_{12}\hat{\delta}_{2}\alpha_{21} + p_{13}\hat{\delta}_{3}\alpha_{31} \\
+%     p_{21}\hat{\delta}_{1}\alpha_{11} + p_{22}\hat{\delta}_{2}\alpha_{21} + p_{23}\hat{\delta}_{3}\alpha_{31} \\
+%     p_{31}\hat{\delta}_{1}\alpha_{11} + p_{32}\hat{\delta}_{2}\alpha_{21} + p_{33}\hat{\delta}_{3}\alpha_{31} 
+% \end{bmatrix}
+% \end{equation*}
+% \begin{equation*}
+% P_s e_1 = 
+% \begin{bmatrix}
+%     p_{11}\hat{\delta}_{1}  & p_{12}\hat{\delta}_{2}  & p_{13}\hat{\delta}_{3}  \\
+%     p_{21}\hat{\delta}_{1}  & p_{22}\hat{\delta}_{2}  & p_{23}\hat{\delta}_{3}  \\
+%     p_{31}\hat{\delta}_{1}  & p_{32}\hat{\delta}_{2}  & p_{33}\hat{\delta}_{3}  
+% \end{bmatrix}
+% \begin{bmatrix}
+%     1 \\ 0 \\ 0
+% \end{bmatrix} = 
+% \begin{bmatrix}
+%     p_{11}\hat{\delta}_{1} \\
+%     p_{21}\hat{\delta}_{1} \\
+%     p_{31}\hat{\delta}_{1} 
+% \end{bmatrix}
+% \end{equation*}
+% \end{figure*}
+\begin{figure*}[ht]
+\raggedright
+To write expressions concisely, we index the values of the ordered triples $\left(v_{1},v_{2},v_{3}\right)$ representing the operational modes of the closed-loop system for the stability analysis, with 
+$1\leq v_{1},v_{3}\leq M\leq N$ and $0\leq v_{2}\leq L$, using an invertible mapping $f:\mathbb{Z}^{3}\to\mathbb{Z}^{+}$,
+\begin{equation}\label{eq:mapping}
+    f\left(v_{1},v_{2},v_{3}\right)=M^{2}v_{2}+M(v_{3}-1)+v_{1}.
+\end{equation}
+Then, the augmented system's discrete conditions $\mathrm{c}_{\mathrm{i}}$ and $\mathrm{c}_{\mathrm{j}}$ will be shorthands for $(\hat{s}_{\mu_1},\ell,\hat{s}_{\mu_0})$ and $(\hat{s}_{\nu_1},n,\hat{s}_{\nu_0})$, with $f({\mu_1},\ell,{\mu_0})=\mathrm{i}$ and $f({\nu_1},n,{\nu_0})=\mathrm{j}$. 
+From \eqref{eq:proofy}--\eqref{eq:proofz3}, \eqref{eq:proofx} becomes the following.
+\begin{equation}\label{eq:varrho}
+\mathbb{P}(
+\hat{\varphi}_{\tau_{(m+2)}}^{} = \mathrm{j} \mid \hat{\varphi}_{\tau_{(m+1)}}^{} = \mathrm{i}) = 
+% \hat{\varphi}_{\tau_{(m+2)}}^{} = (\hat{s}_{\nu_{1}},n,\hat{s}_{\nu_{0}}) \mid 
+% \hat{\varphi}_{\tau_{(m+1)}}^{} = (\hat{s}_{\mu_{1}},\ell,\hat{s}_{\mu_{0}}) = 
+\frac{\hat{e}_{\mu_0}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1) P_{s} P_{f}^{\ell} P_{\alpha}(\nu_0) P_{s} P_{\alpha}(\mu_1) P_{f}^{n} P_{s} P_{e}\hat{e}_{\nu_1}}{\hat{e}_{\mu_0}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1) P_{s} P_{f}^{\ell} P_{s} P_{e}\hat{e}_{\mu_1}} 
+\triangleq %\varrho_{(({\mu_1},\ell,{\mu_0}),({\nu_1},n,{\nu_0}))}.%
+\varrho_{\mathrm{i}\mathrm{j}}.
+\end{equation}
+Notice that under the perfect channel state estimation $M=N$ and $P_e = I_{N}$ so that \eqref{eq:varrho} becomes
+\begin{align}
+\begin{aligned}
+\mathbb{P}&(
+\hat{\varphi}_{\tau_{(m+2)}}^{} = (\hat{s}_{\nu_{1}} = s_{j_1},n,\hat{s}_{\nu_{0}} = s_{j_0}) \mid 
+\hat{\varphi}_{\tau_{(m+1)}}^{} = (\hat{s}_{\mu_{1}} = s_{i_1},\ell,\hat{s}_{\mu_{0}}= s_{i_1}) = \\
+&=\frac{\pi_{i}(\tau_{(m)}-1)e_{i_0}^{\top} P_{s} P_{f}^{\ell} e_{j_0}e_{j_0}^{\top} P_{s} e_{i_1}e_{i_1}^{\top} P_{f}^{n}P_{s} e_{j_1}}{\pi_{i}(\tau_{(m)}-1)e_{i_0}^{\top} P_{s}P_{f}^{\ell}P_{s}e_{i_1}} = \frac{e_{i_0}^{\top} P_{s} P_{f}^{\ell} e_{j_0}e_{j_0}^{\top} P_{s} e_{i_1}e_{i_1}^{\top} P_{f}^{n}P_{s} e_{j_1}}{e_{i_0}^{\top} P_{s}P_{f}^{\ell}P_{s}e_{i_1}}
+\end{aligned}
+\end{align}
+since $\hat{e}_{\mu_0}^{\top} P_{e}^{\top} = e_{i_0}^{\top} I_{N} = e_{i_0}^{\top}$, 
+$e_{i_0}^{\top} P_{\pi}(\tau{(m)}-1)=e_{i_0}^{\top}\pi_{i}(\tau_{(m)}-1)=\pi_{i}(\tau_{(m)}-1)e_{i_0}^{\top}$, $P_{\alpha}(\nu_0=j_0)=e_{j_0}e_{j_0}^{\top}$, $P_{\alpha}(\mu_1=i_1)=e_{i_1}e_{i_1}^{\top}$, $P_{e}\hat{e}_{\mu_1} = I_{N} e_{i_1}  = e_{i_1}$, and
+$P_{e}\hat{e}_{\nu_1} = I_{N} e_{j_1}  = e_{j_1}$.
+\end{figure*}
+
 
 % \section*{ACKNOWLEDGMENT}
 % Put sponsor acknowledgments in the unnumbered footnote on the first page.
