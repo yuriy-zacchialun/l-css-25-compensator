@@ -60,52 +60,47 @@ Department of Information Engineering, Computer Science and Mathematics (DISIM),
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-This letter addresses.
+\textcolor{magenta}{This letter addresses.}
 \end{abstract}
 \begin{keywords}
 Control over communications, Markov processes.
 \end{keywords}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}\label{sec:intro}
-\IEEEPARstart{W}{ireless} networked control systems 
+\IEEEPARstart{W}{ireless} networked control systems (WNCSs), with their mission-critical applications in intelligent transportation, industrial automation, smart grids, and telesurgery, are a significant area of interest for both industry and academia, as highlighted in \cite{park2018comm,liu2021iot}, and \cite{pezzutto2024arc}. Estimation and control over unreliable links are key topics of WNCS research, as discussed in \cite{park2018comm,pezzutto2024arc,yZL-2025-automatica}, and references therein. 
 
-The \textit{contribution} of this letter is twofold:
-\begin{itemize}
-\item It introduces.
-\item It solves.
-\end{itemize}
-This letter is \emph{organized} as follows. . 
+An essential research outcome of \cite{yZL-2025-automatica} and \cite{impicciatore2024tac} is that accurate and timely knowledge of the communication link conditions can substantially improve closed-loop performance. However, perfect wireless channel state information (CSI) may be difficult to achieve in realistic communication scenarios, so only imperfect or statistical CSI may be available in practice, see \cite{zheng2022survey}, \cite{pourkabirian2021robust}, and \cite{akgun2024interference}. Another potential limitation of the results in \cite{yZL-2025-automatica} and \cite{impicciatore2024tac} is computing and transmitting only the current control input. The model predictive control (MPC)-based algorithms outlined in \cite{pezzutto2024arc} instead rely on transferring a sequence of future control inputs that actuators can use if future control messages are lost. This approach increases processing and transmission delays, message loss probabilities, and network traffic due to message size growth. The number of future control inputs to transfer becomes a significant design parameter, balancing the adverse effects of increased message size and the benefits of improved control inputs. This letter presents a framework for studying this trade-off under imperfect CSI and a hybrid message dropout compensation (MDC) scheme that combines transmitting multiple control inputs and scaling inputs to actuators when necessary.
+We incorporate CSI uncertainties using the detector-based approach of \cite{costa2015detector} and \cite{deoliveira2018mixed}, which we extend to the one-time-step delayed channel state observation setting of \cite{yZL-2025-automatica} and \cite{impicciatore2024tac}, where finite-state Markov channels (FSMCs, see \cite{sadeghi2008finite}) model the dynamics of wireless links. Thus, we substantially extend the results of \cite{yZL-2025-automatica} to a most general unconstrained setting.
 
-\textit{Notation:} $\mathbb{R}$, $\mathbb{Z}^{+}$, and $\mathbb{Z}^{0+}$ indicate the sets of reals and positive and nonnegative integers. $\mathbb{R}^{n}$ indicates the $n$-dimensional Euclidean space. The symmetric positive definite and positive semi-definite matrices $M$ are denoted by $M\succ 0$ and $M\succeq 0$. Then, $M^{\top}$ indicates the transpose of a matrix $M$. Finally, $\mathbb{P}$ represents the probability of an event, and $\mathbb{E}$ denotes the expected value of a random variable.
-\section{System Model and Problem Definition}\label{sec:model}
-Consider a discrete-time linear system
-\begin{equation}\label{eq:state}
-        x_{k+1} = A x_{k} + B u_{k}^{} + w_{k},
-\end{equation}
-where $\forall k \!\in\! \mathbb{Z}^{0+}$, $x_k\!\in\!\mathbb{R}^{n_x}$ and $u_k^{}\!\in\!\mathbb{R}^{n_u}$ are the system state and control input to actuators, $A$ and $B$ are state and input matrices of appropriate size, and $w_k\!\in\!\mathbb{R}^{n_x}$ is a white Gaussian process noise having zero mean and covariance matrix $\Sigma_w$.
+The \textit{contribution} of this letter is threefold.
+\begin{enumerate}
+    \item We present a practical hidden Markov jump linear system (HMJLS) model of discrete-time linear stochastic systems with hybrid MDC and imperfect CSI.
+    \item We derive finite- and infinite-horizon linear--quadratic regulators and introduce a necessary and sufficient stability condition for any given infinite-horizon state-feedback (SF) control law that requires computing the spectral radius of a stability verification matrix.
+    \item We validate the theoretical results on numerical examples showcasing the impact of the number of transmitted anticipative control inputs and CSI uncertainties.
+\end{enumerate}
 
-$\{\delta_k\}$ is a binary stochastic process that models the packet loss between the controller and the actuators, and $u_k^c\!\in\!\mathbb{R}^{n_u}$ is the updated desired control input sent by the remote controller. Upon correct delivery, $u_k^{}\!=\!u_k^c$; otherwise, if the desired control input is corrupted or lost, the actuators apply a scaled version of an outdated control input, $u_k^{}\!=\!\phi u_{k-1}^{}$, with $\phi \in [0,1]$.
-This generalized approach to control-packet dropout compensation covers both the zero-input ($\phi\!=\!0$) and hold-input ($\phi\!=\!1$) PDCs as notable cases. 
-\subsection{Polytopic Markovian channel model}\label{subsec:ptifsmc}
-We model the dynamics of the control-packet loss process $\{\delta_k\}$ in the wireless propagation environment as an FSMC. 
+This letter is \emph{organized} as follows. 
+\textcolor{magenta}{Section}
 
-This channel has a fixed finite set $\mathcal{S}$ of states $\{s_i\}_{i=1}^{N}$, each characterized by predefined signal-to-interference-plus-noise ratio (SINR) thresholds, which do not vary in time, so the state number remains constant, and each channel state has a specific packet dropout probability. 
-A discrete-time Markov chain $\{\theta_k\}$ determines the active channel state, whose packet dropout probability and transition probabilities (TPs) depend on the SINR dynamics. So, we formally define the FSMC as follows.
-For all $k\in \mathbb{Z}^{0+}$,
+%\textcolor{magenta}{
+\textit{Notation:} $\mathbb{R}$, $\mathbb{Z}^{+}$, and $\mathbb{Z}^{0+}$ indicate the sets of reals and positive and nonnegative integers. $\mathbb{R}^{n}$ indicates the $n$-dimensional Euclidean space. The symmetric positive definite and positive semidefinite matrices $Z$ are denoted by $Z\succ 0$ and $Z\succeq 0$. $Z^{\top}$ indicates the transpose of a matrix $Z$. $\mathbb{P}$ represents the probability of an event, and $\mathbb{E}$ denotes the expected value of a random variable. $I_N$ indicates the identity matrix of size $N$.%}
+
+\section{Preliminaries and Motivation Example}\label{sec:model}
+In a WNCS setting, controllers use wireless links to transmit control messages to actuators. 
+Similarly, sensors transmit their measurements to controllers wirelessly. Wireless links exhibit a time-varying behavior captured well by FSMC models. 
+
+Any FSMC has a finite set of states $\mathcal{S}\triangleq\{s_i\}_{i=1}^{N}$. Each state can be characterized by predefined signal-to-interference-plus-noise ratio (SINR) thresholds and a corresponding packet dropout probability \cite{zacchialun2024access}. A discrete-time Markov chain $\{\theta_k\}$ dictates the active channel state, whose packet dropout probability and transition probabilities (TPs) depend on the SINR dynamics. We formally define an FSMC as follows: $\forall k\in \mathbb{Z}^{0+}$,
 \begin{equation}\label{eq:p-ij}
     \mathbb{P}(\theta_{k} = s_j \mid \theta_{k-1} = s_i) = p_{ij} \geq 0,~ \sum_{j=1}^N p_{ij} = 1,
 \end{equation}
-\begin{align}\label{eq:p-delta}
-\begin{aligned}
-    \mathbb{P}(\delta_k = 1 \mid \theta_{k} = s_j) &= \hat{\delta}_{j}(k),\\
-    \mathbb{P}(\delta_k = 0 \mid \theta_{k} = s_j) &= 1 - \hat{\delta}_{j}(k).    
-\end{aligned}
-\end{align}
-For notational convenience, group %the
+\begin{equation}\label{eq:p-delta}
+    \mathbb{P}(\delta_k = 1 \mid \theta_{k} = s_j) = \hat{\delta}_{j},~
+    \mathbb{P}(\delta_k = 0 \mid \theta_{k} = s_j) = 1 - \hat{\delta}_{j},
+\end{equation}
+where $\{\delta_k\}$ is a binary stochastic process that models the packet loss between transmitter and receiver.
+
+For notational convenience, we group
 channel state TPs in the transition probability matrix (TPM) $P_{c}^{} \triangleq \left[p_{ij}\right]_{i,j=1}^{N}$
-% \begin{equation}\label{eq:Pc}
-%     P_{c}^{}(k) \triangleq \left[p_{ij}(k)\right]_{i,j=1}^{N}
-% \end{equation}
 and the  success (or, conversely, failure) probabilities of delivering a packet at time $k$ in the following matrices:
 \begin{equation}\label{eq:Ps}
     P_{s}^{} \triangleq \left[p_{ij}\hat{\delta}_{j}\right]_{i,j=1}^{N},~P_{f} = P_{c} - P_{s}.
@@ -114,14 +109,83 @@ We also indicate the channel state probability at time $k$ as
 \begin{equation}\label{eq:pik}
      \mathbb{P}(\theta_{k} = s_i) = \pi_{i}(k).
 \end{equation}
-Inspired by Costa et al., we use the detector with an emission probability matrix (EPM) $P_{e}^{} \triangleq \left[\alpha_{i\mu}\right]_{i,\mu=1}^{N,M}$, where
+
+Wireless receivers perform CSI measurements that may be fed back to the transmitters. In the sensing links, the controller is the receiver with direct access to the measured CSI. In the actuation links, the controller is the transmitter. It can typically access the measured CSI using a reporting mechanism similar to acknowledgment (ACK) of transmission outcomes, which introduces a delay. This delay makes the optimal SF control problem the main challenge in the unconstrained output feedback control over FSMC links \cite{impicciatore2024tac}. Consequently, this letter focuses on the unconstrained SF control problem that explores the impact of the actuation link's CSI measurement noise, including particular cases of partial or no observation of FSMC states. We adopt the detector-based approach as follows.
+
+Let $\hat{\theta}_k \in \{\hat{s}_{\mu}\}_{\mu=1}^{M}$ denote the measured CSI, which is the output of a detector with an emission probability matrix (EPM)
+\begin{subequations}
+\begin{equation}\label{eq:epm}
+    P_{e}^{} \triangleq \left[\alpha_{i\mu}\right]_{i,\mu=1}^{N,M},
+\end{equation}
 \begin{equation}\label{eq:alpha}
    \mathbb{P}(\hat{\theta}_{k} = \hat{s}_{\mu} \mid \theta_{k} = s_i) = \alpha_{i\mu} \geq 0,~ \sum_{i=1}^N \alpha_{i\mu}= 1.
 \end{equation}
-We then define the following diagonal matrices.
-\begin{equation}\label{eq:epm}
-     P_{\pi}^{}(k) = \bigoplus_{i=1}^{N} \pi_{i}(k),~P_{\alpha}^{}(\mu) = \bigoplus_{i=1}^{N} \alpha_{i\mu}
+\end{subequations}
+
+$M\leq N$ encompasses the following particular cases:
+\begin{itemize}
+    \item Perfect CSI: $M=N$ and $P_e = I_N$ so that %$\hat{\theta}_k = \theta_k ~\forall k$, i.e., 
+    $\theta_k$ is known.
+    \item No CSI: $M=1$ and $P_e = \mathbf{1}$ so that $\theta_k$ is unknown.
+\end{itemize}
+Furthermore, the case of partial observation with clusters is also well represented by a detector with $M<N$, see \cite{costa2015detector}.
+
+In the WNCS setting, we can rely on CSI based on SINR measurements $\hat{\gamma}_k$, where $\hat{\theta}_k = \hat{s}_{\mu} \Leftrightarrow\hat{\gamma}_k\in [\hat{\beta}_{\mu-1},\hat{\beta}_{\mu})$, with $\hat{\beta}_{\mu-1}$ and $\hat{\beta}_{\mu}$ indicating the detector's SINR thresholds. Since $\hat{\gamma}_k \in [0,+\infty)$, $\hat{\beta}_0 = 0$, and $\hat{\beta}_{M}=+\infty$. CSI measurements may be affected by measurement noise $\omega_k$, i.e., 
+\begin{equation}\label{eq:gamma-hat}
+    \hat{\gamma}_k = \gamma_k + \omega_k,
 \end{equation}
+where $\gamma_k$ denotes the nominal SINR that drives the FSMC: 
+$\theta_k = s_{i} \Leftrightarrow\gamma_k\in [\beta_{i-1},\beta_{i})$, where $\beta_{i-1}$ and $\beta_{i}$ are the SINR thresholds of a FSMC. $\gamma_k \in [0,+\infty)$, $\beta_0 = 0$, and $\beta_{N}=+\infty$.
+
+As a \emph{motivation example} with significant practical relevance, we consider $\omega_k \sim \mathcal{N}(0,\sigma_{\omega}^2)$ and $M<N$. 
+Depending on the characteristics of the wireless propagation environment, $\gamma_k$ can have lognormal, Rayleigh, Rice, or Nakagami distributions \cite{stuber2017principles}. 
+Let $f_{\gamma}(z)$ be the probability density function of $\gamma_k$. % Then, 
+% Let $\bar{\gamma}_i$ denote the expected SINR of the FSMC state $s_{i}$.
+% \begin{equation}\label{eq:expected-sinr}
+%     \bar{\gamma}_i = \int_{\beta_{i-1}}^{\beta_{i}} z f_{\gamma}(z)dz.
+% \end{equation}
+% From the definition of the conditional probability,
+\begin{equation}\label{eq:alpha-normal}
+    \alpha_{i\mu} = \frac{
+    \int_{\beta_{i-1}}^{\beta_{i}}\left(
+    \mathcal{Q}\left(\frac{\hat{\beta}_{\mu-1}-z}{\sigma_{\omega}}\right) - 
+    \mathcal{Q}\left(\frac{\hat{\beta}_{\mu}-z}{\sigma_{\omega}}\right) 
+    \right) f_{\gamma}(z)dz}{
+    \int_{\beta_{i-1}}^{\beta_{i}} f_{\gamma}(z)dz},
+\end{equation}
+where $\mathcal{Q}(\cdot)$ indicates the Q-function. For any given $\sigma_{\omega}$, $f_{\gamma}(z)$, and % sets of \textcolor{magenta}{inner} 
+thresholds $\{\hat{\beta}_{\mu}\}_{\mu=1}^{M-1}$ and $\{\beta_{i}\}_{i+1}^{N-1}$, the values of $\alpha_{i\mu}$ can be found numerically using \eqref{eq:alpha-normal}.
+
+For notational convenience, we define the following diagonal matrices.
+\begin{equation}\label{eq:epm}
+     P_{\pi}^{}(k) = \bigoplus_{i=1}^{N} \pi_{i}(k),~P_{\alpha}^{}(\mu) = \bigoplus_{i=1}^{N} \alpha_{i\mu}.
+\end{equation}
+
+\section{System Model and Problem Definition}\label{sec:model}
+We consider a discrete-time linear system % in the standard state-space form
+\begin{equation}\label{eq:state}
+        x_{k+1} = A x_{k} + B u_{k}^{} + w_{k},
+\end{equation}
+where $\forall k \!\in\! \mathbb{Z}^{0+}$, $x_k\!\in\!\mathbb{R}^{n_x}$ and $u_k^{}\!\in\!\mathbb{R}^{n_u}$ are the system state and control input to actuators, $A$ and $B$ are state and input matrices of appropriate size, and $w_k\!\in\!\mathbb{R}^{n_x}$ is a white Gaussian process noise having zero mean and covariance matrix $\Sigma_w$.
+
+
+
+% \subsection{Wireless SF Control with imperfect CSI}\label{subsec:wireless-control}
+
+
+% The receivers 
+
+
+
+In the unconstrained case, 
+
+$u_k^c\!\in\!\mathbb{R}^{n_u}$ is the updated desired control input sent by the remote controller. Upon correct delivery, $u_k^{}\!=\!u_k^c$; otherwise, if the desired control input is corrupted or lost, the actuators apply a scaled version of an outdated control input, $u_k^{}\!=\!\phi u_{k-1}^{}$, with $\phi \in [0,1]$.
+This generalized approach to control-packet dropout compensation covers both the zero-input ($\phi\!=\!0$) and hold-input ($\phi\!=\!1$) PDCs as notable cases. 
+
+whose 
+\subsection{Finite-state Markov channel model}\label{subsec:fsmc}
+We model the dynamics of the control-packet loss process $\{\delta_k\}$ in the wireless propagation environment as an FSMC. 
+
 \subsection{System states in packet delivery time instances}
 Count the consecutive control message dropouts observed by a controller at time step $k$ in a stochastic variable $\mathit{\Delta}_{k}$.
 \begin{equation}\label{eq:z-k}
@@ -176,7 +240,7 @@ TPs are independent of $\ell$, the value of $\mathit{\Delta}_{\tau_{(m)}}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \bibliographystyle{IEEEtran}
-% \bibliography{biblio}
+\bibliographystyle{IEEEtran}
+\bibliography{biblio}
 
 \end{document}
