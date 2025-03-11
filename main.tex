@@ -82,8 +82,11 @@ The \textit{contribution} of this letter is threefold.
 This letter is \emph{organized} as follows. 
 \textcolor{magenta}{Section}
 
-%\textcolor{magenta}{
-\textit{Notation:} $\mathbb{R}$, $\mathbb{Z}^{+}$, and $\mathbb{Z}^{0+}$ indicate the sets of reals and positive and nonnegative integers. $\mathbb{R}^{n}$ indicates the $n$-dimensional Euclidean space. The symmetric positive definite and positive semidefinite matrices $Z$ are denoted by $Z\succ 0$ and $Z\succeq 0$. $Z^{\top}$ indicates the transpose of a matrix $Z$. $\mathbb{P}$ represents the probability of an event, and $\mathbb{E}$ denotes the expected value of a random variable. $I_N$ indicates the identity matrix of size $N$.%}
+\textit{Notation:} $\mathbb{R}$, $\mathbb{Z}^{+}$, and $\mathbb{Z}^{0+}$ indicate the sets of reals and positive and nonnegative integers. $\mathbb{R}^{n}$ indicates the $n$-dimensional Euclidean space. The symmetric positive definite and positive semidefinite matrices $Z$ are denoted by $Z\succ 0$ and $Z\succeq 0$. $Z^{\top}$ indicates the transpose of a matrix $Z$. $\mathbb{P}$ represents the probability of an event, and $\mathbb{E}$ denotes the expected value of a random variable. $I_N$ indicates the identity matrix of size $N$. 
+
+Throughout this letter, $N$ indicates the number of FSMC states, and $M$ is the number of detector outputs, with $M\leq N$.
+Furthermore, $e_i$ denotes the column vector of the standard basis of $\mathbb{R}^{N}$: all its components are zero except the $i$th, which equals one. The column vectors of the standard basis of $\mathbb{R}^{M}$ are denoted by $\hat{e}_{\mu}$, with $\mu\in\mathbb{Z}^{+}$, $\mu\leq M$. 
+Finally, $\oplus$ indicates the direct sum that produces a diagonal matrix with arguments becoming elements on the main diagonal.
 
 \section{Preliminaries and Motivation Example}\label{sec:model}
 In a WNCS setting, controllers use wireless links to transmit control messages to actuators. 
@@ -162,27 +165,26 @@ For notational convenience, we define the following diagonal matrices.
 \end{equation}
 
 \section{System Model and Problem Definition}\label{sec:model}
-We consider a discrete-time linear system % in the standard state-space form
+In this letter, we consider a discrete-time linear system % in the standard state-space form
 \begin{equation}\label{eq:state}
         x_{k+1} = A x_{k} + B u_{k}^{} + w_{k},
 \end{equation}
 where $\forall k \!\in\! \mathbb{Z}^{0+}$, $x_k\!\in\!\mathbb{R}^{n_x}$ and $u_k^{}\!\in\!\mathbb{R}^{n_u}$ are the system state and control input to actuators, $A$ and $B$ are state and input matrices of appropriate size, and $w_k\!\in\!\mathbb{R}^{n_x}$ is a white Gaussian process noise having zero mean and covariance matrix $\Sigma_w$.
 
+The controller sends a control message $\hat{u}_k$ comprising the current input and $n_{f}\in\mathbb{Z}^{0+}$ future inputs, to account for possible control message dropouts after the current transmission: 
+\begin{equation}\label{eq:control-message}
+    \hat{u}_k =
+    \left(\left[\bar{u}_{(k+t\mid k)}^{\top}\right]_{t=0}^{n_f}\right)^{\top} = 
+    \left[\bar{u}_{(k\mid k)}^{\top},\dots,\bar{u}_{(k+n_f\mid k)}^{\top}\right]^{\top}.
+\end{equation}
 
+If the control message dropout interval is longer than the number of anticipated control inputs $n_f$, the actuators apply the generalized control MDC at the last available control input.  Specifically, this input is multiplied by a matrix $\mathit{\Phi}=\bigoplus_{i=1}^{n_u} \phi_i$, where $\oplus$ indicates the direct sum that produces a diagonal matrix with elements $0 \leq \phi_i \leq 1$ on the main diagonal.
 
-% \subsection{Wireless SF Control with imperfect CSI}\label{subsec:wireless-control}
+Formally, let $e_i$ denote the column vector of the standard basis of $\mathbb{R}^{N}$: all its components are zero except $i$th, which equals one. Similarly, $\hat{e}_{\mu}$ will indicate the column vector of the standard basis of $\mathbb{R}^{M}$.
+\begin{equation}\label{eq:}
+    x
+\end{equation}
 
-
-% The receivers 
-
-
-
-In the unconstrained case, 
-
-$u_k^c\!\in\!\mathbb{R}^{n_u}$ is the updated desired control input sent by the remote controller. Upon correct delivery, $u_k^{}\!=\!u_k^c$; otherwise, if the desired control input is corrupted or lost, the actuators apply a scaled version of an outdated control input, $u_k^{}\!=\!\phi u_{k-1}^{}$, with $\phi \in [0,1]$.
-This generalized approach to control-packet dropout compensation covers both the zero-input ($\phi\!=\!0$) and hold-input ($\phi\!=\!1$) PDCs as notable cases. 
-
-whose 
 \subsection{Finite-state Markov channel model}\label{subsec:fsmc}
 We model the dynamics of the control-packet loss process $\{\delta_k\}$ in the wireless propagation environment as an FSMC. 
 
@@ -198,7 +200,7 @@ Count the consecutive control message dropouts observed by a controller at time 
 Notably, if $\ell\!=\!0$, then $\left\{t\right\}_{t=1}^{0} \!=\! \emptyset$, meaning that \eqref{eq:zl} becomes $\mathit{\Delta}_{k}\!=\!0\Leftrightarrow \delta_{k-1}\!=\!1$.
 Denote by $\mathcal{T}$ a set of time instances in which actuators successfully receive the controller's messages: %. Formally, 
 \begin{subequations}\label{eq:tau} 
-\begin{equation}\label{eq:calT}
+\begin{equation}\label{eq:calT}  
     \mathcal{T} \triangleq \left\{ k : \delta_k = 1 \right\}_{k\in\mathbb{Z}^{0+}} = \{ \tau_{(m)}\}_{m\in\mathbb{Z}^{0+}}.
 \end{equation}
 From \eqref{eq:z-k}, \eqref{eq:zl}, and \eqref{eq:calT}, for all $m\in\mathbb{Z}^{0+}$,
