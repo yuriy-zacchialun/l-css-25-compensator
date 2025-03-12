@@ -85,8 +85,7 @@ This letter is \emph{organized} as follows.
 \textit{Notation:} $\mathbb{R}$, $\mathbb{Z}^{+}$, and $\mathbb{Z}^{0+}$ indicate the sets of reals and positive and nonnegative integers. $\mathbb{R}^{n}$ indicates the $n$-dimensional Euclidean space. The symmetric positive definite and positive semidefinite matrices $Z$ are denoted by $Z\succ 0$ and $Z\succeq 0$. $Z^{\top}$ indicates the transpose of a matrix $Z$. $\mathbb{P}$ represents the probability of an event, and $\mathbb{E}$ denotes the expected value of a random variable. $I_N$ indicates the identity matrix of size $N$. 
 
 Throughout this letter, $N$ indicates the number of FSMC states, and $M$ is the number of detector outputs, with $M\leq N$.
-Furthermore, $e_i$ denotes the column vector of the standard basis of $\mathbb{R}^{N}$: all its components are zero except the $i$th, which equals one. The column vectors of the standard basis of $\mathbb{R}^{M}$ are denoted by $\hat{e}_{\mu}$, with $\mu\in\mathbb{Z}^{+}$, $\mu\leq M$. 
-Finally, $\oplus$ indicates the direct sum that produces a diagonal matrix with arguments becoming elements on the main diagonal.
+Furthermore, $e_i$ denotes the column vector of the standard basis of $\mathbb{R}^{N}$: all its components are zero except the $i$th, which equals one. The column vectors of the standard basis of $\mathbb{R}^{M}$ are denoted by $\hat{e}_{\mu}$, with $\mu\in\mathbb{Z}^{+}$, $\mu\leq M$. In addition, $\oplus$ indicates the direct sum that produces a diagonal matrix with the addends becoming elements on the main diagonal. $\otimes$ is the Kronecker product. Finally, $\mathbf{0}$ and $\mathbf{1}$ are vectors of appropriate size with all elements equal to zero and one, respectively.
 
 \section{Preliminaries and Motivation Example}\label{sec:model}
 In a WNCS setting, controllers use wireless links to transmit control messages to actuators. 
@@ -178,15 +177,23 @@ The controller sends a control message $\hat{u}_k$ comprising the current input 
     \left[\bar{u}_{(k\mid k)}^{\top},\dots,\bar{u}_{(k+n_f\mid k)}^{\top}\right]^{\top}.
 \end{equation}
 
-If the control message dropout interval is longer than the number of anticipated control inputs $n_f$, the actuators apply the generalized control MDC at the last available control input.  Specifically, this input is multiplied by a matrix $\mathit{\Phi}=\bigoplus_{i=1}^{n_u} \phi_i$, where $\oplus$ indicates the direct sum that produces a diagonal matrix with elements $0 \leq \phi_i \leq 1$ on the main diagonal.
-
-Formally, let $e_i$ denote the column vector of the standard basis of $\mathbb{R}^{N}$: all its components are zero except $i$th, which equals one. Similarly, $\hat{e}_{\mu}$ will indicate the column vector of the standard basis of $\mathbb{R}^{M}$.
-\begin{equation}\label{eq:}
-    x
+If the control message dropout interval is longer than the number of anticipated control inputs $n_f$, the actuators apply the generalized control MDC at the last available control input.  Specifically, this input is multiplied by a matrix $\mathit{\Phi}=\bigoplus_{i=1}^{n_u} \phi_i$, with $0 \leq \phi_i \leq 1$. 
+The actuator inputs are obtained as follows.
+\begin{equation}\label{eq:uk}
+    u_k = F \tilde{u}_k,~F \triangleq \tilde{e}_{1}^{\top} \otimes I_{n_u},
 \end{equation}
+\begin{equation}\label{eq:uk-tilde}
+    \tilde{u}_k = \delta_k \hat{u}_k + \left(1-\delta_k\right) H \tilde{u}_{k-1},~\tilde{u}_0 = \mathbf{0},
+\end{equation}
+\begin{equation}\label{eq:H}
+    H \triangleq \sum_{i=1}^{n_f} \tilde{e}_{i} \otimes \tilde{e}_{i+1}^{\top} \otimes I_{n_u} + 
+    \tilde{e}_{n_f+1} \otimes \tilde{e}_{n_f+1}^{\top} \otimes \mathit{\Phi}.
+\end{equation}
+$\tilde{e}_{i}$ indicates the column vector of the standard basis of $\mathbb{R}^{n_f+1}$.
+$u_k$ in \eqref{eq:uk} extracts the first $n_u$ elements from the buffer $\tilde{u}_k$ described by \eqref{eq:uk-tilde}.
+If a control message is received successfully, $\delta_k = 1$, and the buffer stores the message. Otherwise, the buffer performs a linear transformation of its content through the matrix $H$. This transformation deletes the first $n_u$ elements,  moves all the remaining elements by $n_u$ positions upwards, multiplies the last $n_u$ elements by $\mathit{\Phi}$, and stores the result at the bottom of the buffer.
 
-\subsection{Finite-state Markov channel model}\label{subsec:fsmc}
-We model the dynamics of the control-packet loss process $\{\delta_k\}$ in the wireless propagation environment as an FSMC. 
+% $\tilde{u}_k$ in \eqref{eq:uk-tilde} describes a buffer that stores the messages from the controller and  
 
 \subsection{System states in packet delivery time instances}
 Count the consecutive control message dropouts observed by a controller at time step $k$ in a stochastic variable $\mathit{\Delta}_{k}$.
