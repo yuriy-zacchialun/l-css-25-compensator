@@ -6,6 +6,7 @@
 \usepackage{orcidlink}
 \usepackage{lcsys}
 \usepackage{amsmath,amssymb,amsfonts} % assumes amsmath package installed
+\usepackage{bm}
 
 \newtheorem{assumption}{Assumption}
 \newtheorem{theorem}{Theorem}
@@ -87,7 +88,7 @@ This letter is \emph{organized} as follows.
 Throughout this letter, $N$ indicates the number of FSMC states, and $M$ is the number of detector outputs, with $M\leq N$.
 Furthermore, $e_i$ denotes the column vector of the standard basis of $\mathbb{R}^{N}$: all its components are zero except the $i$th, which equals one. The column vectors of the standard basis of $\mathbb{R}^{M}$ are denoted by $\hat{e}_{\mu}$, with $\mu\in\mathbb{Z}^{+}$, $\mu\leq M$. In addition, $\oplus$ indicates the direct sum that produces a diagonal matrix with the addends becoming elements on the main diagonal. $\otimes$ is the Kronecker product. Finally, $\mathbf{0}$ and $\mathbf{1}$ are vectors of appropriate size with all elements equal to zero and one, respectively.
 
-\section{Preliminaries and Motivation Example}\label{sec:model}
+\section{Preliminaries and Motivation Example}\label{sec:prelim}
 In a WNCS setting, controllers use wireless links to transmit control messages to actuators. 
 Similarly, sensors transmit their measurements to controllers wirelessly. Wireless links exhibit a time-varying behavior captured well by FSMC models. 
 
@@ -126,9 +127,9 @@ Let $\hat{\theta}_k \in \{\hat{s}_{\mu}\}_{\mu=1}^{M}$ denote the measured CSI, 
 
 $M\leq N$ encompasses the following particular cases:
 \begin{itemize}
-    \item Perfect CSI: $M=N$ and $P_e = I_N$ so that %$\hat{\theta}_k = \theta_k ~\forall k$, i.e., 
+    \item \emph{Perfect CSI}: $M=N$ and $P_e = I_N$ so that %$\hat{\theta}_k = \theta_k ~\forall k$, i.e., 
     $\theta_k$ is known.
-    \item No CSI: $M=1$ and $P_e = \mathbf{1}$ so that $\theta_k$ is unknown.
+    \item \emph{No CSI}: $M=1$ and $P_e = \mathbf{1}$ so that $\theta_k$ is unknown.
 \end{itemize}
 Furthermore, the case of partial observation with clusters is also well represented by a detector with $M<N$, see \cite{costa2015detector}.
 
@@ -159,7 +160,7 @@ where $\mathcal{Q}(\cdot)$ indicates the Q-function. For any given $\sigma_{\ome
 thresholds $\{\hat{\beta}_{\mu}\}_{\mu=1}^{M-1}$ and $\{\beta_{i}\}_{i+1}^{N-1}$, the values of $\alpha_{i\mu}$ can be found numerically using \eqref{eq:alpha-normal}.
 
 For notational convenience, we define the following diagonal matrices.
-\begin{equation}\label{eq:epm}
+\begin{equation}\label{eq:diag-prob}
      P_{\pi}^{}(k) = \bigoplus_{i=1}^{N} \pi_{i}(k),~P_{\alpha}^{}(\mu) = \bigoplus_{i=1}^{N} \alpha_{i\mu}.
 \end{equation}
 
@@ -173,7 +174,7 @@ where $\forall k \!\in\! \mathbb{Z}^{0+}$, $x_k\!\in\!\mathbb{R}^{n_x}$ and $u_k
 The controller sends a control message $\hat{u}_k$ comprising the current input and $n_{f}\in\mathbb{Z}^{0+}$ future inputs, to account for possible control message dropouts after the current transmission: 
 \begin{equation}\label{eq:control-message}
     \hat{u}_k =
-    \left(\left[\bar{u}_{(k+t\mid k)}^{\top}\right]_{t=0}^{n_f}\right)^{\top} = 
+    \left(\left[\bar{u}_{(k+f\mid k)}^{\top}\right]_{f=0}^{n_f}\right)^{\top} = 
     \left[\bar{u}_{(k\mid k)}^{\top},\dots,\bar{u}_{(k+n_f\mid k)}^{\top}\right]^{\top}.
 \end{equation}
 
@@ -183,7 +184,7 @@ The actuator inputs are obtained as follows.
     u_k = F \tilde{u}_k,~F \triangleq \tilde{e}_{1}^{\top} \otimes I_{n_u},
 \end{equation}
 \begin{equation}\label{eq:uk-tilde}
-    \tilde{u}_k = \delta_k \hat{u}_k + \left(1-\delta_k\right) H \tilde{u}_{k-1},~\tilde{u}_0 = \mathbf{0},
+    \tilde{u}_k = \delta_k \hat{u}_k + \left(1-\delta_k\right) H \tilde{u}_{k-1},~\tilde{u}_{-1} = \mathbf{0},
 \end{equation}
 \begin{equation}\label{eq:H}
     H \triangleq \sum_{i=1}^{n_f} \tilde{e}_{i} \otimes \tilde{e}_{i+1}^{\top} \otimes I_{n_u} + 
@@ -193,7 +194,52 @@ $\tilde{e}_{i}$ indicates the column vector of the standard basis of $\mathbb{R}
 $u_k$ in \eqref{eq:uk} extracts the first $n_u$ elements from the buffer $\tilde{u}_k$ described by \eqref{eq:uk-tilde}.
 If a control message is received successfully, $\delta_k = 1$, and the buffer stores the message. Otherwise, the buffer performs a linear transformation of its content through the matrix $H$. This transformation deletes the first $n_u$ elements,  moves all the remaining elements by $n_u$ positions upwards, multiplies the last $n_u$ elements by $\mathit{\Phi}$, and stores the result at the bottom of the buffer.
 
-% $\tilde{u}_k$ in \eqref{eq:uk-tilde} describes a buffer that stores the messages from the controller and  
+Similarly to \cite{yZL-2025-automatica}, \cite{impicciatore2024tac}, and references therein, we make the following \emph{technical assumptions}:
+\begin{enumerate}
+	\item[A.1)] The initial conditions $x_0$ and $\theta_0$ are independent random variables.
+	\item[A.2)] The process noise $\{w_k\}$ is independent of the initial state $x_0$ and the binary stochastic process $\{\delta_k\}$.
+	\item[A.3)] The discrete-time Markov chain $\{\theta_k\}$ is ergodic.
+	\item[A.4)] The process noise $\{w_k\}$ and the discrete-time Markov chain $\{\theta_k\}$ are independent.
+\end{enumerate}
+
+The controller information set for the computation of the current and future control inputs in \eqref{eq:control-message} is the following.
+	\begin{equation}\label{eq:info-set}
+\mathcal{I}_{k} = \left\{
+	\left(x_{t}\right)_{t=0}^{k}, 
+	\left(\delta_{t-1}\right)_{t=1}^{k}, 
+	(\hat{\theta}_{t-1})_{t=1}^{k} \right\}.
+\end{equation}
+In particular, the controller can obtain the CSI detected by the actuator's receiver, not the actual state of the FSMC. Moreover, as a transmitter, the controller does not measure CSI and cannot know the outcome of a control message transmission before sending it. This information comes from the actuator's receiver with a time-step delay.
+
+Let $T\in\mathbb{Z}^{+} \cup \{\infty\}$ denote a control time horizon. $\bm{u}_{T}^{n_f}$ is a sequence of length $T$ of control messages as in \eqref{eq:control-message} such that
+\begin{equation}\label{eq:control-seq}
+    \bar{u}_{(k+f\mid k)} = K_{(k+f,\hat{\theta}_{k-1})}x_k.
+\end{equation}
+$\mathcal{U}_{T}^{n_f}$ denotes the set of all possible sequences defined by $\bm{u}_{T}^{n_f}$.
+The following optimization problem defines
+the LQR (linear--quadratic regulation) paradigm:
+\begin{equation}\label{eq:control-fin}
+    \hat{\bm{u}}_{T}^{n_f} = \mathop{\mathrm{arg\,min}}_{\bm{u}_{T}^{n_f} \in \mathcal{U}_{T}^{n_f}} J_{T}^{}(x_0,\mathcal{U}_{T}^{n_f}),
+\end{equation}
+where $J_{T}^{}(\cdot)$ is a cost function defined as follows for any given pair of state-weighting and input-weighting matrices $Q\succeq 0$ and $R \succ 0$ of appropriate size.
+For $T<\infty$,
+\begin{equation}\label{eq:cost-def-fin}
+    J_{T}^{}(x_0,\mathcal{U}_{T}^{n_f}) \!\triangleq \mathbb{E}(x_T^{\top} Q x_T +\! \sum_{k=0}^{T-1} x_k^{\top} Q x_k + u_k^{\top}Ru_k \mid \mathcal{I}_0).
+\end{equation}
+$J_{T}^{}(\cdot)$ weights the inputs to the actuators, which depend via \eqref{eq:uk}--\eqref{eq:H} on $\bm{u}_{T}^{n_f}$, $\{\delta_k\}$, and $\mathit{\Phi}$. For $T=\infty$, 
+\begin{equation}\label{eq:cost-def-inf}
+    J_{\infty}^{}(x_0,\mathcal{U}_{\infty}^{n_f}) = \limsup_{T\to\infty} \frac{1}{T} J_{T}^{}(x_0,\mathcal{U}_{T}^{n_f}).
+\end{equation}
+
+This letter solves the following design problem.
+
+\begin{problem}
+   Given a system \eqref{eq:state}--\eqref{eq:H}, design a controller that minimizes the cost \eqref{eq:cost-def-fin} or \eqref{eq:cost-def-inf} under assumptions A.1)--A.4) and the information set \eqref{eq:info-set}.
+\end{problem}
+
+To analytically solve the problem \eqref{eq:control-fin} in the FSMC setting with the measured CSI, we first derive an equivalent HMJLS representation of \eqref{eq:state}--\eqref{eq:H}, as detailed below. 
+
+\section{A}\label{sec:}
 
 \subsection{System states in packet delivery time instances}
 Count the consecutive control message dropouts observed by a controller at time step $k$ in a stochastic variable $\mathit{\Delta}_{k}$.
