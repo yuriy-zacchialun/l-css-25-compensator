@@ -83,7 +83,8 @@ The \textit{contribution} of this letter is threefold.
 This letter is \emph{organized} as follows. 
 \textcolor{magenta}{Section}
 
-\textit{Notation:} $\mathbb{R}$, $\mathbb{Z}^{+}$, and $\mathbb{Z}^{0+}$ indicate the sets of reals and positive and nonnegative integers. $\mathbb{R}^{n}$ indicates the $n$-dimensional Euclidean space. The symmetric positive definite and positive semidefinite matrices $Z$ are denoted by $Z\succ 0$ and $Z\succeq 0$. $Z^{\top}$ indicates the transpose of a matrix $Z$. $\mathbb{P}$ represents the probability of an event, and $\mathbb{E}$ denotes the expected value of a random variable. $I_N$ indicates the identity matrix of size $N$. 
+\textit{Notation:} $\mathbb{R}$, $\mathbb{Z}^{+}$, and $\mathbb{Z}^{0+}$ indicate the sets of reals and positive and nonnegative integers. $\mathbb{R}^{n}$ indicates the $n$-dimensional Euclidean space. The symmetric positive definite and positive semidefinite matrices $Z$ are denoted by $Z\succ 0$ and $Z\succeq 0$. $Z^{\top}$ indicates the transpose of a matrix $Z$. $\rho(Z)$ is the spectral radius of a square matrix $Z$. 
+$\mathbb{P}$ represents the probability of an event, and $\mathbb{E}$ denotes the expected value of a random variable. $I_N$ indicates the identity matrix of size $N$. 
 
 Throughout this letter, $N$ indicates the number of FSMC states, and $M$ is the number of detector outputs, with $M\leq N$.
 Furthermore, $e_i$ denotes the column vector of the standard basis of $\mathbb{R}^{N}$: all its components are zero except the $i$th, which equals one. The column vectors of the standard basis of $\mathbb{R}^{M}$ are denoted by $\hat{e}_{\mu}$, with $\mu\in\mathbb{Z}^{+}$, $\mu\leq M$. In addition, $\oplus$ indicates the direct sum that produces a diagonal matrix with the addends becoming elements on the main diagonal. $\otimes$ is the Kronecker product. Finally, $\mathbf{0}$ and $\mathbf{1}$ are vectors of appropriate size with all elements equal to zero and one, respectively.
@@ -116,7 +117,7 @@ We also indicate the channel state probability at time $k$ as
 Wireless receivers perform CSI measurements that may be fed back to the transmitters. In the sensing links, the controller is the receiver with direct access to the measured CSI. In the actuation links, the controller is the transmitter. It can typically access the measured CSI using a reporting mechanism similar to acknowledgment (ACK) of transmission outcomes, which introduces a delay. This delay makes the optimal SF control problem the main challenge in the unconstrained output feedback control over FSMC links \cite{impicciatore2024tac}. Consequently, this letter focuses on the unconstrained SF control problem that explores the impact of the actuation link's CSI measurement noise, including particular cases of partial or no observation of FSMC states. We adopt the detector-based approach as follows.
 
 Let $\hat{\theta}_k \in \{\hat{s}_{\mu}\}_{\mu=1}^{M}$ denote the measured CSI, which is the output of a detector with an emission probability matrix (EPM)
-\begin{subequations}
+\begin{subequations}\label{eq:epm-alpha}
 \begin{equation}\label{eq:epm}
     P_{e}^{} \triangleq \left[\alpha_{i\mu}\right]_{i,\mu=1}^{N,M},
 \end{equation}
@@ -212,7 +213,7 @@ The controller information set for the computation of the current and future con
 In particular, the controller can obtain the CSI detected by the actuator's receiver, not the actual state of the FSMC. Moreover, as a transmitter, the controller does not measure CSI and cannot know the outcome of a control message transmission before sending it. This information comes from the actuator's receiver with a time-step delay.
 
 Let $T\in\mathbb{Z}^{+} \cup \{\infty\}$ denote a control time horizon. $\bm{u}_{T}^{n_f}$ is a sequence of length $T$ of control messages as in \eqref{eq:control-message} such that
-\begin{equation}\label{eq:control-seq}
+\begin{equation}\label{eq:control-element}
     \bar{u}_{(k+f\mid k)} = K_{(k+f,\hat{\theta}_{k-1})}x_k.
 \end{equation}
 $\mathcal{U}_{T}^{n_f}$ denotes the set of all possible sequences defined by $\bm{u}_{T}^{n_f}$.
@@ -233,16 +234,15 @@ $J_{T}^{}(\cdot)$ weights the inputs to the actuators, which depend via \eqref{e
 
 This letter solves the following design problem.
 
-\begin{problem}
+\begin{problem}\label{problem:lqr}
    Given a system \eqref{eq:state}--\eqref{eq:H}, design a controller that minimizes the cost \eqref{eq:cost-def-fin} or \eqref{eq:cost-def-inf} under assumptions A.1)--A.4) and the information set \eqref{eq:info-set}.
 \end{problem}
 
 To analytically solve the problem \eqref{eq:control-fin} in the FSMC setting with the measured CSI, we first derive an equivalent HMJLS representation of \eqref{eq:state}--\eqref{eq:H}, as detailed below. 
 
-\section{A}\label{sec:}
-
-\subsection{System states in packet delivery time instances}
-Count the consecutive control message dropouts observed by a controller at time step $k$ in a stochastic variable $\mathit{\Delta}_{k}$.
+\section{Hidden Markov Jump Linear System Model}\label{sec:hmjls}
+The system \eqref{eq:state}--\eqref{eq:H} trajectories depend on realizations of the stochastic process $\{\delta_k\}$. At time $k$, the controller sees the realizations of $\{\delta_k\}$ through ACK messages from actuators, which arrive with a delay of one step, as formalized by \eqref{eq:info-set}. 
+We count the number of consecutive negative ACK messages in a stochastic variable $\mathit{\Delta}_{k}$:
 \begin{equation}\label{eq:z-k}
     \mathit{\Delta}_{k}=(1-\delta_{k-1})(\mathit{\Delta}_{k-1}+1).
 \end{equation}
@@ -250,8 +250,8 @@ Count the consecutive control message dropouts observed by a controller at time 
     \mathit{\Delta}_{k}=\ell\Leftrightarrow \delta_{k-1-\ell}=1 \land 
 	\delta_{k-t}=0 ~ \forall t\in\mathbb{Z}^{+} : t\leq \ell.
 \end{equation}
-Notably, if $\ell\!=\!0$, then $\left\{t\right\}_{t=1}^{0} \!=\! \emptyset$, meaning that \eqref{eq:zl} becomes $\mathit{\Delta}_{k}\!=\!0\Leftrightarrow \delta_{k-1}\!=\!1$.
-Denote by $\mathcal{T}$ a set of time instances in which actuators successfully receive the controller's messages: %. Formally, 
+If $\ell\!=\!0$, then $\left\{t\right\}_{t=1}^{0} \!=\! \emptyset$, that is, $\mathit{\Delta}_{k}\!=\!0\Leftrightarrow \delta_{k-1}\!=\!1$.
+Let $\mathcal{T}$ denote the set of time instances in which actuators successfully receive control messages: %. Formally, 
 \begin{subequations}\label{eq:tau} 
 \begin{equation}\label{eq:calT}  
     \mathcal{T} \triangleq \left\{ k : \delta_k = 1 \right\}_{k\in\mathbb{Z}^{0+}} = \{ \tau_{(m)}\}_{m\in\mathbb{Z}^{0+}}.
@@ -264,31 +264,154 @@ From \eqref{eq:z-k}, \eqref{eq:zl}, and \eqref{eq:calT}, for all $m\in\mathbb{Z}
     \tau_{(m+1)} = \tau_{(m)} + 1 + \mathit{\Delta}_{\tau_{(m+1)}}.
 \end{equation}
 \end{subequations}
-
-For the notational convenience, for any $k,n\in\mathbb{Z}^{0+}$, let
-\begin{equation}\label{eq:calPsi}
-W_{\!(k,n)} \!\triangleq\! \sum\nolimits_{j=0}^{n}A^{n-j} w_{k+j}^{}.
+From \eqref{eq:control-message} and \eqref{eq:control-element}, 
+\begin{equation}\label{eq:control-gains-matrix}
+    \hat{u}_{k} = \hat{K}_{(k,\hat{\theta}_{k-1})} x_k,~~
+    \hat{K}_{(k,\hat{\theta}_{k-1})}^{\top} = \left[K_{(k+f,\hat{\theta}_{k-1})}^{\top}\right]_{f=0}^{n_f}.
+\end{equation}
+For the notational convenience, for any $k,h\in\mathbb{Z}^{0+}$, let
+\begin{equation}\label{eq:calPsi-W}
+\mathit{\Psi}_{(h)} \triangleq \sum_{i=0}^{h}A^{h-i}BFH^{i},~~
+W_{\!(k,h)} \!\triangleq\! \sum_{i=0}^{h}A^{h-i} w_{k+i}^{}.
 \end{equation}
 
-\subsection{System model for LQR}
-To provide the stochastic characterization of the above system dynamics, we group the current duration of a packet error burst and the last known wireless channel state in one augmented discrete state:
-$\eta_{k}^{} \!\triangleq\! (\mathit{\Delta}_{k},\theta_{k-1})$. Then, from \eqref{eq:tau},
+\begin{proposition}\label{prop:equiv}
+    The system \eqref{eq:state}--\eqref{eq:H} 
+    with $\left\{\delta_{k}\right\}$ governed by \eqref{eq:p-ij} and \eqref{eq:p-delta} and an arbitrary control strategy satisfying \eqref{eq:control-message} and \eqref{eq:control-element} is trace-equivalent to the following system, where the components and time instances are defined by \eqref{eq:z-k}--\eqref{eq:calPsi-W}.
+    \begin{equation}\label{eq:xtau}
+    \text{\small $
+    \begin{cases}
+        \mathit{\Delta}_{\tau_{(m+1)}} = n \in \mathbb{Z}^{0+}  \Rightarrow  \forall h \in \mathbb{Z}^{0+} : h \leq n, \\
+         x_{\tau_{(m)}+1+h}^{} =\! \Big(\!A^{h+1} \!+\! \mathit{\Psi}_{(h)}\hat{K}_{(\tau_{(m)},\hat{\theta}_{\tau_{(m)}-1})}\!\Big)x_{\tau_{(m)}}^{} \!\!\!+\! W_{(\tau_{(m)},h)}.\!\!\!\!\!\!\!
+    \end{cases}$}
+    \end{equation}
+    \begin{proof}
+        By construction, \eqref{eq:z-k}--\eqref{eq:xtau} describe the dynamics of the system \eqref{eq:state}--\eqref{eq:H} constrained by \eqref{eq:control-message} and \eqref{eq:control-element}.
+    \end{proof}
+\end{proposition}
+\begin{remark}\label{rem:trace-equivalence}
+The trace equivalence in Proposition \ref{prop:equiv} means that for any given initial system state $x_{0}$, the control law that satisfies \eqref{eq:control-message} and \eqref{eq:control-element}, and the realization of $\left(\delta_{t}\right)_{t=0}^{\tau_{m}+n}$ and $\left(w_{t}\right)_{t=0}^{\tau_{m}+n}$, the states $x_{\tau_{(m)}}$ and $x_{\tau_{(m)}+1+h}$ obtained from \eqref{eq:state} and \eqref{eq:xtau} will be the same $\forall h\in \mathbb{Z}^{0+}$ such that $h\leq n$. 
+\end{remark}
+
+To provide a stochastic characterization of the system dynamics \eqref{eq:xtau}, we group the current duration of a packet error burst and the last observed CSI in an augmented discrete state:
 \begin{subequations}\label{eq:etatau}
-\begin{equation}
-    \eta_{\tau_{(m)}}^{} = (\mathit{\Delta}_{\tau_{(m)}},\theta_{\tau_{(m)}-1}),
+\begin{equation}\label{eq:etatau-k}
+    \eta_{k}^{} \triangleq (\mathit{\Delta}_{k},\hat{\theta}_{k-1}).
 \end{equation}
-\begin{equation}
-    \eta_{\tau_{(m+1)}}^{} = (\mathit{\Delta}_{\tau_{(m+1)}},\theta_{\tau_{(m)}+\mathit{\Delta}_{\tau_{(m+1)}}}),
+From \eqref{eq:tau},
+\begin{equation}\label{eq:etatau-m}
+    \eta_{\tau_{(m)}}^{} = (\mathit{\Delta}_{\tau_{(m)}},\hat{\theta}_{\tau_{(m)}-1}),
+\end{equation}
+\begin{equation}\label{eq:etatau-mp}
+    \eta_{\tau_{(m+1)}}^{} = (\mathit{\Delta}_{\tau_{(m+1)}},\hat{\theta}_{\tau_{(m)}+\mathit{\Delta}_{\tau_{(m+1)}}}),
 \end{equation}
 \end{subequations}
 where $\mathit{\Delta}_{\tau_{(m+1)}}$ indicates the time interval the transmitted control input may remain active. From the controller's perspective, $\eta_{\tau_{(m)}}^{}$ is known, while $\eta_{\tau_{(m+1)}}^{}$ is a random variable.
-\begin{lemma}\label{lemma:z}
-For any pair of discrete states \eqref{eq:etatau}, it holds.\\
-$e_i$ and $e_j$ denote the $i$th and $j$th column vectors of the standard basis of $\mathbb{R}^{N}$ (all their components are zero except the $i$th for $e_i$ and $j$th for $e_j$, and the nonzero element equals one), and $\mathbf{1}$ indicates the column vector of length $N$ with all components equal one.
-\end{lemma}
-\begin{remark}\label{rem:1}
-TPs are independent of $\ell$, the value of $\mathit{\Delta}_{\tau_{(m)}}$.
+
+\begin{theorem}\label{theorem:eta-probability}
+    For any given pair of states \eqref{eq:etatau-m} and \eqref{eq:etatau-mp}, 
+    \begin{align}\label{eq:zeta}
+    \begin{aligned}
+        \mathbb{P}&(\eta_{\tau_{(m+1)}}^{} = (n,\hat{s}_{\nu}) \mid \eta_{\tau_{(m)}}^{} = (\ell,\hat{s}_{\mu})) = \\
+        & \frac{\hat{e}_{\mu}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1) P_{s} P_{f}^{n} P_{\alpha}(\nu) P_{s} \mathbf{1}}{\hat{e}_{\mu}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1) P_{s}\mathbf{1}} \triangleq \zeta_{(\tau_{(m)},\mu,n,\nu)}.
+    \end{aligned}        
+    \end{align}
+\begin{proof}
+    It relies on tedious computations that use \eqref{eq:p-ij}--\eqref{eq:epm-alpha}, \eqref{eq:z-k}--\eqref{eq:tau}, the conditional probability definition, the chain rule of probability, the $\delta_{k}$ independence of $\delta_{k-t}$, $\hat{\theta}_{k}$, $\hat{\theta}_{k-t}$, and $\theta_{k-t}$ $\forall t \in \mathbb{Z}^{+}$, the $\hat{\theta}_{k}$ independence of $\theta_{k-t}$, $\hat{\theta}_{k-t}$, $\delta_k$, and $\delta_{k-t}$,
+    the $\theta_{k}$ independence of $\hat{\theta}_{k-t}$, $\delta_{k}$, and $\delta_{k-t}$,
+    the Markov property, the law of total probability, 
+    and the commutative property of the intersection of sets.
+\end{proof}
+\end{theorem}
+\begin{remark}\label{rem:zeta-l-independence}
+The TPs in \eqref{eq:zeta} are independent of $\ell$, the value of $\mathit{\Delta}_{\tau_{(m)}}$: $\zeta_{(\tau_{(m)},\mu,n,\nu)} = \mathbb{P}(\eta_{\tau_{(m+1)}}^{} \!= (n,\hat{s}_{\nu}) \mid \hat{\theta}_{\tau_{(m)}-1} \!= \hat{s}_{\mu})$.
 \end{remark}
+\begin{corollary}
+In the \emph{perfect CSI} case, \eqref{eq:zeta} becomes
+\begin{align}\label{eq:zeta-perfect-csi}
+    \begin{aligned}
+        \mathbb{P}&(\eta_{\tau_{(m+1)}}^{} = (n,\hat{s}_{\nu}=s_j) \mid \eta_{\tau_{(m)}}^{} = (\ell,\hat{s}_{\mu}=s_i)) = \\
+        &= \frac{e_{i}^{\top} P_{s} P_{f}^{n} e_{j}e_{j}^{\top} P_{s} \mathbf{1}}{e_{i}^{\top} P_{s}\mathbf{1}}.
+    \end{aligned}
+\end{align}
+\begin{proof}
+    Under perfect CSI, $M=N$ and $P_e = I_{N}$ so that $\hat{e}_{\mu}^{\top} P_{e}^{\top} = e_{i}^{\top} I_{N} = e_{i}^{\top}$, $e_{i}^{\top} P_{\pi}(\tau{(m)}-1)=e_{i}^{\top}\pi_{i}(\tau_{(m)}-1)=\pi_{i}(\tau_{(m)}-1)e_{i}^{\top}$, and $P_{\alpha}(\nu=j)=e_{j}e_{j}^{\top}$.
+\end{proof}
+\end{corollary}
+\begin{remark}\label{rem:automatica}
+    In the particular case of perfect CSI, \eqref{eq:zeta} reduces to \eqref{eq:zeta-perfect-csi}, which corresponds to the TP in \cite[Eq. (19)]{yZL-2025-automatica}.
+\end{remark}
+\begin{proposition}\label{prop:L}
+For all $\tau_{(m)} \in \mathbb{Z}^{0+}$,  $\mu,\nu,M \in\mathbb{Z}^{+}$, $\mu,\nu\leq M$, and an arbitrarily small threshold $\epsilon$, there always exists a  maximal number of consecutive control message dropouts $L$ such that
+\begin{equation}\label{eq:L}
+    L \triangleq \mathop{\mathrm{arg\,min}}_{\hat{n} \in \mathbb{Z}^{+}}
+    \zeta_{(\tau_{(m)},\mu,\hat{n},\nu)}<\epsilon.
+\end{equation}
+\begin{proof}
+From \eqref{eq:p-ij}--\eqref{eq:Ps}, the matrix $P_{f}$ is strictly substochastic.
+From \cite[Th. 8.1.22 and 5.6.12]{horn2012matrix}, it is convergent. For large enough values of $\hat{n}$, terms $\zeta_{(\tau_{(m)},\mu,\hat{n},\nu)}$ become negligible. %, and \eqref{eq:L} follows.
+\end{proof}
+\end{proposition}
+\section{Finite-Horizon Linear--Quadratic Regulation}\label{sec:lqr-fh}
+\begin{theorem}\label{theorem:lqr-fin}
+    The solution to Problem \ref{problem:lqr} in the finite-horizon setting defined by the cost \eqref{eq:cost-def-fin} is \eqref{eq:fh-k}--\eqref{eq:init-distrib-mu}.
+\begin{equation}\label{eq:fh-k}
+    \hat{K}_{(k,\hat{s}_{\mu})} = - \mathcal{B}_{(k,\hat{s}_{\mu})}^{-1}\mathcal{C}_{(k,\hat{s}_{\mu})}.
+\end{equation}
+\begin{figure*}[ht]
+\raggedright
+\begin{align}\label{eq:fh-a}
+    \mathcal{A}_{(k,\hat{s}_{\mu})} = Q + 
+    \sum_{h=0}^{L-\xi_k} \sum_{\nu=1}^{M} \zeta_{(k,\mu,h,\nu)} \left(
+    (A^{h+1})^{\top} \mathcal{X}_{(k+1+h,\hat{s}_{\nu})} A^{h+1} + 
+    \sum_{r=1}^{h} A^{r \top} Q A^{r}\right),
+\end{align}
+\begin{align}\label{eq:fh-b}
+    \mathcal{B}_{(k,\hat{s}_{\mu})} = F^{\!\top} \! R F + 
+    \sum_{h=0}^{L-\xi_k} \sum_{\nu=1}^{M} \zeta_{(k,\mu,h,\nu)} \left(
+    \mathit{\Psi}_{(h)}^{\top}  \mathcal{X}_{(k+1+h,\hat{s}_{\nu})}  \mathit{\Psi}_{(h)}^{} + 
+    \sum_{r=1}^{h} \left(\mathit{\Psi}_{(r-1)}^{\top} Q \mathit{\Psi}_{(r-1)}^{} + H^{r \!\top} \! F^{\!\top} \! R F H^{r} \right)
+    \right),
+\end{align}
+\begin{align}\label{eq:fh-c}
+    \mathcal{C}_{(k,\hat{s}_{\mu})} = 
+    \sum_{h=0}^{L-\xi_k} \sum_{\nu=1}^{M} \zeta_{(k,\mu,h,\nu)} \left(
+    \mathit{\Psi}_{(h)}^{\top}  \mathcal{X}_{(k+1+h,\hat{s}_{\nu})} A^{h+1} + 
+    \sum_{r=1}^{h} \mathit{\Psi}_{(r-1)}^{\top} Q A^{r}
+    \right),
+\end{align}
+\begin{align}\label{eq:fh-gk}
+    g_{(k,\hat{s}_{\mu})} = \sum_{h=0}^{L-\xi_k} \sum_{\nu=1}^{M} \zeta_{(k,\mu,h,\nu)} \left( g_{(k+1+h,\hat{s}_{\nu})} +  
+    \sum_{t=0}^{h} \mathop{\mathrm{tr}}(A^{t \top} \mathcal{X}_{(k+1+h,\hat{s}_{\nu})} A^{t} \Sigma_W ) + 
+    \sum_{r=1}^{h} \sum_{\iota=0}^{r-1} 
+    \mathop{\mathrm{tr}}( A^{\iota \top} Q A^{\iota} \Sigma_W )    
+    \right).
+\end{align}
+\end{figure*}
+\eqref{eq:fh-a}--\eqref{eq:fh-gk} are shown at the top of the following page.
+\begin{equation}\label{eq:fh-x}
+    \mathcal{X}_{(k,\hat{s}_{\mu})} = \mathcal{A}_{(k,\hat{s}_{\mu})} - \mathcal{C}_{(k,\hat{s}_{\mu})}^{\top} \mathcal{B}_{(k,\hat{s}_{\mu})}^{-1} \mathcal{C}_{(k,\hat{s}_{\mu})}.
+\end{equation}    
+\begin{equation}\label{eq:fh-x-g-t}
+    \mathcal{X}_{(T,\hat{s}_{\mu})} = Q,~~
+    g_{(T,\hat{s}_{\mu})} = 0. 
+\end{equation}
+\begin{equation}\label{eq:xik}
+    \xi_k \triangleq \max \{0, k+1+L-T \}
+\end{equation}
+    so that $\xi_{T-1}=L$, and $\xi_{k} = 0~ \forall k<T-L$. The optimal cost % is
+\begin{equation}\label{eq:fh-cost}
+   J_{T}^{\star}(x_0) = x_{0}^{\top}\left( \sum_{\mu=1}^{M}  \mathcal{X}_{(0,\hat{s}_{\mu})} \vartheta_{\mu} \right) x_{0} +
+    \sum_{\mu=1}^{m} g_{(0,\hat{s}_{\mu})} \vartheta_{\mu}.
+\end{equation}
+\begin{equation}\label{eq:init-distrib-mu}
+    \vartheta_{\mu} = \sum_{i=1}^{N} \alpha_{i\mu} \pi_{i}(0).
+\end{equation}
+\begin{proof}
+Propositions \ref{prop:equiv} and \ref{prop:L} and Theorem \ref{theorem:eta-probability} serve as the foundation of the proof, which follows the steps of the proof of Theorem 9 in \cite{yZL-2025-automatica} and relies on the technical assumptions A.1), A.2), and A.4) and tedious computations that are omitted due to the length restriction of a letter.
+\end{proof}
+\end{theorem}
+
 
 % \section*{ACKNOWLEDGMENT}
 % Put sponsor acknowledgments in the unnumbered footnote on the first page.
