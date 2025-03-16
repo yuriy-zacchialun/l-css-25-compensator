@@ -197,10 +197,11 @@ If a control message is received successfully, $\delta_k = 1$, and the buffer st
 
 Similarly to \cite{yZL-2025-automatica}, \cite{impicciatore2024tac}, and references therein, we make the following \emph{technical assumptions}:
 \begin{enumerate}
-	\item[A.1)] The initial conditions $x_0$ and $\theta_0$ are independent random variables.
+	\item[A.1)] The initial conditions $x_0$ and $\theta_0$ are independent. % random variables.
 	\item[A.2)] The process noise $\{w_k\}$ is independent of the initial state $x_0$ and the binary stochastic process $\{\delta_k\}$.
-	\item[A.3)] The discrete-time Markov chain $\{\theta_k\}$ is ergodic.
-	\item[A.4)] The process noise $\{w_k\}$ and the discrete-time Markov chain $\{\theta_k\}$ are independent.
+	\item[A.3)] The process noise $\{w_k\}$ and the discrete-time Markov chain $\{\theta_k\}$ are independent.
+	\item[A.4)] %The Markov chain 
+    $\{\theta_k\}$ is ergodic. Its steady-state probability distribution is $\bm{\pi}(\infty) = [\pi_{i}(\infty)]_{i=1}^{N}$, where $\pi_{i}(\infty) = \lim_{k\to\infty} \pi_{i}(k)$.
 \end{enumerate}
 
 The controller information set for the computation of the current and future control inputs in \eqref{eq:control-message} is the following.
@@ -326,7 +327,7 @@ where $\mathit{\Delta}_{\tau_{(m+1)}}$ indicates the time interval the transmitt
 \begin{remark}\label{rem:zeta-l-independence}
 The TPs in \eqref{eq:zeta} are independent of $\ell$, the value of $\mathit{\Delta}_{\tau_{(m)}}$: $\zeta_{(\tau_{(m)},\mu,n,\nu)} = \mathbb{P}(\eta_{\tau_{(m+1)}}^{} \!= (n,\hat{s}_{\nu}) \mid \hat{\theta}_{\tau_{(m)}-1} \!= \hat{s}_{\mu})$.
 \end{remark}
-\begin{corollary}
+\begin{corollary}\label{corollary:eta}
 In the \emph{perfect CSI} case, \eqref{eq:zeta} becomes
 \begin{align}\label{eq:zeta-perfect-csi}
     \begin{aligned}
@@ -338,7 +339,7 @@ In the \emph{perfect CSI} case, \eqref{eq:zeta} becomes
     Under perfect CSI, $M=N$ and $P_e = I_{N}$ so that $\hat{e}_{\mu}^{\top} P_{e}^{\top} = e_{i}^{\top} I_{N} = e_{i}^{\top}$, $e_{i}^{\top} P_{\pi}(\tau{(m)}-1)=e_{i}^{\top}\pi_{i}(\tau_{(m)}-1)=\pi_{i}(\tau_{(m)}-1)e_{i}^{\top}$, and $P_{\alpha}(\nu=j)=e_{j}e_{j}^{\top}$.
 \end{proof}
 \end{corollary}
-\begin{remark}\label{rem:automatica}
+\begin{remark}\label{rem:automatica-1}
     In the particular case of perfect CSI, \eqref{eq:zeta} reduces to \eqref{eq:zeta-perfect-csi}, which corresponds to the TP in \cite[Eq. (19)]{yZL-2025-automatica}.
 \end{remark}
 \begin{proposition}\label{prop:L}
@@ -388,7 +389,7 @@ From \cite[Th. 8.1.22 and 5.6.12]{horn2012matrix}, it is convergent. For large e
     \right).
 \end{align}
 \end{figure*}
-\eqref{eq:fh-a}--\eqref{eq:fh-gk} are shown at the top of the following page.
+\textcolor{magenta}{\eqref{eq:fh-a}--\eqref{eq:fh-gk} are shown at the top of the following page.}
 \begin{equation}\label{eq:fh-x}
     \mathcal{X}_{(k,\hat{s}_{\mu})} = \mathcal{A}_{(k,\hat{s}_{\mu})} - \mathcal{C}_{(k,\hat{s}_{\mu})}^{\top} \mathcal{B}_{(k,\hat{s}_{\mu})}^{-1} \mathcal{C}_{(k,\hat{s}_{\mu})}.
 \end{equation}    
@@ -408,9 +409,153 @@ From \cite[Th. 8.1.22 and 5.6.12]{horn2012matrix}, it is convergent. For large e
     \vartheta_{\mu} = \sum_{i=1}^{N} \alpha_{i\mu} \pi_{i}(0).
 \end{equation}
 \begin{proof}
-Propositions \ref{prop:equiv} and \ref{prop:L} and Theorem \ref{theorem:eta-probability} serve as the foundation of the proof, which follows the steps of the proof of Theorem 9 in \cite{yZL-2025-automatica} and relies on the technical assumptions A.1), A.2), and A.4) and tedious computations that are omitted due to the length restriction of a letter.
+Propositions \ref{prop:equiv} and \ref{prop:L} and Theorem \ref{theorem:eta-probability} serve as the foundation of the proof, which follows the steps of the proof of Theorem 9 in \cite{yZL-2025-automatica} and relies on the technical assumptions A.1)--A.3) and tedious computations that are omitted due to the length restriction of a letter.
 \end{proof}
 \end{theorem}
+\section{Closed-loop system stability conditions}\label{sec:stability}
+An infinite-horizon LQR aims to guarantee the convergence of the system's state to an equilibrium point. This goal can be achieved only for stabilizable systems, which are formally defined as follows. Let $\hat{K}_{(\infty,\hat{\theta}_{k-1})}$ denote the time-invariant version of the SF gain in \eqref{eq:control-element}, i.e.,
+\begin{equation}\label{eq:control-element-inf}
+	\hat{K}_{(\infty,\hat{\theta}_{k-1})}^{\top} = \big[K_{(f,\hat{\theta}_{k-1})}^{\top}\big]_{f=0}^{n_f},~~
+    \hat{u}_{k}=\hat{K}_{(\infty,\hat{\theta}_{k-1})}x_k.
+\end{equation}
+\begin{definition}\label{def:stabiliz} 
+A system defined by \eqref{eq:state}--\eqref{eq:H} and \eqref{eq:p-ij}--\eqref{eq:epm-alpha} is stabilizable by %\eqref{eq:control-element-inf} 
+a SF controller with one time-step delayed access to the CSI measurements 
+if, for any initial condition $(x_0,\theta_0)$ and each detected CSI $\hat{s}_{\mu}$, there exists a gain $\hat{K}_{(\infty,\hat{s}_{\mu})}$, such that  $\hat{u}_{k}=\hat{K}_{(\infty,\hat{\theta}_{k-1})}x_k$ is a stabilizing SF control message. % for \eqref{eq:state}.
+\end{definition}
+\begin{definition}\label{def:mss}
+A system defined by \eqref{eq:state}--\eqref{eq:H}, \eqref{eq:p-ij}--\eqref{eq:epm-alpha}, and \eqref{eq:control-element-inf}
+is mean-square stable if there exist equilibrium points $x_{e}$ and $X_{e}$, independent from the initial condition $(x_0,\theta_0)$, such that the following holds $\forall (x_0,\theta_0)$:
+\begin{equation}\label{eq:mss}
+        \lim_{k \to \infty} \|\mathbb{E} (x_k)-x_{e} \| = 0,~~
+        \lim_{k \to \infty} \|\mathbb{E} (x_k x_k^{\top} )-X_{e}\| = 0.
+\end{equation}
+\end{definition}
+In \eqref{eq:mss}, $\|\cdot\|$ indicates an arbitrary matrix norm.
+
+To derive the stabilizability conditions, we specialize the approach of \cite[Sec. 5]{yZL-2025-automatica} to the HMJLS setting. Due to length restrictions, we focus only on the details specific to this setting.
+
+The system \eqref{eq:z-k}--\eqref{eq:L} describes the behavior of the system \eqref{eq:state}--\eqref{eq:H} subject to \eqref{eq:p-ij}--\eqref{eq:epm-alpha} and \eqref{eq:control-element-inf} from the controller's perspective. 
+Stability analysis requires a different perspective considering each control message transmission outcome as the actuators see it. To apply Definition \ref{def:mss} to the system \eqref{eq:z-k}--\eqref{eq:xtau}, we couch the system in an HMJLS framework by considering the
+augmented state $(x_{\tau_{(m+1)}},\hat{\varphi}_{\tau_{(m+1)}})$, with
+\begin{subequations}\label{eq:varphi}
+\begin{align}\label{eq:varphi-current}
+\begin{aligned}
+	\hat{\varphi}_{\tau_{(m+1)}} \triangleq &
+	(\hat{\theta}_{\tau_{(m+1)}},\Delta_{\tau_{(m+1)}},\hat{\theta}_{\tau_{(m+1)}-\Delta_{\tau_{(m+1)}}-2})=\\
+	& (\hat{\theta}_{\tau_{(m+1)}},\Delta_{\tau_{(m+1)}},\hat{\theta}_{\tau_{(m)}-1}),
+\end{aligned}
+\end{align}
+where the equality comes from \eqref{eq:tau+}. Similarly, the following augmented state is $(x_{\tau_{(m+2)}},\hat{\varphi}_{\tau_{(m+2)}})$, with
+\begin{align}\label{eq:varphi-next}
+\begin{aligned}
+	\hat{\varphi}_{\tau_{(m+2)}} \triangleq & 
+	(\hat{\theta}_{\tau_{(m+2)}},\Delta_{\tau_{(m+2)}},\hat{\theta}_{\tau_{(m+2)}-\Delta_{\tau_{(m+2)}}-2}) = \\
+	& (\hat{\theta}_{\tau_{(m+2)}},\Delta_{\tau_{(m+2)}},\hat{\theta}_{\tau_{(m+1)}-1}).
+\end{aligned}
+\end{align}
+\end{subequations}
+
+To write the following mathematical expressions concisely, we index the values of the ordered triples $\left(v_{1},v_{2},v_{3}\right)$ representing the operational modes of the closed-loop system for the stability analysis, with 
+$1\leq v_{1},v_{3}\leq M\leq N$ and $0\leq v_{2}\leq L$, using an invertible mapping $\mathcal{F}:\mathbb{Z}^{3}\to\mathbb{Z}^{+}$,
+\begin{equation}\label{eq:mapping}
+    \mathcal{F}\left(v_{1},v_{2},v_{3}\right)=M^{2}v_{2}+M(v_{3}-1)+v_{1}.
+\end{equation}
+The augmented system's discrete conditions $\mathrm{c}_{\mathrm{i}}$ and $\mathrm{c}_{\mathrm{j}}$ are shorthands for $(\hat{s}_{\mu_1},\ell,\hat{s}_{\mu_0})$ and $(\hat{s}_{\nu_1},n,\hat{s}_{\nu_0})$, with $\mathcal{F}({\mu_1},\ell,{\mu_0})=\mathrm{i}$ and $\mathcal{F}({\nu_1},n,{\nu_0})=\mathrm{j}$.
+
+\begin{theorem}\label{theorem:varphi-probability}
+    The transition probability between any given pair of states \eqref{eq:varphi-current} and \eqref{eq:varphi-next} is \eqref{eq:varrho-explicit}, \textcolor{magenta}{which is shown in the top section of the following page.}
+
+\begin{figure*}[ht]
+\raggedright
+\begin{equation}\label{eq:varrho-explicit}
+\mathbb{P}(
+\hat{\varphi}_{\tau_{(m+2)}}^{} = \mathrm{j} \mid \hat{\varphi}_{\tau_{(m+1)}}^{} = \mathrm{i}) = 
+\frac{\hat{e}_{\mu_0}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1) P_{s} P_{f}^{\ell} P_{\alpha}(\nu_0) P_{s} P_{\alpha}(\mu_1) P_{f}^{n} P_{s} P_{e}\hat{e}_{\nu_1}}{\hat{e}_{\mu_0}^{\top} P_{e}^{\top} P_{\pi}(\tau{(m)}-1) P_{s} P_{f}^{\ell} P_{s} P_{e}\hat{e}_{\mu_1}} 
+\triangleq 
+\varrho_{\mathrm{i}\mathrm{j}}(\tau_{(m)}-1).
+\end{equation}
+\end{figure*}
+
+\begin{proof}
+    It is similar to the proof of Theorem \ref{theorem:eta-probability} and is thus omitted to satisfy the page limit of a letter.
+\end{proof}
+\end{theorem}
+\begin{corollary}\label{corollary:varrho}
+In the \emph{perfect CSI} case, \eqref{eq:varrho-explicit} becomes \eqref{eq:varrho-perfect-csi} \textcolor{magenta}{shown in the top section of the following page.}
+
+\begin{figure*}[ht]
+\raggedright
+\begin{align}\label{eq:varrho-perfect-csi}
+    \begin{aligned}
+    \mathbb{P}(
+    \hat{\varphi}_{\tau_{(m+2)}}^{} = (\hat{s}_{\nu_{1}} = s_{j_1},n,\hat{s}_{\nu_{0}} = s_{j_0}) \mid 
+    \hat{\varphi}_{\tau_{(m+1)}}^{} = (\hat{s}_{\mu_{1}} = s_{i_1},\ell,\hat{s}_{\mu_{0}}= s_{i_1}) = \frac{e_{i_0}^{\top} P_{s} P_{f}^{\ell} e_{j_0}e_{j_0}^{\top} P_{s} e_{i_1}e_{i_1}^{\top} P_{f}^{n}P_{s} e_{j_1}}{e_{i_0}^{\top} P_{s}P_{f}^{\ell}P_{s}e_{i_1}}.
+    \end{aligned}
+\end{align}
+\end{figure*}
+\begin{proof}
+    Under perfect CSI, $M=N$ and $P_e = I_{N}$ so that $\hat{e}_{\mu_0}^{\top} P_{e}^{\top} = e_{i_0}^{\top} I_{N} = e_{i_0}^{\top}$, $e_{i_0}^{\top} P_{\pi}(\tau{(m)}-1)=e_{i_0}^{\top}\pi_{i}(\tau_{(m)}-1)=\pi_{i}(\tau_{(m)}-1)e_{i_0}^{\top}$, $P_{\alpha}(\nu_0=j_0)=e_{j_0}e_{j_0}^{\top}$, $P_{\alpha}(\mu_1=i_1)=e_{i_1}e_{i_1}^{\top}$, $P_{e}\hat{e}_{\mu_1} = I_{N} e_{i_1}  = e_{i_1}$, and $P_{e}\hat{e}_{\nu_1} = I_{N} e_{j_1}  = e_{j_1}$.
+\end{proof}
+\end{corollary}
+
+\begin{remark}\label{rem:automatica-2}
+    In the particular case of perfect CSI, \eqref{eq:varrho-explicit} reduces to \eqref{eq:varrho-perfect-csi}, which corresponds to the TP in \cite[Eq. (30)]{yZL-2025-automatica}.
+\end{remark}
+
+\begin{corollary}\label{corollary:varrho-inf}
+    Under Assumption A.4), 
+\begin{equation}
+    \lim_{k\to \infty} \varrho_{\mathrm{i}\mathrm{j}}(\tau_{(m)}-1) = \varrho_{\mathrm{i}\mathrm{j}}(\infty),
+\end{equation}
+whose expression is \eqref{eq:varrho-explicit} having $\infty$ instead of $\tau_{(m)}-1$.
+
+\begin{proof}
+    It is a direct consequence of Assumption A.4).
+\end{proof}
+\end{corollary}
+
+\begin{proposition}\label{prop:ergodicity}
+	Under Assumption A.4), stochastic process $\{\hat{\varphi}_{\tau_{(m+1)}}\}$ is an ergodic Markov chain.
+\end{proposition}
+\begin{proof}
+    It is similar to the proof of \cite[Prop. 15]{yZL-2025-automatica} and is thus omitted to satisfy the page limit of a letter. 
+\end{proof}
+\begin{lemma}\label{lemma:mjls-stability}
+    The system \eqref{eq:state}--\eqref{eq:H} subject to \eqref{eq:p-ij}--\eqref{eq:epm-alpha} and \eqref{eq:control-element-inf} is a Markov jump linear system %(MJLS) 
+    described by \eqref{eq:z-k}--\eqref{eq:xtau}, \eqref{eq:control-element-inf}, \eqref{eq:varphi}, and \eqref{eq:varrho-explicit}.
+
+\begin{proof}
+    It follows from Proposition \ref{prop:equiv} %and \ref{prop:ergodicity} 
+    and Theorem \ref{theorem:varphi-probability}.
+\end{proof}
+\end{lemma}
+
+For notational convenience, let 
+\begin{equation}\label{eq:mathcalM}
+    \mathcal{M} \triangleq \left[ \varrho_{{\mathrm{i}\mathrm{j}}}(\infty)\right]_{\mathrm{i},\,\mathrm{j}=1}^{\mathrm{L}},~~
+    \mathrm{L}\triangleq (L+1)M^2,
+\end{equation}
+\begin{equation}\label{eq:mathcalL}
+    \mathcal{L}_{\mathrm{j}} = \mathcal{L}_{({\nu_1},n,{\nu_0})} \triangleq A^{n+1} + \mathit{\Psi}_{(n)} \hat{K}_{(\infty,\hat{s}_{\nu_0})}.
+\end{equation}
+\begin{equation}\label{eq:Lambda}
+\mathit{\Lambda} \triangleq \left( \bigoplus\nolimits_{\mathrm{j}=1}^{\mathrm{L}} 
+    \left( \mathcal{L}_{\mathrm{j}} \otimes \mathcal{L}_{\mathrm{j}} \right)\right)
+    \left( \mathcal{M}^{\top} \otimes I_{n_x^2} \right). %=
+    % \begin{bmatrix}
+    %     \left( \mathcal{L}_{\mathrm{j}} \otimes \mathcal{L}_{\mathrm{j}} \right)\varrho_{{\mathrm{j}\mathrm{i}}}(\infty)
+    % \end{bmatrix}_{\mathrm{i},\mathrm{j}=1}^{\mathrm{L}}
+\end{equation}
+\begin{theorem}\label{theorem:stability}
+    Under Assumption A.4), the system \eqref{eq:state}--\eqref{eq:H} subject to \eqref{eq:p-ij}--\eqref{eq:epm-alpha} and \eqref{eq:control-element-inf} is mean-square stable if and only if $\rho\left(\mathit{\Lambda}\right)<1$.
+
+    \begin{proof}
+        It follows the proofs of Theorems 14 and 16 in \cite{yZL-2025-automatica} and uses Proposition \ref{prop:ergodicity}, Corollary \ref{corollary:varrho-inf}, and Lemma \ref{lemma:mjls-stability}.
+    \end{proof}
+\end{theorem}
+
+% Lemma \ref{lemma:mjls-stability} and Proposition \ref{prop:ergodicity} allow us to obtain the stabil
 
 
 % \section*{ACKNOWLEDGMENT}
