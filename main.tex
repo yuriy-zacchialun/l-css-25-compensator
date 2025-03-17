@@ -37,10 +37,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{Wireless Control With Channel State Detection And Message Dropout Compensation}
-% \title{Linear Quadratic Regulation With Wireless Control Message Dropout Compensation}
-% \title{Robust Linear Quadratic Regulation Over Polytopic Time-Inhomogeneous Markovian Channels Under Generalized Packet Dropout Compensation}
-
-% \title{Robust LQR Over Polytopic Time-Inhomogeneous Markov Channels Under Generalized Packet Dropout Compensation}
 
 \author{Yuriy \textbf{Zacchia Lun}\,\textsuperscript{\orcidlink{0000-0002-9408-8773}},\,\IEEEmembership{Member, IEEE}, Fortunato \textbf{Santucci}\,\textsuperscript{\orcidlink{0000-0002-0229-6277}},\,\IEEEmembership{Senior Member, IEEE},\\ and Alessandro \textbf{D'Innocenzo}\,\textsuperscript{\orcidlink{0000-0002-5239-0894}},\,\IEEEmembership{Member, IEEE}
 \thanks{The authors are with the 
@@ -61,7 +57,7 @@ Department of Information Engineering, Computer Science and Mathematics (DISIM),
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-\textcolor{magenta}{This letter addresses.}
+This letter presents a framework for designing optimal state-feedback control that uses a wireless actuation link with imperfect channel state information to transfer the current and future control inputs that actuators can apply if future control messages are lost. The dropout compensation strategy supports scaling inputs to actuators when necessary. We analytically solve finite- and infinite-horizon control problems and present a necessary and sufficient stability condition for any given infinite-horizon state-feedback control law. We validate the results using an illustrative example.
 \end{abstract}
 \begin{keywords}
 Control over communications, Markov processes.
@@ -80,14 +76,19 @@ The \textit{contribution} of this letter is threefold.
     \item We validate the theoretical results on numerical examples showcasing the impact of the number of transmitted anticipative control inputs and CSI uncertainties.
 \end{enumerate}
 
-This letter is \emph{organized} as follows. 
-\textcolor{magenta}{Section}
-
 \textit{Notation:} $\mathbb{R}$, $\mathbb{Z}^{+}$, and $\mathbb{Z}^{0+}$ indicate the sets of reals and positive and nonnegative integers. $\mathbb{R}^{n}$ indicates the $n$-dimensional Euclidean space. The symmetric positive definite and positive semidefinite matrices $Z$ are denoted by $Z\succ 0$ and $Z\succeq 0$. $Z^{\top}$ indicates the transpose of a matrix $Z$. $\rho(Z)$ is the spectral radius of a square matrix $Z$. 
 $\mathbb{P}$ represents the probability of an event, and $\mathbb{E}$ denotes the expected value of a random variable. $I_N$ indicates the identity matrix of size $N$. 
 
 Throughout this letter, $N$ indicates the number of FSMC states, and $M$ is the number of detector outputs, with $M\leq N$.
 Furthermore, $e_i$ denotes the column vector of the standard basis of $\mathbb{R}^{N}$: all its components are zero except the $i$th, which equals one. The column vectors of the standard basis of $\mathbb{R}^{M}$ are denoted by $\hat{e}_{\mu}$, with $\mu\in\mathbb{Z}^{+}$, $\mu\leq M$. In addition, $\oplus$ indicates the direct sum that produces a diagonal matrix with the addends becoming elements on the main diagonal. $\otimes$ is the Kronecker product. Finally, $\mathbf{0}$ and $\mathbf{1}$ are vectors of appropriate size with all elements equal to zero and one, respectively.
+
+This letter is \emph{organized} as follows. 
+Section \ref{sec:prelim} presents the preliminaries and motivation examples for the practical use of the detector-based approach.
+Section \ref{sec:model} formalizes the system model and defines the control problem.
+Section \ref{sec:hmjls} introduces an equivalent model of the closed-loop system.
+Sections \ref{sec:lqr-fh}, \ref{sec:stability}, and \ref{sec:lqr-ih} address the finite-horizon optimal SF control, closed-loop system stability, and infinite-horizon optimal SF control, respectively.
+Section \ref{sec:example} validates the results in a numerical example, and 
+Section \ref{sec:conclusions} concludes the letter.
 
 \section{Preliminaries and Motivation Example}\label{sec:prelim}
 In a WNCS setting, controllers use wireless links to transmit control messages to actuators. 
@@ -143,12 +144,7 @@ $\theta_k = s_{i} \Leftrightarrow\gamma_k\in [\beta_{i-1},\beta_{i})$, where $\b
 
 As a \emph{motivation example} with significant practical relevance, we consider $\omega_k \sim \mathcal{N}(0,\sigma_{\omega}^2)$ and $M<N$. 
 Depending on the characteristics of the wireless propagation environment, $\gamma_k$ can have lognormal, Rayleigh, Rice, or Nakagami distributions \cite{stuber2017principles}. 
-Let $f_{\gamma}(z)$ be the probability density function of $\gamma_k$. % Then, 
-% Let $\bar{\gamma}_i$ denote the expected SINR of the FSMC state $s_{i}$.
-% \begin{equation}\label{eq:expected-sinr}
-%     \bar{\gamma}_i = \int_{\beta_{i-1}}^{\beta_{i}} z f_{\gamma}(z)dz.
-% \end{equation}
-% From the definition of the conditional probability,
+Let $f_{\gamma}(z)$ be the probability density function of $\gamma_k$.
 \begin{equation}\label{eq:alpha-normal}
     \alpha_{i\mu} = \frac{
     \int_{\beta_{i-1}}^{\beta_{i}}\left(
@@ -278,7 +274,8 @@ W_{\!(k,h)} \!\triangleq\! \sum_{i=0}^{h}A^{h-i} w_{k+i}^{}.
 
 \begin{proposition}\label{prop:equiv}
     The system \eqref{eq:state}--\eqref{eq:H} 
-    with $\left\{\delta_{k}\right\}$ governed by \eqref{eq:p-ij} and \eqref{eq:p-delta} and an arbitrary control strategy satisfying \eqref{eq:control-message} and \eqref{eq:control-element} is trace-equivalent to the following system, where the components and time instances are defined by \eqref{eq:z-k}--\eqref{eq:calPsi-W}.
+    with $\left\{\delta_{k}\right\}$ governed by \eqref{eq:p-ij} and \eqref{eq:p-delta} and an arbitrary control strategy satisfying %\eqref{eq:control-message} and 
+    \eqref{eq:control-element} is trace-equivalent to the following system, where the components and time instances are defined by \eqref{eq:z-k}--\eqref{eq:calPsi-W}.
     \begin{equation}\label{eq:xtau}
     \text{\small $
     \begin{cases}
@@ -287,7 +284,8 @@ W_{\!(k,h)} \!\triangleq\! \sum_{i=0}^{h}A^{h-i} w_{k+i}^{}.
     \end{cases}$}
     \end{equation}
     \begin{proof}
-        By construction, \eqref{eq:z-k}--\eqref{eq:xtau} describe the dynamics of the system \eqref{eq:state}--\eqref{eq:H} constrained by \eqref{eq:control-message} and \eqref{eq:control-element}.
+        By construction, \eqref{eq:z-k}--\eqref{eq:xtau} describe the dynamics of the system \eqref{eq:state}--\eqref{eq:H} constrained by %\eqref{eq:control-message} and 
+        \eqref{eq:control-element}.
     \end{proof}
 \end{proposition}
 \begin{remark}\label{rem:trace-equivalence}
@@ -332,7 +330,7 @@ In the \emph{perfect CSI} case, \eqref{eq:zeta} becomes
 \begin{align}\label{eq:zeta-perfect-csi}
     \begin{aligned}
         \mathbb{P}&(\eta_{\tau_{(m+1)}}^{} = (n,\hat{s}_{\nu}=s_j) \mid \eta_{\tau_{(m)}}^{} = (\ell,\hat{s}_{\mu}=s_i)) = \\
-        &= \frac{e_{i}^{\top} P_{s} P_{f}^{n} e_{j}e_{j}^{\top} P_{s} \mathbf{1}}{e_{i}^{\top} P_{s}\mathbf{1}}.
+        \frac{e_{i}^{\top} P_{s} P_{f}^{n} e_{j}e_{j}^{\top} P_{s} \mathbf{1}}{e_{i}^{\top} P_{s}\mathbf{1}}.
     \end{aligned}
 \end{align}
 \begin{proof}
@@ -342,6 +340,19 @@ In the \emph{perfect CSI} case, \eqref{eq:zeta} becomes
 \begin{remark}\label{rem:automatica-1}
     In the particular case of perfect CSI, \eqref{eq:zeta} reduces to \eqref{eq:zeta-perfect-csi}, which corresponds to the TP in \cite[Eq. (19)]{yZL-2025-automatica}.
 \end{remark}
+
+% \begin{corollary}\label{corollary:zeta-inf}
+%     Under Assumption A.4), 
+% \begin{equation}
+%     \lim_{\tau_{(m)}\to \infty} \zeta_{(\tau_{(m)},\mu,n,\nu)} = \zeta_{(\infty,\mu,n,\nu)}.,
+% \end{equation}
+% whose expression is \eqref{eq:zeta} having $\infty$ instead of $\tau_{(m)}-1$.
+
+% \begin{proof}
+%     It is a direct consequence of Assumption A.4).
+% \end{proof}
+% \end{corollary}
+
 \begin{proposition}\label{prop:L}
 For all $\tau_{(m)} \in \mathbb{Z}^{0+}$,  $\mu,\nu,M \in\mathbb{Z}^{+}$, $\mu,\nu\leq M$, and an arbitrarily small threshold $\epsilon$, there always exists a  maximal number of consecutive control message dropouts $L$ such that
 \begin{equation}\label{eq:L}
@@ -389,7 +400,7 @@ From \cite[Th. 8.1.22 and 5.6.12]{horn2012matrix}, it is convergent. For large e
     \right).
 \end{align}
 \end{figure*}
-\textcolor{magenta}{\eqref{eq:fh-a}--\eqref{eq:fh-gk} are shown at the top of the following page.}
+\eqref{eq:fh-a}--\eqref{eq:fh-gk} are shown at the top of the following page.
 \begin{equation}\label{eq:fh-x}
     \mathcal{X}_{(k,\hat{s}_{\mu})} = \mathcal{A}_{(k,\hat{s}_{\mu})} - \mathcal{C}_{(k,\hat{s}_{\mu})}^{\top} \mathcal{B}_{(k,\hat{s}_{\mu})}^{-1} \mathcal{C}_{(k,\hat{s}_{\mu})}.
 \end{equation}    
@@ -420,12 +431,12 @@ An infinite-horizon LQR aims to guarantee the convergence of the system's state 
 \end{equation}
 \begin{definition}\label{def:stabiliz} 
 A system defined by \eqref{eq:state}--\eqref{eq:H} and \eqref{eq:p-ij}--\eqref{eq:epm-alpha} is stabilizable by %\eqref{eq:control-element-inf} 
-a SF controller with one time-step delayed access to the CSI measurements 
-if, for any initial condition $(x_0,\theta_0)$ and each detected CSI $\hat{s}_{\mu}$, there exists a gain $\hat{K}_{(\infty,\hat{s}_{\mu})}$, such that  $\hat{u}_{k}=\hat{K}_{(\infty,\hat{\theta}_{k-1})}x_k$ is a stabilizing SF control message. % for \eqref{eq:state}.
+an SF controller with one-time-step delayed access to the CSI measurements 
+if, for any initial condition $(x_0,\theta_0)$ and each detected CSI $\hat{s}_{\mu}$, there exists a gain $\hat{K}_{(\infty,\hat{s}_{\mu})}$, such that  $\hat{u}_{k}=\hat{K}_{(\infty,\hat{\theta}_{k-1})}x_k$ is a stabilizing control message. % for \eqref{eq:state}.
 \end{definition}
 \begin{definition}\label{def:mss}
 A system defined by \eqref{eq:state}--\eqref{eq:H}, \eqref{eq:p-ij}--\eqref{eq:epm-alpha}, and \eqref{eq:control-element-inf}
-is mean-square stable if there exist equilibrium points $x_{e}$ and $X_{e}$, independent from the initial condition $(x_0,\theta_0)$, such that the following holds $\forall (x_0,\theta_0)$:
+is mean-square stable (MSS) if there exist equilibrium points $x_{e}$ and $X_{e}$, independent from the initial condition $(x_0,\theta_0)$, such that the following holds $\forall (x_0,\theta_0)$:
 \begin{equation}\label{eq:mss}
         \lim_{k \to \infty} \|\mathbb{E} (x_k)-x_{e} \| = 0,~~
         \lim_{k \to \infty} \|\mathbb{E} (x_k x_k^{\top} )-X_{e}\| = 0.
@@ -436,7 +447,7 @@ In \eqref{eq:mss}, $\|\cdot\|$ indicates an arbitrary matrix norm.
 To derive the stabilizability conditions, we specialize the approach of \cite[Sec. 5]{yZL-2025-automatica} to the HMJLS setting. Due to length restrictions, we focus only on the details specific to this setting.
 
 The system \eqref{eq:z-k}--\eqref{eq:L} describes the behavior of the system \eqref{eq:state}--\eqref{eq:H} subject to \eqref{eq:p-ij}--\eqref{eq:epm-alpha} and \eqref{eq:control-element-inf} from the controller's perspective. 
-Stability analysis requires a different perspective considering each control message transmission outcome as the actuators see it. To apply Definition \ref{def:mss} to the system \eqref{eq:z-k}--\eqref{eq:xtau}, we couch the system in an HMJLS framework by considering the
+Stability analysis requires a different perspective, considering each control message transmission outcome as the actuators see it. To apply Definition \ref{def:mss} to the system \eqref{eq:z-k}--\eqref{eq:xtau}, we couch the system in an HMJLS framework by considering the
 augmented state $(x_{\tau_{(m+1)}},\hat{\varphi}_{\tau_{(m+1)}})$, with
 \begin{subequations}\label{eq:varphi}
 \begin{align}\label{eq:varphi-current}
@@ -464,7 +475,7 @@ $1\leq v_{1},v_{3}\leq M\leq N$ and $0\leq v_{2}\leq L$, using an invertible map
 The augmented system's discrete conditions $\mathrm{c}_{\mathrm{i}}$ and $\mathrm{c}_{\mathrm{j}}$ are shorthands for $(\hat{s}_{\mu_1},\ell,\hat{s}_{\mu_0})$ and $(\hat{s}_{\nu_1},n,\hat{s}_{\nu_0})$, with $\mathcal{F}({\mu_1},\ell,{\mu_0})=\mathrm{i}$ and $\mathcal{F}({\nu_1},n,{\nu_0})=\mathrm{j}$.
 
 \begin{theorem}\label{theorem:varphi-probability}
-    The transition probability between any given pair of states \eqref{eq:varphi-current} and \eqref{eq:varphi-next} is \eqref{eq:varrho-explicit}, \textcolor{magenta}{which is shown in the top section of the following page.}
+    The transition probability between any given pair of states \eqref{eq:varphi-current} and \eqref{eq:varphi-next} is \eqref{eq:varrho-explicit}, which is shown in the top section of the following page.
 
 \begin{figure*}[ht]
 \raggedright
@@ -482,7 +493,7 @@ The augmented system's discrete conditions $\mathrm{c}_{\mathrm{i}}$ and $\mathr
 \end{proof}
 \end{theorem}
 \begin{corollary}\label{corollary:varrho}
-In the \emph{perfect CSI} case, \eqref{eq:varrho-explicit} becomes \eqref{eq:varrho-perfect-csi} \textcolor{magenta}{shown in the top section of the following page.}
+In the \emph{perfect CSI} case, \eqref{eq:varrho-explicit} becomes \eqref{eq:varrho-perfect-csi}, shown in the top section of the following page.
 
 \begin{figure*}[ht]
 \raggedright
@@ -506,7 +517,7 @@ In the \emph{perfect CSI} case, \eqref{eq:varrho-explicit} becomes \eqref{eq:var
 \begin{corollary}\label{corollary:varrho-inf}
     Under Assumption A.4), 
 \begin{equation}
-    \lim_{k\to \infty} \varrho_{\mathrm{i}\mathrm{j}}(\tau_{(m)}-1) = \varrho_{\mathrm{i}\mathrm{j}}(\infty),
+    \lim_{\tau_{(m)}\to \infty} \varrho_{\mathrm{i}\mathrm{j}}(\tau_{(m)}-1) = \varrho_{\mathrm{i}\mathrm{j}}(\infty),
 \end{equation}
 whose expression is \eqref{eq:varrho-explicit} having $\infty$ instead of $\tau_{(m)}-1$.
 
@@ -516,7 +527,7 @@ whose expression is \eqref{eq:varrho-explicit} having $\infty$ instead of $\tau_
 \end{corollary}
 
 \begin{proposition}\label{prop:ergodicity}
-	Under Assumption A.4), stochastic process $\{\hat{\varphi}_{\tau_{(m+1)}}\}$ is an ergodic Markov chain.
+	Under Assumption A.4), the stochastic process $\{\hat{\varphi}_{\tau_{(m+1)}}\}$ is an ergodic Markov chain.
 \end{proposition}
 \begin{proof}
     It is similar to the proof of \cite[Prop. 15]{yZL-2025-automatica} and is thus omitted to satisfy the page limit of a letter. 
@@ -543,23 +554,79 @@ For notational convenience, let
 \mathit{\Lambda} \triangleq \left( \bigoplus\nolimits_{\mathrm{j}=1}^{\mathrm{L}} 
     \left( \mathcal{L}_{\mathrm{j}} \otimes \mathcal{L}_{\mathrm{j}} \right)\right)
     \left( \mathcal{M}^{\top} \otimes I_{n_x^2} \right). %=
-    % \begin{bmatrix}
-    %     \left( \mathcal{L}_{\mathrm{j}} \otimes \mathcal{L}_{\mathrm{j}} \right)\varrho_{{\mathrm{j}\mathrm{i}}}(\infty)
-    % \end{bmatrix}_{\mathrm{i},\mathrm{j}=1}^{\mathrm{L}}
 \end{equation}
 \begin{theorem}\label{theorem:stability}
-    Under Assumption A.4), the system \eqref{eq:state}--\eqref{eq:H} subject to \eqref{eq:p-ij}--\eqref{eq:epm-alpha} and \eqref{eq:control-element-inf} is mean-square stable if and only if $\rho\left(\mathit{\Lambda}\right)<1$.
+    The system \eqref{eq:state}--\eqref{eq:H} subject to \eqref{eq:p-ij}--\eqref{eq:epm-alpha}, \eqref{eq:control-element-inf}, and Assumption A.4) is MSS if and only if $\rho\left(\mathit{\Lambda}\right)<1$.
 
     \begin{proof}
         It follows the proofs of Theorems 14 and 16 in \cite{yZL-2025-automatica} and uses Proposition \ref{prop:ergodicity}, Corollary \ref{corollary:varrho-inf}, and Lemma \ref{lemma:mjls-stability}.
     \end{proof}
 \end{theorem}
+Following the tradition of \cite{yZL-2025-automatica}, we call $\mathit{\Lambda}$ the stability verification matrix because of its role in Theorem \ref{theorem:stability}.
+
+\section{Infinite-Horizon LQR}\label{sec:lqr-ih}
+Lemma \ref{lemma:mjls-stability} and Theorem \ref{theorem:stability} imply that the optimal stabilizing infinite-horizon LQR derivation is similar to the standard approaches from the Markov jump linear system theory, as detailed in \cite{yZL-2025-automatica}. Consequently, we directly present the linear matrix inequality (LMI) solution of Problem \ref{problem:lqr} in the infinite-horizon setting, referring to \cite{yZL-2025-automatica} for additional details.
+\begin{subequations}\label{eq:lmis}
+\begin{equation}\label{eq:lmi-sol}
+    \hat{\mathcal{X}}_{(\hat{s}_{\mu})} = \mathop{\mathrm{arg\,max}}_{\mathcal{X}_{(\infty,\hat{s}_{\mu})}} 
+    \mathop{\mathrm{tr}}\left(\sum\nolimits_{\mu=1}^{M}\mathcal{X}_{(\infty,\hat{s}_{\mu})}\right) 
+\end{equation}
+subject to
+\begin{align}\label{eq:lmi-core}
+    \begin{bmatrix}
+        -\mathcal{X}_{(\infty,\hat{s}_{\mu})} + \mathcal{A}_{(\infty,\hat{s}_{\mu})} & & \mathcal{C}_{(\infty,\hat{s}_{\mu})}^{\top} \\
+        \mathcal{C}_{(\infty,\hat{s}_{\mu})} & & \mathcal{B}_{(\infty,\hat{s}_{\mu})}
+    \end{bmatrix} \succeq 0,
+\end{align}
+\begin{equation}\label{eq:lmi-supp}
+    \mathcal{X}_{(\infty,\hat{s}_{\mu})}\succeq 0, \quad \mathcal{B}_{(\infty,\hat{s}_{\mu})} \succ 0, 
+\end{equation}
+\end{subequations}
+with the terms in \eqref{eq:lmis} defined by \eqref{eq:fh-a}--\eqref{eq:fh-x} for $k=\infty$, where
+$\xi_{\infty} = 0$, and $\zeta_{(\infty,\mu,h,\nu)}=\lim_{\tau_{(m)}\to\infty}\zeta_{(\tau_{(m)},\mu,h,\nu)}$, expressed by \eqref{eq:zeta} having $\infty$ instead of $\tau_{(m)}-1$.
+
+For notational conciseness, we refer to \eqref{eq:fh-b} and \eqref{eq:fh-c} as $\hat{\mathcal{B}}_{(\hat{s}_{\mu})}$ and $\hat{\mathcal{C}}_{(\hat{s}_{\mu})}$ when their expressions involve the solution of the LMIs \eqref{eq:lmis}, $\xi_{\infty}$, and $\zeta_{(\infty,\mu,h,\nu)}$.
+
+\begin{proposition}\label{prop:ergodicity-eta}
+	Under Assumption A.4), the stochastic process $\{\eta_{\tau_{(m)}}\}$ is an ergodic Markov chain. Its steady-state probability distribution is $\bm{\psi}(\infty)$ with % $(L+1)M$ 
+    elements $\psi_{(\ell,\mu)}$: %such that 
+\begin{equation*}
+    \sum_{\mu=1}^{M}\sum_{\ell\in\mathbb{Z}^{0+}} \psi_{(\ell,\mu)} \zeta_{(\infty,\mu,n,\nu)} = \psi_{(n,\nu)},~~
+    \sum_{\mu=1}^{M}\sum_{\ell\in\mathbb{Z}^{0+}} \psi_{(\ell,\mu)} = 1.
+\end{equation*}
+\end{proposition}
+\begin{proof}
+    It is similar to the proof of Proposition \ref{prop:ergodicity}. 
+\end{proof}
+
+\begin{theorem}\label{thm:inf-hor-lqr}
+Given the solution $\big\{\hat{\mathcal{X}}_{(s_i)}\big\}$ of the LMIs \eqref{eq:lmis} under Assumptions A.1)--A.4), the resulting infinite-horizon LQR law defining $\hat{\bm{u}}_{\infty}^{n_f}$ in \eqref{eq:control-fin} for a stabilizable system \eqref{eq:state}--\eqref{eq:H}, \eqref{eq:p-ij}--\eqref{eq:epm-alpha}, and \eqref{eq:control-element-inf} is
+\begin{subequations}
+\begin{equation}\label{eq:lmi-k}
+    \hat{K}_{(\infty,\hat{s}_{\mu})} = - \hat{\mathcal{B}}_{(\hat{s}_{\mu})}^{-1}\hat{\mathcal{C}}_{(\hat{s}_{\mu})}
+\end{equation}
+for $\hat{\theta}_{k-1}=\hat{s}_{\mu}$. The optimal cost that minimizes \eqref{eq:cost-def-inf} is
+\begin{align}\label{eq:lmi-cost}
+\begin{aligned}
+   J_{\infty}^{\star} &=
+    \sum_{h=0}^{L} \sum_{\nu=1}^{M} \psi_{(h,\nu)} \bigg( \sum_{r=1}^{h} \sum_{\iota=0}^{r-1} \mathop{\mathrm{tr}}( A^{\iota \top}  Q A^{\iota} \Sigma_W ) + \\
+    & \sum_{t=0}^{h}
+    \mathop{\mathrm{tr}}(A^{t \top} \hat{\mathcal{X}}_{(\hat{s}_{\nu})} A^{t} \Sigma_W ) \bigg).
+\end{aligned}
+\end{align}
+\end{subequations}
+
+\begin{proof}
+It is similar to the proof of Theorem 17 in \cite{yZL-2025-automatica} and is
+thus omitted to satisfy the page limit of a letter.
+\end{proof}
+\end{theorem}
 
 % Lemma \ref{lemma:mjls-stability} and Proposition \ref{prop:ergodicity} allow us to obtain the stabil
+\section{Numerical example}\label{sec:example}
 
+\section{Conclusions}\label{sec:conclusions}
 
-% \section*{ACKNOWLEDGMENT}
-% Put sponsor acknowledgments in the unnumbered footnote on the first page.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
