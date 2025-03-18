@@ -68,7 +68,7 @@ where $\forall k \!\in\! \mathbb{Z}^{0+}$, $x_k\!\in\!\mathbb{R}^{n_x}$ and $u_k
 
 $\{\delta_k\}$ is a binary stochastic process that models the packet loss between the controller and the actuators.
 
-\subsection{Polytopic Markovian channel model}\label{subsec:ptifsmc}
+\subsection{Finite-state Markov channel model}\label{subsec:fsmc}
 We model the dynamics of the control-packet loss process $\{\delta_k\}$ in the wireless propagation environment as an FSMC. 
 
 This channel has a fixed finite set $\mathcal{S}$ of states $\{s_i\}_{i=1}^{N}$, each characterized by predefined signal-to-interference-plus-noise ratio (SINR) thresholds, which do not vary in time, so the state number remains constant, and each channel state has a specific packet dropout probability. 
@@ -372,13 +372,13 @@ Notice that under the perfect channel state estimation $M=N$ and $P_e = I_{N}$ s
 \end{align}
 since $\hat{e}_{\mu}^{\top} P_{e}^{\top} = e_{i}^{\top} I_{N} = e_{i}^{\top}$, $e_{i}^{\top} P_{\pi}(\tau{(m)}-1)=e_{i}^{\top}\pi_{i}(\tau_{(m)}-1)=\pi_{i}(\tau_{(m)}-1)e_{i}^{\top}$, and $P_{\alpha}(\nu=j)=e_{j}e_{j}^{\top}$.
 \end{figure*}
-% \begin{figure*}[ht]
-% \raggedright
-% For notational convenience, 
-% \begin{equation}
-%     q_{\mu n}^{\tau_{(m)}} \triangleq \sum_{\nu=1}^{M} \zeta_{(\mu,n,\nu)}^{\tau_{(m)}}.
-% \end{equation}
-% \end{figure*}
+\begin{figure*}[ht]
+\raggedright
+In the case of no channel state information, $M=1$ and $P_e = \mathbf{1}$ so that $\hat{e}_{\mu}=1$ and $P_{\alpha}(\nu) = I_{N}$. Consequently,
+\begin{align*}
+        \mathbb{P}&(\eta_{\tau_{(m+1)}}^{} = (n,1) \mid \eta_{\tau_{(m)}}^{} = (\ell,1)) = \frac{\mathbf{1}^{\top} P_{\pi}(\tau{(m)}-1) P_{s} P_{f}^{n} P_{s} \mathbf{1}}{\mathbf{1}^{\top} P_{\pi}(\tau{(m)}-1) P_{s}\mathbf{1}}.  
+    \end{align*}
+\end{figure*}
 
 \begin{figure*}[ht]
 \raggedright
@@ -437,7 +437,7 @@ so that $\xi_{T-1}=L$, and $\xi_{k} = 0$ for all $k<T-L$.
 \begin{aligned}
  & J_{T}^{a}(x_{\tau_{(m)}},\hat{\theta}_{\tau_{(m)}-1}=\hat{s}_{\mu}) = 
     x_{\tau_{(m)}}^{\top}\mathcal{A}_{(\tau_{(m)},\hat{s}_{\mu})}x_{\tau_{(m)}}^{} \!+ g_{(\tau_{(m)},\hat{s}_{\mu})} \,+ \\
-    & \min_{K_{(\tau_{(m)},\hat{s}_{\mu})}} \left(\! x_{\tau_{(m)}}^{\top} \left( 
+    & \min_{\hat{K}_{(\tau_{(m)},\hat{s}_{\mu})}} \left(\! x_{\tau_{(m)}}^{\top} \left( 
     \mathcal{C}_{(\tau_{(m)},\hat{s}_{\mu})}^{\top} K_{(\tau_{(m)},\hat{s}_{\mu})} + K_{(\tau_{(m)},\hat{s}_{\mu})}^{\top} \mathcal{B}_{(\tau_{(m)},\hat{s}_{\mu})} K_{(\tau_{(m)},\hat{s}_{\mu})}^{} + 
     K_{(\tau_{(m)},\hat{s}_{\mu})}^{\top}\mathcal{C}_{(\tau_{(m)},\hat{s}_{\mu})}^{} \right) x_{\tau_{(m)}} \right)
 \end{aligned}
