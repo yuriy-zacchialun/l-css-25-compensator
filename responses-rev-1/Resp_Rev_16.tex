@@ -1,0 +1,46 @@
+\section{Response to Reviewer 16}
+\begin{bibunit}
+\textbf{Reviewer 16---General comments---}\textit{%
+This paper addresses linear control over wireless links with imperfect channel-state information, formulating a hidden Markov jump linear system that transmits multiple future inputs with dropout compensation.
+Its contributions include both finite and infinite-horizon LQR solutions and a spectral-radius-based stability condition. The manuscript is concise and well-structured. There are some comments and questions that the authors are invited to consider.}\\[2mm]
+\textbf{Authors' response:} \textcolor{black}{We sincerely appreciate the Reviewer's careful reading of our paper and valuable comments. In the revised version, we have carefully addressed the Reviewer's concerns and made necessary modifications.}\\[4mm]
+%%%
+\textbf{Reviewer 16---Comment 1---}\textit{%
+You introduce a parameter $L$ (the maximal number of consecutive control message dropouts) and show that for large enough dropout intervals, certain transition probabilities become negligible. 
+In practice, is $L$ purely a theoretical bound, or is it also enforced by additional network constraints (e.g., maximum re-transmissions)?}\\[2mm]
+\textbf{Authors' response to comment 1:} \textcolor{violet}{We thank the Reviewer for the valuable comment. It depends on message error probabilities that can be reduced with re-transmissions and other redundancy techniques...}\\[4mm]
+%%%
+\textbf{Reviewer 16---Comment 2---}\textit{%
+The ergodicity assumption (A.4) ensures the existence of a steady-state probability $\pi(\infty)$ for the channel. 
+Are there scenarios where $\{\theta_k\}$ is non-ergodic (e.g., absorbing states or block-fading channels)? 
+How would your results be modified or extended to handle a partially ergodic or slowly time-varying model?}\\[2mm]
+\textbf{Authors' response to comment 2:} \textcolor{violet}{We thank the Reviewer for the valuable comment. }\\[4mm]
+%%%
+\textbf{Reviewer 16---Comment 3---}\textit{%
+In Theorem 4, $\rho(\Lambda) < 1$ is the condition for mean-square stability. 
+Beyond guaranteeing $\rho(\Lambda) < 1$, do you have insights on how quickly the states converge in practice? 
+Is there a known rate of convergence or mixing time for the underlying Markov chain that
+influences closed-loop transient behaviour?}\\[2mm]
+\textbf{Authors' response to comment 3:} \textcolor{violet}{We thank the Reviewer for the valuable comment. Yes, MSS equals exponential MSS and we have already derived bounds in a different setting...}\\[4mm]
+%%%
+\textbf{Reviewer 16---Comment 4---}\textit{%
+In many industrial or mobile scenarios, channel statistics can drift over time (e.g., changes in multipath profiles, device mobility). 
+Does your framework allow for slowly time-varying TPMs $P_c$ or detection matrices $P_e$?}\\[2mm]
+\textbf{Authors' response to comment 4:} \textcolor{violet}{We thank the Reviewer for the valuable comment. }\\[4mm]
+%%%
+\textbf{Reviewer 16---Comment 5---}\textit{%
+Could you comment on how the computational burden scales with $N$, $M$, and $n_f$? 
+For instance, how feasible is the approach for larger state spaces or multiple clusters?}\\[2mm]
+\textbf{Authors' response to comment 5:} \textcolor{violet}{We thank the Reviewer for the valuable comment. }\\[4mm]
+%%%
+\textbf{Reviewer 16---Comment 6---}\textit{%
+Does having $\Phi\neq I$, ever risk a slow return to equilibrium if the dropout period is large, or is it primarily beneficial to prevent states from diverging in the short term?}\\[2mm]
+\textbf{Authors' response to comment 6:} \textcolor{violet}{We thank the Reviewer for the valuable comment. $\Phi\neq I$ typically results in lower costs, see Automatica.}\\[4mm]
+%%%
+\textbf{Reviewer 16---Comment 7---}\textit{%
+How might the approach adapt to input/state constraints or nonlinear systems?}\\[2mm]
+\textbf{Authors' response to comment 7:} \textcolor{violet}{We thank the Reviewer for the valuable comment. Daniele's suggested article and Costa's work in non-linear setting provide hints.}\\[4mm]
+%%%
+\textbf{Authors' concluding remark:} \textcolor{violet}{We thank the Reviewer for the valuable comments and suggestions. We sincerely hope the above explanations have adequately addressed the Reviewer's concerns.}
+\putbib
+\end{bibunit}

@@ -1,0 +1,51 @@
+\section{Response to Reviewer 10}
+\begin{bibunit}
+\textbf{Reviewer 10---Major Contribution of the Paper---}\textit{%
+This letter proposes a novel framework to address the issue of imperfect CSI in WNCS and presents solutions under both finite- and infinite-horizon LQR formulations.}\\[2mm]
+\textbf{Authors' response:} \textcolor{black}{We truly appreciate the Reviewer's careful reading of our paper and valuable comments. In the revised version, we have carefully addressed the Reviewer's concerns and made the required modifications.}\\[4mm]
+%%%
+\textbf{Reviewer 10---Organization and Style---}\textit{%
+The letter is well-organized and logically structured, but some descriptions could be more readable.
+For example, in Part II, the paragraph beginning with ``Wireless receivers perform CSI measurements...'' could be improved by describing the signal flow explicitly: e.g., what information is transmitted from the sensor to the controller at time step $k$, then from the controller to the actuator, and how the detector provides the controller with the measured CSI from step $k-1$, etc.}\\[2mm]
+\textbf{Authors' response:} \textcolor{violet}{Thanks...}\\[4mm]
+%%%
+\textbf{Reviewer 10---Technical Accuracy---1)}\textit{%
+Several variables are not explicitly defined in the text, such as $H^i$ in equation (23).}\\[2mm]
+\textbf{Authors' response:} \textcolor{violet}{$H$ is defined by (13).}\\[4mm]
+%%%
+\textbf{Reviewer 10---Technical Accuracy---2)}\textit{%
+In equation (5b), the summation over $\alpha_{i\mu}$ should
+be with respect to $\mu$, not $i$, to ensure that the sum of the probabilities of all possible detector outputs given the true channel state $s_i$ is 1 --- consistent with the notation in equation (1).}\\[2mm]
+\textbf{Authors' response:} \textcolor{violet}{No, the summation is correct, see Costa's work...}\\[4mm]
+%%%
+\textbf{Reviewer 10---Technical Accuracy---3)}\textit{%
+Additionally, Part VIII does not specify whether the numerical example corresponds to the finite- or infinite-horizon case.}\\[2mm]
+\textbf{Authors' response:} \textcolor{violet}{Infinite-horizon.}\\[4mm]
+%%%
+\textbf{Reviewer 10---Technical Accuracy---4)}\textit{%
+In Figures 1 and 2, it's unclear why 3) is labeled as clusters while 4) is states. Since ``perfect" effectively corresponds to 4 clusters, perhaps the ordering should follow the degree of CSI quality: perfect, three, two, no CSI.}\\[2mm]
+\textbf{Authors' response:} \textcolor{violet}{I will provide additional details...}\\[4mm]
+%%%
+\textbf{Reviewer 10---Technical Accuracy---5)}\textit{%
+The claim that ``one future control input provides the most significant improvement'' --- is this generally true?}\\[2mm]
+\textbf{Authors' response:} \textcolor{violet}{No, it is simply the description of the observed results in the considered case.}\\[4mm]
+%%%
+\textbf{Reviewer 10---Technical Accuracy---6)}\textit{%
+If the four channel states had higher packet loss rates, could it be possible that sending more future control inputs would become more beneficial?}\\[2mm]
+\textbf{Authors' response:} \textcolor{violet}{Don't know, I would need to run the simulations to answer.}\\[4mm]
+%%%
+\textbf{Reviewer 10---Technical Accuracy---7)}\textit{%
+Regarding the statement ``The control law without CSI performs worse regarding control costs but benefits the most from a future control input''---doesn't Figure 2 show that the ``two-cluster'' case benefits more than the ``no CSI'' case?}\\[2mm]
+\textbf{Authors' response:} \textcolor{violet}{The control law without CSI enefits the most from a future control input in terms of stability.}\\[4mm]
+%%%
+\textbf{Reviewer 10---Presentation---}\textit{%
+In Part III, the sentence ``Similarly to [4], [5]...'' should be revised. ``similarly'' $\to$ ``similar''.}\\[2mm]
+\textbf{Authors' response:} \textcolor{black}{We thank the Reviewer for the valuable suggestion. We have implemented it.}\\[4mm]
+%%%
+\textbf{Reviewer 10---Adequacy of Citations---}\textit{%
+The citations appear to be adequate.}\\[2mm]
+\textbf{Authors' response:} \textcolor{black}{We are grateful to the Reviewer for the valuable feedback.}\\[4mm]
+%%%
+\textbf{Authors' concluding remark:} \textcolor{black}{We are thankful to the Reviewer for the valuable comments and suggestions. We sincerely hope the above explanations have adequately addressed the Reviewer's concerns.}\\ 
+\putbib
+\end{bibunit}

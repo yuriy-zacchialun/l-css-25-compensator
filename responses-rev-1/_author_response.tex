@@ -1,0 +1,111 @@
+\documentclass{article}
+
+\usepackage[a4paper, margin=1in, includefoot]{geometry}
+\usepackage[subsectionbib]{bibunits}
+
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{mathtools}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+
+\usepackage{cancel}
+
+\usepackage{multirow}
+
+\usepackage{bm} 
+\usepackage{pifont}
+\usepackage{tikz}
+\usetikzlibrary{automata}
+%\usetikzlibrary{standalone}
+\usetikzlibrary{shapes,arrows}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+% \usepackage{cancel}
+% \usepackage{tikz}
+% \usetikzlibrary{automata}
+% \usetikzlibrary{shapes,arrows}
+% \usepackage{booktabs}
+% \usepackage{url}
+\usepackage{hyperref}
+
+\newtheorem{ass}{\it{Assumption}}
+\newtheorem{mydef}{\it{Definition}}
+\newtheorem{lem}{\it{Lemma}}
+\newtheorem{myeg}{\it{Example}}
+\newtheorem{thm}{\it{Theorem}}
+%\newtheorem{proof}{\it{Proof}}
+\newtheorem{mycomp}{{\color{magenta}{\it{\bf My computations}}}}
+\newtheorem{prop}{\it{Proposition}}
+\newtheorem{assum}{\it{Assumption}}
+\newtheorem{cor}{\it{Corollary}}
+\newtheorem{rem}{\it{Remark}}
+\newtheorem{pb}{\it{Problem}}
+\newtheorem{cl}{\it{Claim}}
+\usepackage{hyperref}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Due to the usage of mathbbol we need to redefine \!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\!}{\tmspace-\thinmuskip{.1667em}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% For the references above equality and others relationships in equations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{relctr} %% <- counter for relations
+\everydisplay\expandafter{\the\everydisplay\setcounter{relctr}{0}} %% <- reset every eq
+\renewcommand*\therelctr{\alph{relctr}} %% <- label format
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\labelrel[2]{%
+  \begingroup
+    \refstepcounter{relctr}%
+    \stackrel{\textnormal{(\alph{relctr})}}{\mathstrut{#1}}%
+    \originallabel{#2}%
+  \endgroup
+}
+\AtBeginDocument{\let\originallabel\label} %% <- store original definition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatother
+
+\counterwithin*{figure}{section}
+
+\title{\textbf{Statement of Changes --- Authors' response}}
+\author{Y. \textbf{Zacchia Lun}, F. \textbf{Santucci}, and A. \textbf{D'Innocenzo}}
+\date{\vspace{-5ex}}
+%\onehalfspacing
+\begin{document}
+\defaultbibliographystyle{IEEEtran} 
+\defaultbibliography{biblio}
+\thispagestyle{empty}
+\hspace*{\fill} L'Aquila, {May 15, 2025}\\[1cm]
+Prof. Subhrakanti Dey\\
+Dept. of Electrical Engineering, Uppsala University\\\\
+\noindent
+Prof. Subhrakanti Dey,\\[2mm]
+\indent \textcolor{black}{We thank you for handling our manuscript ``Wireless Control With Channel State Detection And Message Dropout Compensation.''
+\textcolor{violet}{We have carefully revised the manuscript and addressed all the issues.} For the reviewers' convenience, we have used blue-colored text in the revised version of the paper to highlight the main changes from the previous version.}\\[2mm]
+\indent Our responses to the Associate Editor and Reviewers are in the following pages.\\[4mm]
+\noindent
+Sincerely,\\[4mm]
+\noindent
+Yuriy Zacchia Lun\\
+Fortunato Santucci\\
+Alessandro D'Innocenzo\\
+
+\clearpage
+\pagenumbering{arabic}
+\maketitle
+\tableofcontents
+\vspace{2cm}
+\noindent \textbf{Note:} The Associate Editor's and Reviewers' comments are typeset in \textit{italics} to enhance the clarity of this response letter, while our responses use the standard font. The excerpts of the manuscript reporting the main changes in the revised version are written in blue.
+
+\include{Resp_Ass_editor_0}
+\include{Resp_Rev_9}
+\include{Resp_Rev_10}
+\include{Resp_Rev_16}
+\end{document}
