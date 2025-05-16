@@ -12,16 +12,25 @@ I wonder if it is the first time to propose it, or, you setup the model from a n
 %%%
 \textbf{Reviewer 9—Comment 2—}\textit{%
 I suggest you to add a sketch for the closed-loop system, or the basic idea of the letter, for readability. Especially, a lot of components are considered in this letter, it is necessary to have a clear structure and highlight key points.}\\[2mm]
-\textbf{Authors' response 2:} \textcolor{violet}{OK}\\[4mm]
+\textbf{Authors' response 2:} \textcolor{black}{We appreciate the Reviewer's valuable suggestion. Due to space constraints, we could only provide a concise overview of the closed-loop system architecture in Fig. 1, which has been added to Section III in the revised version of the letter, immediately after describing the system model. The related excerpt of the revised version of the manuscript is included below for the Reviewer's convenience.  Fig. 1 and its caption are shown at the top of the next page.}\\
+\textcolor{blue}{Fig.~\ref{fig:architecture} summarizes this closed-loop system architecture.}
+\begin{figure}
+\begin{center}
+\vspace{5pt}\includegraphics[width=0.8\columnwidth]{../wncs-lcss-cdc-25-architecture.pdf}
+\caption{\textcolor{blue}{The closed-loop system architecture. The square blocks indicate the main components, and the shaded circles reference the related equations. A wireless link delivers SF control inputs to the actuators. The receiver measures the link state $\theta_k$ and communicates the measurement $\hat{\theta}_k$ with the transmission outcome $\delta_k$ to the controller. }}\label{fig:architecture}
+\end{center}
+\end{figure}
+\\[4mm]
 %%%
 \textbf{Reviewer 9—Comment 3—}\textit{%
 If LQR is used as the feedback controller, if T is infinite, we can get the control gain K offline, there is no need to discuss about the number of transferred future control inputs.}\\[2mm]
-\textbf{Authors' response 3:} \textcolor{violet}{Not really.}\\[4mm]
+\textbf{Authors' response 3:} \textcolor{black}{
+We thank the Reviewer for the observation. The measured channel-state-dependent control gains of the optimal infinite-horizon state-feedback (IHSF) controller are typically computed offline. However, these gains depend on the number of future control inputs transmitted to the actuators and the MDC scheme. Specifically, each of the $M$ IHSF gains $\hat{K}_{(\infty,\hat{s}_{\mu})}$ in (39) can be computed using (50a) in combination with (31), (32), and (49). Each IHSF control gain $\hat{K}_{(\infty,\hat{s}_{\mu})}$ in (39) comprises $n_f+1$ components $K_{(f,\hat{s}_{\mu})}$,  $f\in\mathbb{Z}^{0+}$, $f\leq n_f$, necessary for computing the control messages $\hat{u}_k$. These messages include future control inputs stored in the MDC buffer to be used in the event of subsequent control message dropouts. Each transmitted control message can be corrupted by the wireless communication link and discarded by the receiver. The MDC scheme then decides which control signal to pass as input to the actuators. The MDC decision rule (13) has $n_f$ and $\mathit{\Phi}$ as parameters. Thus, discussing future control inputs in each message obtained with the IHSF control scheme is relevant and necessary. The only way to avoid discussing the number of future control inputs and the MDC strategy is to prevent the (wireless) communication between the controller and actuators. Nevertheless, colocating the controller and actuators may be unfeasible or undesirable in several application scenarios, which motivates wireless networked control systems and this letter.}\\[4mm]
 %%%
 \textbf{Reviewer 9—Questions on parameter tuning—1)}\textit{ %
 Why the matrix a covariance matrix $\Sigma_{w}=2.5\cdot 10^{-9} I_4$ is selected too small in simulation?}\\[2mm]
 \textbf{Authors' response on parameter tuning question 1:} \textcolor{black}{We thank the Reviewer for the relevant question. All the parameters including the value of the covariance matrix $\Sigma_{w}=2.5\cdot 10^{-9} I_4$ are taken from [4] as it describes extensive Monte Carlo simulations for both finite- and infinite-horizon settings in a baseline case of no future control inputs and perfect CSI under a
-link model that relies on an accurate representation of a realistic wireless communication protocol. To address the Reviewer's concern regarding the process noise possibly being too small, we consider $\Sigma_{w}=4\cdot 10^{-6} I_4$, which corresponds to a standard deviation of $0.002$ rad or rad/s, that is, $0.1146$ $^{\circ}$ or $^{\circ}\!$/s. This change affects the long-run average cost shown in Fig. 2 and discussed in the response to the next question about parameter tuning.}\\[4mm]
+link model that relies on an accurate representation of a realistic wireless communication protocol. To address the Reviewer's concern regarding the process noise possibly being too small, we consider $\Sigma_{w}=4\cdot 10^{-6} I_4$, which corresponds to a standard deviation of $0.002$ rad or rad/s, that is, $0.1146$ $^{\circ}$ or $^{\circ}\!$/s. This change affects the long-run average cost shown in Fig. 3 and discussed in the response to the next question about parameter tuning. Because the revised version of the letter adds the closed-loop system architecture in Fig. 1, the new Fig. 3 relates to Fig. 2 of the previous version.}\\[4mm]
 %%%
 \textbf{Reviewer 9—Questions on parameter tuning—2)}\textit{ %
 If it is possible to provide a general guide of $\mathit{\Phi}$ selection? It is set $\mathit{\Phi}=0.1$ in simulation, I just wonder if different $\mathit{\Phi}$ will affect the stability and the performance of the closed-loop system. 
@@ -30,19 +39,20 @@ As the authors said in simulation: we set $\mathit{\Phi}=0.1$ as the dropout com
 % \setcounter{figure}{11}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{./responses-rev-1/stability-cntrl-2.pdf}
+\includegraphics[width=0.7\columnwidth]{stability-cntrl-2.pdf}
+%\includegraphics[width=0.7\columnwidth]{./responses-rev-1/stability-cntrl-2.pdf}
 \caption{The spectral radius of the mean-square stability verification matrix, $\rho(\mathit{\Lambda})$, as a function of the dropout compensation factor $\mathit{\Phi}$ for the rotary inverted pendulum under the proposed infinite-horizon linear–quadratic regulation (LQR) [4—Fig. 12]}\label{fig:stability-coeff}
 \end{center}
 \end{figure}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{./responses-rev-1/cost-cntrl-2.pdf}
+\includegraphics[width=0.7\columnwidth]{cost-cntrl-2.pdf}
 \caption{Long-run average cost $J_{\infty}^{\star}(\mathit{\Phi})$ for the rotary inverted pendulum under the proposed infinite-horizon LQR for $\Sigma_{w}=4\cdot 10^{-6} I_4$. See [4—Fig. 13] for similar results, obtained with $\Sigma_{w}=2.5\cdot 10^{-9} I_4$.}\label{fig:cost-coeff}
 \end{center}
 \end{figure}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{./responses-rev-1/cost-ratio-2.pdf}
+\includegraphics[width=0.7\columnwidth]{cost-ratio-2.pdf}
 \caption{The ratio $\frac{J_{\infty}^{\star}(\mathit{\Phi})}{J_{\infty}^{\star}(\mathit{0})}$ for the rotary inverted pendulum with $\Sigma_{w}=4\cdot 10^{-6} I_4$.}\label{fig:cost-ratio}
 \end{center}
 \end{figure}\\[-4mm]
@@ -55,61 +65,63 @@ The long-run average cost and mean-square stability analyses in [4] reveal that 
 The analysis above refers to the baseline case of no future control inputs and perfect CSI. The results of this letter enable analyses under imperfect CSI and a hybrid MDC that combines the transmission of multiple control inputs with the scaling of inputs to actuators when necessary. Although the space constrains of an L-CSS letter prevent us from discussing the effects of different scaling factors $\mathit{\Phi}$, we present the spectral radius of the mean-square stability verification matrix $\rho(\mathit{\Lambda})$ and the long-run average cost $J_{\infty}^{\star}$ as a function of the number of future controls $n_f$ for the three most significant values of the dropout compensation factor $\mathit{\Phi}$ ($0$, $0.921$, and $1$ from the baseline case), in addition to the case of $\mathit{\Phi}=0.1$, in the figures below.
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.8\columnwidth]{./responses-rev-1/stability-cntrl-a.pdf}
+\includegraphics[width=0.76\columnwidth]{../stability-cntrl-a.pdf}
 \caption{The spectral radius of the mean-square stability verification matrix, $\rho(\mathit{\Lambda})$, as a function of the number of control inputs $n_f$ for the rotary inverted pendulum under the proposed infinite-horizon linear–quadratic regulation (LQR) with the dropout compensation factor $\mathit{\Phi}=0.1$—Fig. 2 in the revised version of the letter}\label{fig:stability-coeff-a}
 \end{center}
 \end{figure}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.8\columnwidth]{./responses-rev-1/cost-cntrl-a.pdf}
+\includegraphics[width=0.76\columnwidth]{../cost-cntrl-a.pdf}
 \caption{The long-run average cost, $J_{\infty}^{\star}$, as a function of the number of control inputs $n_f$ for the rotary inverted pendulum under the proposed infinite-horizon linear–quadratic regulation (LQR) with the dropout compensation factor $\mathit{\Phi}=0.1$—Fig. 3 in the revised version of the letter}\label{fig:cost-cntrl-a}
 \end{center}
 \end{figure}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.8\columnwidth]{./responses-rev-1/stability-cntrl-0.pdf}
+\includegraphics[width=0.76\columnwidth]{stability-cntrl-0.pdf}
 \caption{The spectral radius of the mean-square stability verification matrix, $\rho(\mathit{\Lambda})$, as a function of the number of control inputs $n_f$ for the rotary inverted pendulum under the proposed infinite-horizon linear–quadratic regulation (LQR) with the dropout compensation factor $\mathit{\Phi}=0$}\label{fig:stability-coeff-0}
 \end{center}
 \end{figure}
+\newpage
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.8\columnwidth]{./responses-rev-1/cost-cntrl-0.pdf}
+\includegraphics[width=0.76\columnwidth]{cost-cntrl-0.pdf}
 \caption{The long-run average cost, $J_{\infty}^{\star}$, as a function of the number of control inputs $n_f$ for the rotary inverted pendulum under the proposed infinite-horizon linear–quadratic regulation (LQR) with the dropout compensation factor $\mathit{\Phi}=0$}\label{fig:cost-cntrl-0}
 \end{center}
 \end{figure}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.8\columnwidth]{./responses-rev-1/stability-cntrl-9.pdf}
+\includegraphics[width=0.76\columnwidth]{stability-cntrl-9.pdf}
 \caption{The spectral radius of the mean-square stability verification matrix, $\rho(\mathit{\Lambda})$, as a function of the number of control inputs $n_f$ for the rotary inverted pendulum under the proposed infinite-horizon linear–quadratic regulation (LQR) with the dropout compensation factor $\mathit{\Phi}=0.921$}\label{fig:stability-coeff-9}
 \end{center}
 \end{figure}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.8\columnwidth]{./responses-rev-1/cost-cntrl-9.pdf}
+\includegraphics[width=0.76\columnwidth]{cost-cntrl-9.pdf}
 \caption{The long-run average cost, $J_{\infty}^{\star}$, as a function of the number of control inputs $n_f$ for the rotary inverted pendulum under the proposed infinite-horizon linear–quadratic regulation (LQR) with the dropout compensation factor $\mathit{\Phi}=0.921$}\label{fig:cost-cntrl-9}
 \end{center}
 \end{figure}
+\newpage
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.8\columnwidth]{./responses-rev-1/stability-cntrl-1.pdf}
+\includegraphics[width=0.76\columnwidth]{stability-cntrl-1.pdf}
 \caption{The spectral radius of the mean-square stability verification matrix, $\rho(\mathit{\Lambda})$, as a function of the number of control inputs $n_f$ for the rotary inverted pendulum under the proposed infinite-horizon linear–quadratic regulation (LQR) with the dropout compensation factor $\mathit{\Phi}=1$}\label{fig:stability-coeff-1}
 \end{center}
 \end{figure}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.8\columnwidth]{./responses-rev-1/cost-cntrl-1.pdf}
+\includegraphics[width=0.76\columnwidth]{cost-cntrl-1.pdf}
 \caption{The long-run average cost, $J_{\infty}^{\star}$, as a function of the number of control inputs $n_f$ for the rotary inverted pendulum under the proposed infinite-horizon linear–quadratic regulation (LQR) with the dropout compensation factor $\mathit{\Phi}=1$}\label{fig:cost-cntrl-1}
 \end{center}
-\end{figure}\\
+\end{figure}
 }
 \textcolor{black}{Figures \ref{fig:stability-coeff-a} and \ref{fig:cost-cntrl-a} correspond to Figures 2 and 3 in the revised version of the letter. By comparing Figure \ref{fig:stability-coeff-a} to Figure \ref{fig:stability-coeff-0} and Figure \ref{fig:cost-cntrl-a} to Figure \ref{fig:cost-cntrl-0}, we observe that differences between the closed-loop system characteristics under the MDC factors $\mathit{\Phi}$ of $0$ and $0.1$ are marginal. Our choice to present the case of $\mathit{\Phi}=0.1$ is motivated by its generality, as the zero-input MDC ($\mathit{\Phi}=0$) is a very special case that requires less complex analysis. The closed-loop system with $\mathit{\Phi}=0.1$ has slightly better performance in terms of stability at the price of a slightly worse long-run average cost.\\
 Similar to the baseline case, Figures \ref{fig:stability-coeff-a}–\ref{fig:cost-cntrl-1} show that the MDC factor $\mathit{\Phi}=0.921$ yields the most stable closed-loop system for all considered numbers of control inputs, $n_f$, at significantly higher long-run average costs (Figures \ref{fig:stability-coeff-9} and \ref{fig:cost-cntrl-9}). The hold-input MDC strategy ($\mathit{\Phi}=1$) ensures stable closed-loop system behavior; however, it has the lowest convergence rate and the highest long-run average cost, making it less desirable in terms of performance (Figures \ref{fig:stability-coeff-1} and \ref{fig:cost-cntrl-1}).} \\[4mm]
 %%%
 \textbf{Reviewer 9—Questions on notations—1)}\textit{ %
 What is the difference between $u^{n_f}_T$ in Eq. (15) and $\bar{u}$ in Eq (10). What is the definition on $f$ in Eq (15). It is a little bit mess in notations. I suggest you to check it through all letter.}\\[2mm]
-\textbf{Authors' response on parameter tuning question 1:} \textcolor{black}{We thank the Reviewer for the question. Equation (15) is a part of a sentence stating that ``$\bm{u}_{T}^{n_f}$ is a sequence of length $T$ of control messages as in (10) such that $\bar{u}_{(k+f\mid k)} = K_{(k+f,\hat{\theta}_{k-1})}x_k$.'' This statement means that (15) provides a constraint for a generic control message $\hat{u}_k$ defined by (10), where $\hat{u}_k = \left([\bar{u}_{(k+f\mid k)}^{\top}]_{f=0}^{n_f}\right)^{\!\top}$. 
+\textbf{Authors' response on parameter tuning question 1:} \textcolor{black}{We thank the Reviewer for the question. Equation (15) is a part of a sentence stating that ``$\bm{u}_{T}^{n_f}$ is a sequence of length $T$ of control messages as in (10) such that $\bar{u}_{(k+f\mid k)} = K_{(k+f,\hat{\theta}_{k-1})}x_k$.'' This statement means that (15) provides a constraint for a generic control message $\hat{u}_k$ defined by (10), where $\hat{u}_k = \big([\bar{u}_{(k+f\mid k)}^{\top}]_{f=0}^{n_f}\big)^{\!\top}$. 
 The meaning of $f$ becomes self-explanatory from substituting the generic elements $\bar{u}_{(k+f\mid k)}$ of the control message $\hat{u}_k$ in (10) with their specific definition in (15):
-$\hat{u}_k = \left([(K_{(k+f,\hat{\theta}_{k-1})}x_k)^{\top}]_{f=0}^{n_f}\right)^{\!\top}$. In words, $f$ indexes the elements of the control message, % at time $k$, 
+$\hat{u}_k = \Big([(K_{(k+f,\hat{\theta}_{k-1})}x_k)^{\top}]_{f=0}^{n_f}\Big)^{\!\top}$. In words, $f$ indexes the elements of the control message, % at time $k$, 
 with $f=0$ indicating the current input, and $f\geq 1$ pinpointing specific future inputs. The meaning of $f$ never changes throughout this letter, and the notation is consistent. 
 $f \in \mathbb{Z}^{0+}$ and $f\leq n_f$ in (10), (22), and (39). Finally, this letter uses parenthesis to identify sequences. Thus, $\bm{u}_{T}^{n_f}$ can be expressed as $\bm{u}_{T}^{n_f} = (\hat{u}_k)_{k=0}^{T-1}$, where $\hat{u}_k$ is defined by (10) and each element of $\hat{u}_k$ satisfies (15). 
 }\\[4mm]
